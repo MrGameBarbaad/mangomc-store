@@ -3,46 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MangoMC Store</title>
+    <title>MangoMC Store | Fire Style</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #000; color: white; }
-        .mango-grad { background: linear-gradient(90deg, #FFCC00, #FF8800); }
-        .item-card { background: #0a0a0a; border: 1px solid #222; }
+        body { background-color: #0d0d0d; color: white; font-family: 'Inter', sans-serif; }
+        .fire-gradient { background: linear-gradient(135deg, #ff8c00 0%, #ffc107 100%); }
+        .nav-link { color: #999; font-weight: 600; transition: 0.3s; }
+        .nav-link:hover { color: #ff8c00; }
+        .item-card { 
+            background: #151515; 
+            border: 1px solid #222; 
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .item-card:hover { 
+            border-color: #ff8c00; 
+            transform: translateY(-5px);
+        }
     </style>
 </head>
-<body class="flex flex-col items-center p-5">
-    <header class="text-center my-10">
-        <img src="logo.png" alt="Logo" class="w-32 mx-auto mb-4">
-        <h1 class="text-4xl font-black mango-grad bg-clip-text text-transparent uppercase">MangoMC Store</h1>
-        <p class="text-gray-500 text-xs font-bold mt-2 tracking-widest">IN-GAME CURRENCY ONLY</p>
+<body>
+
+    <div class="bg-black py-2 border-b border-zinc-800 text-center">
+        <p class="text-xs font-bold tracking-widest text-zinc-400">
+            SERVER IP: <span class="text-orange-500 cursor-pointer" onclick="navigator.clipboard.writeText('play.mangomc.net'); alert('IP Copied!')">PLAY.MANGOMC.NET</span>
+        </p>
+    </div>
+
+    <header class="flex flex-col items-center py-12">
+        <img src="logo.png" alt="Logo" class="w-32 mb-4 drop-shadow-2xl">
+        <h1 class="text-4xl font-black uppercase tracking-tighter italic">Mango<span class="text-orange-500">MC</span> Store</h1>
     </header>
 
-    <div class="w-full max-w-md item-card p-6 rounded-2xl text-center">
-        <h2 class="text-2xl font-bold">VIP RANK</h2>
-        <p class="text-gray-400 my-4">Access to /fly and Yellow Chat Color!</p>
-        <div class="text-xl font-bold text-yellow-500 mb-6">$5,000 or 50 Coins</div>
-        <button class="mango-grad w-full py-3 rounded-xl text-black font-black active:scale-95 transition-transform">ORDER NOW</button>
-    </div>
+    <nav class="flex justify-center gap-8 mb-12 border-y border-zinc-800 py-4 bg-[#111]">
+        <a href="#" class="nav-link text-orange-500">RANKS</a>
+        <a href="#" class="nav-link">KEYS</a>
+        <a href="#" class="nav-link">ITEMS</a>
+        <a href="#" class="nav-link">UNBANS</a>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pb-20">
+        <h2 class="text-2xl font-bold mb-8 border-l-4 border-orange-500 pl-4 uppercase italic">Top Ranks</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="item-card rounded-xl p-6 flex flex-col items-center text-center">
+                <div class="w-20 h-20 bg-zinc-800 rounded-full mb-4 flex items-center justify-center">
+                    <span class="text-3xl">⭐</span>
+                </div>
+                <h3 class="text-xl font-black uppercase">VIP Rank</h3>
+                <p class="text-zinc-500 text-sm mt-2 mb-6">Fly, Green Name, & 2x Multiplier</p>
+                <div class="mt-auto w-full">
+                    <div class="text-lg font-bold text-orange-400 mb-4">$5,000 / 50 Coins</div>
+                    <button onclick="order('VIP Rank', '$5,000')" class="fire-gradient w-full py-3 rounded-lg text-black font-extrabold uppercase text-sm shadow-lg active:scale-95 transition">Purchase</button>
+                </div>
+            </div>
+
+            <div class="item-card rounded-xl p-6 flex flex-col items-center text-center">
+                <div class="w-20 h-20 bg-zinc-800 rounded-full mb-4 flex items-center justify-center">
+                    <span class="text-3xl">🔥</span>
+                </div>
+                <h3 class="text-xl font-black uppercase">MVP Rank</h3>
+                <p class="text-zinc-500 text-sm mt-2 mb-6">All VIP perks + Nickname access</p>
+                <div class="mt-auto w-full">
+                    <div class="text-lg font-bold text-orange-400 mb-4">$15,000 / 150 Coins</div>
+                    <button onclick="order('MVP Rank', '$15,000')" class="fire-gradient w-full py-3 rounded-lg text-black font-extrabold uppercase text-sm shadow-lg active:scale-95 transition">Purchase</button>
+                </div>
+            </div>
+
+            <div class="item-card rounded-xl p-6 flex flex-col items-center text-center">
+                <div class="w-20 h-20 bg-zinc-800 rounded-full mb-4 flex items-center justify-center">
+                    <span class="text-3xl">👑</span>
+                </div>
+                <h3 class="text-xl font-black uppercase">Legend Rank</h3>
+                <p class="text-zinc-500 text-sm mt-2 mb-6">Access to /god and exclusive kits</p>
+                <div class="mt-auto w-full">
+                    <div class="text-lg font-bold text-orange-400 mb-4">$50,000 / 500 Coins</div>
+                    <button onclick="order('Legend Rank', '$50,000')" class="fire-gradient w-full py-3 rounded-lg text-black font-extrabold uppercase text-sm shadow-lg active:scale-95 transition">Purchase</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function order(item, price) {
+            const user = prompt("Enter your Minecraft Username:");
+            if (user) {
+                alert("Thank you " + user + "! Our staff will contact you in-game to deduct " + price + " and give your rank.");
+                // Add your Discord Webhook logic here later!
+            }
+        }
+    </script>
+
 </body>
 </html>
-<script>
-    document.querySelector('button').onclick = function() {
-        const name = prompt("Enter your Minecraft Username:");
-        if (!name) return;
-
-        const webhookURL = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
-        const message = {
-            content: `🛒 **New Order!** \n**Player:** ${name} \n**Item:** VIP Rank \n**Price:** $5,000 / 50 Coins`
-        };
-
-        fetch(webhookURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(message)
-        }).then(() => alert("Order sent! Staff will contact you in-game."));
-    };
-</script>
-<div class="w-full mango-grad py-2 text-center text-black font-bold text-sm mb-4 cursor-pointer" onclick="navigator.clipboard.writeText('play.mangomc.net'); alert('IP Copied!')">
-    SERVER IP: PLAY.MANGOMC.NET (Tap to Copy)
-</div>
