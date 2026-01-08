@@ -197,7 +197,7 @@
             const input = document.getElementById('gc-input').value;
             const msg = document.getElementById('gc-msg');
             msg.classList.remove('hidden');
-            msg.innerText = input.length < 5 ? "Invalid Card Number." : "Card not found or Balance is $0.00";
+            msg.innerText = input.length < 5 ? "Invalid GiftCard Number." : "Card not found or Balance is $0.00";
             msg.style.color = input.length < 5 ? "#e11d48" : "#f97316";
         }
         async function fetchDiscord() {
