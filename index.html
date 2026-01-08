@@ -23,9 +23,9 @@
             background-attachment: fixed;
         }
 
-        /* CENTER LOGO ZOOM */
+        /* INCREASED MAIN LOGO SIZE */
         .main-logo { 
-            width: 420px; 
+            width: 500px; /* Increased from 420px */
             filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); 
             z-index: 10;
             animation: logoPulse 5s ease-in-out infinite alternate;
@@ -36,39 +36,38 @@
             100% { transform: scale(1.06); }
         }
 
-        /* BOTTOM IP & DISCORD */
+        /* BOTTOM IP & DISCORD LAYOUT */
         .header-ip-box { position: absolute; bottom: 40px; left: 5%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .header-discord-box { position: absolute; bottom: 40px; right: 5%; display: flex; align-items: center; gap: 15px; cursor: pointer; text-align: right; }
 
         .status-container { display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .count-bubble { color: #f97316; font-weight: 900; font-size: 14px; }
         
-        /* UPDATED ICON CIRCLE FOR YOUR PNGs */
+        /* INCREASED ICON SIZE (To match the old 50px-60px circle size) */
         .icon-circle { 
-            width: 50px; height: 50px; border-radius: 50%; 
-            background: #f97316; display: flex; align-items: center; 
-            justify-content: center; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            width: 75px; /* Size increased to make the PNG pop */
+            height: 75px; 
+            display: flex; align-items: center; 
+            justify-content: center; 
         }
         .icon-circle img {
-            width: 60%; 
-            height: auto;
+            width: 100%; 
+            height: 100%;
             object-fit: contain;
+            /* Added drop shadow for visibility without the orange background */
+            filter: drop-shadow(0 4px 10px rgba(249, 115, 22, 0.4)); 
         }
 
-        .info-text-main { color: #f97316; font-weight: 900; font-size: 16px; text-transform: uppercase; line-height: 1.1; }
-        .info-text-sub { color: #ffffff; font-weight: 700; font-size: 11px; text-transform: uppercase; opacity: 0.8; line-height: 1.2; }
+        .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
+        .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; line-height: 1.2; }
 
-        /* TOP NAV */
+        /* NAV & SIDEBAR */
         .home-nav-btn { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); padding: 8px 16px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-size: 10px; font-weight: 900; cursor: pointer; z-index: 50; }
         .cart-box { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; z-index: 50; text-align: right; }
-
-        /* SIDEBAR */
         .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
         .sidebar-btn { padding: 20px; border-bottom: 1px solid #151518; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 15px; }
         .sidebar-btn.active { border-left: 5px solid #f97316; background: #25252b; }
         .sidebar-btn span.cat-text { font-size: 13px; font-weight: 900; text-transform: uppercase; }
-        
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; border-left: 4px solid #22c55e; }
         .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); box-shadow: 0 4px 0 #9a3412; border-radius: 4px; font-weight: 900; }
         .category-content { display: none; }
@@ -133,61 +132,12 @@
 
         <main class="md:col-span-3">
             <div id="home-text" class="space-y-12">
-                <div>
-                    <h3 class="fire-sub italic">Featured Packages</h3>
-                    <div class="pkg-card p-5 flex items-center justify-between border-l-4 border-green-500">
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🔥</div>
-                            <div>
-                                <h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4>
-                                <p class="text-[10px] text-zinc-500 font-bold">$5.00</p>
-                            </div>
-                        </div>
-                        <button class="fire-btn px-6 py-2.5 text-[10px] uppercase text-white">Purchase</button>
-                    </div>
-                </div>
-
                 <section>
                     <p class="text-[10px] text-orange-500 font-black uppercase italic mb-1">Welcome to the Official</p>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MangoMC Store</h2>
-                    <p class="fire-body italic">
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks.<br>
-                        <strong>To begin, please select a category from the sidebar.</strong>
-                    </p>
+                    <p class="fire-body italic">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay.</p>
                 </section>
-
-                <section>
-                    <h2 class="text-orange-500 font-black uppercase text-[13px] italic mb-3">Support</h2>
-                    <p class="fire-body mb-5">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <span class="text-orange-500 underline">raambasm4@gmail.com</span>
-                    </p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3 text-[10px] uppercase text-white inline-block">Discord Server</a>
-                </section>
-
-                <section>
-                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-3">Refund Policy</h2>
-                    <p class="fire-body mb-8">
-                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores.<br>
-                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions.<br><br>
-                        It could take between 1-20 minutes for your purchase to be credited in-game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.<br>
-                        If you are banned from MangoMC for breaking our rules, you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="red-policy-btn">Terms and Conditions</button>
-                        <button class="red-policy-btn">Impressum</button>
-                        <button class="red-policy-btn">Privacy Policy</button>
-                    </div>
-                </section>
-
-                <div class="bg-[#1e1e22] p-8 rounded-lg border border-zinc-800 shadow-inner">
-                    <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2"><span>💼</span> Giftcard Balance</h2>
-                    <div class="flex gap-2">
-                        <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
-                        <button onclick="checkGiftcard()" class="bg-green-600 px-8 py-2 rounded text-[10px] font-black uppercase">Check</button>
-                    </div>
-                    <p id="gc-msg" class="text-[10px] mt-3 font-bold uppercase hidden"></p>
                 </div>
-            </div>
 
             <div id="ranks" class="category-content"><h3 class="fire-sub italic">Ranks</h3></div>
             <div id="kits" class="category-content"><h3 class="fire-sub italic">Kits</h3></div>
@@ -208,13 +158,6 @@
             document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('btn-' + id).classList.add('active');
-        }
-        function checkGiftcard() {
-            const input = document.getElementById('gc-input').value;
-            const msg = document.getElementById('gc-msg');
-            msg.classList.remove('hidden');
-            msg.innerText = input.length < 5 ? "Invalid Card Number." : "Card not found or Balance is $0.00";
-            msg.style.color = input.length < 5 ? "#e11d48" : "#f97316";
         }
         async function fetchDiscord() {
             try {
