@@ -32,9 +32,11 @@
         .category-content.active { display: block; }
         .fire-body { color: #a1a1aa; font-size: 12px; line-height: 1.8; }
         .fire-sub { color: #f97316; font-weight: 900; text-transform: uppercase; font-size: 11px; margin-bottom: 10px; }
-        .red-policy-btn { background: #e11d48; font-size: 10px; font-weight: 900; padding: 8px 16px; border-radius: 4px; color: white; text-transform: uppercase; }
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; transition: 0.3s; flex: 1; text-align: center; }
         .currency-btn.active { background: #f97316; color: black; border-color: #f97316; }
+        .price-display { font-size: 10px; font-weight: 800; }
+        .price-dollar { color: #f97316; }
+        .price-coin { color: #a1a1aa; }
     </style>
 </head>
 <body>
@@ -52,7 +54,7 @@
             </div>
         </div>
         <div class="mb-6">
-            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Payment Method</p>
+            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Select Payment Currency</p>
             <div class="flex gap-2">
                 <button onclick="setCurrency('DOLLARS')" id="curr-dollars" class="currency-btn active">DOLLARS</button>
                 <button onclick="setCurrency('COINS')" id="curr-coins" class="currency-btn">COINS</button>
@@ -63,10 +65,10 @@
         </div>
         <div class="border-t border-zinc-800 pt-5">
             <div class="flex justify-between font-black text-sm uppercase mb-5">
-                <span>Total</span>
-                <span id="cart-total">0 Dollars</span>
+                <span>Total Due</span>
+                <span id="cart-total" class="text-orange-500">0 Dollars</span>
             </div>
-            <button onclick="processCheckout()" class="w-full fire-btn py-4">Checkout</button>
+            <button onclick="processCheckout()" class="w-full fire-btn py-4">Claim Items</button>
         </div>
     </div>
 
@@ -80,15 +82,12 @@
             <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
         <img src="logo.png" class="main-logo">
-        <div class="header-ip-box group" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-            <div class="status-container">
-                <span class="count-bubble" id="mc-count">0</span>
-                <div class="icon-circle"><img src="ipcopy.png"></div>
-            </div>
-            <div><p class="info-text-main group-hover:text-orange-400">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
+        <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
+            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><div class="icon-circle"><img src="ipcopy.png"></div></div>
+            <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
         </div>
-        <a href="https://discord.gg/H8X9kGGmbE" target="_blank" class="header-discord-box group decoration-none">
-            <div><p class="info-text-main group-hover:text-orange-400">DISCORD<br>SERVER</p><p class="info-text-sub">CLICK TO<br>JOIN</p></div>
+        <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box decoration-none">
+            <div><p class="info-text-main">DISCORD<br>SERVER</p><p class="info-text-sub">CLICK TO<br>JOIN</p></div>
             <div class="status-container"><span class="count-bubble" id="discord-count">0</span><div class="icon-circle"><img src="discord.png"></div></div>
         </a>
     </div>
@@ -97,10 +96,10 @@
         <aside>
             <h3 class="fire-sub italic pl-1">Categories</h3>
             <div class="sidebar-card shadow-xl">
-                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn group"><span class="text-2xl">🛡️</span> <span class="cat-text">Ranks</span></div>
-                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn group"><span class="text-2xl">⚔️</span> <span class="cat-text">Kits</span></div>
-                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn group"><span class="text-2xl">🪙</span> <span class="cat-text">Coins</span></div>
-                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn group border-none"><span class="text-2xl">🛡️</span> <span class="cat-text">Dollars</span></div>
+                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn"><span class="text-2xl">🛡️</span> <span class="cat-text font-black uppercase text-[13px]">Ranks</span></div>
+                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn"><span class="text-2xl">⚔️</span> <span class="cat-text font-black uppercase text-[13px]">Kits</span></div>
+                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn"><span class="text-2xl">🪙</span> <span class="cat-text font-black uppercase text-[13px]">Coins</span></div>
+                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn border-none"><span class="text-2xl">💵</span> <span class="cat-text font-black uppercase text-[13px]">Dollars</span></div>
             </div>
         </aside>
 
@@ -113,7 +112,7 @@
                             <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🔥</div>
                             <div>
                                 <h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4>
-                                <p class="text-[10px] text-zinc-500 font-bold price-tag" data-dollars="5000" data-coins="1000">5,000 Dollars</p>
+                                <p class="price-display"><span class="price-dollar">5,000 Dollars</span> <span class="text-zinc-600 mx-1">/</span> <span class="price-coin">1,000 Coins</span></p>
                             </div>
                         </div>
                         <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
@@ -123,62 +122,59 @@
                 <section>
                     <p class="text-[10px] text-orange-500 font-black uppercase italic mb-1">Welcome to the Official</p>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MangoMC Store</h2>
-                    <p class="fire-body italic">
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks.<br>
-                        <strong>To begin, please select a category from the sidebar.</strong>
-                    </p>
+                    <p class="fire-body italic">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. To begin, please select a category from the sidebar.</p>
                 </section>
 
                 <section>
                     <h2 class="text-orange-500 font-black uppercase text-[13px] italic mb-3">Support</h2>
-                    <p class="fire-body mb-5">Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline font-black">raambasm4@gmail.com</a></p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3 text-[10px] uppercase text-white inline-block">Discord Server</a>
+                    <p class="fire-body mb-5">Ask the community/staff on Discord, or contact us: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline font-black">raambasm4@gmail.com</a></p>
+                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3">Discord Server</a>
                 </section>
 
-                <section>
-                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-3">Refund Policy</h2>
-                    <p class="fire-body mb-8">All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> banishment.</p>
-                </section>
+                <div class="bg-[#1e1e22] p-8 rounded-lg border border-zinc-800 shadow-inner">
+                    <h2 class="text-orange-500 font-black uppercase text-xs mb-4 italic">Check Giftcard Balance</h2>
+                    <div class="flex gap-2">
+                        <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs text-white">
+                        <button onclick="checkGiftcard()" class="bg-green-600 px-8 py-2 rounded text-[10px] font-black uppercase">Check</button>
+                    </div>
+                    <p id="gc-msg" class="text-[10px] mt-3 font-bold uppercase hidden"></p>
+                </div>
             </div>
 
             <div id="ranks" class="category-content space-y-6">
                 <h3 class="fire-sub italic">Ranks</h3>
-                <p class="fire-body italic mb-6">Elevate your status on the server with these permanent rank upgrades.</p>
                 <div class="pkg-card p-5 flex items-center justify-between">
-                    <div class="flex items-center gap-5"><div class="text-2xl">💎</div><div><h4 class="text-white font-black text-sm uppercase">MVP RANK</h4><p class="text-[10px] text-zinc-500 font-bold price-tag" data-dollars="15000" data-coins="3000">15,000 Dollars</p></div></div>
+                    <div class="flex items-center gap-5"><div class="text-2xl">💎</div><div><h4 class="text-white font-black text-sm uppercase">MVP RANK</h4><p class="price-display"><span class="price-dollar">15,000 Dollars</span> / <span class="price-coin">3,000 Coins</span></p></div></div>
                     <button onclick="addToCart('MVP RANK', 15000, 3000)" class="fire-btn">Add to Cart</button>
                 </div>
-                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold hover:text-orange-500">← Back to home</button>
+                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold">← Back</button>
             </div>
 
             <div id="kits" class="category-content space-y-6">
                 <h3 class="fire-sub italic">Kits</h3>
-                <p class="fire-body italic mb-6">Powerful gear sets to help you dominate the world.</p>
-                <div class="pkg-card p-5 flex items-center justify-between border-blue-500">
-                    <div class="flex items-center gap-5"><div class="text-2xl">⚔️</div><div><h4 class="text-white font-black text-sm uppercase">WARRIOR KIT</h4><p class="text-[10px] text-zinc-500 font-bold price-tag" data-dollars="2500" data-coins="500">2,500 Dollars</p></div></div>
+                <div class="pkg-card p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-5"><div class="text-2xl">⚔️</div><div><h4 class="text-white font-black text-sm uppercase">WARRIOR KIT</h4><p class="price-display"><span class="price-dollar">2,500 Dollars</span> / <span class="price-coin">500 Coins</span></p></div></div>
                     <button onclick="addToCart('WARRIOR KIT', 2500, 500)" class="fire-btn">Add to Cart</button>
                 </div>
-                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold hover:text-orange-500">← Back to home</button>
+                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold">← Back</button>
             </div>
 
             <div id="coins" class="category-content space-y-6">
                 <h3 class="fire-sub italic">Coins</h3>
-                <p class="fire-body italic mb-6">Convert your Dollars into larger bundles of Coins.</p>
-                <div class="pkg-card p-5 flex items-center justify-between border-yellow-500">
-                    <div class="flex items-center gap-5"><div class="text-2xl">🪙</div><div><h4 class="text-white font-black text-sm uppercase">10,000 COIN BUNDLE</h4><p class="text-[10px] text-zinc-500 font-bold price-tag" data-dollars="2000" data-coins="0">2,000 Dollars</p></div></div>
+                <div class="pkg-card p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-5"><div class="text-2xl">🪙</div><div><h4 class="text-white font-black text-sm uppercase">10,000 COIN BUNDLE</h4><p class="price-display"><span class="price-dollar">2,000 Dollars</span> / <span class="price-coin">FREE</span></p></div></div>
                     <button onclick="addToCart('10K Coins', 2000, 0)" class="fire-btn">Add to Cart</button>
                 </div>
-                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold hover:text-orange-500">← Back to home</button>
+                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold">← Back</button>
             </div>
 
             <div id="dollars" class="category-content space-y-6">
                 <h3 class="fire-sub italic">Dollars</h3>
-                <p class="fire-body italic mb-6">Premium currency for the most exclusive items.</p>
-                <div class="pkg-card p-5 flex items-center justify-between border-emerald-500">
-                    <div class="flex items-center gap-5"><div class="text-2xl">💵</div><div><h4 class="text-white font-black text-sm uppercase">STARTER DOLLAR PACK</h4><p class="text-[10px] text-zinc-500 font-bold price-tag" data-dollars="0" data-coins="5000">5,000 Coins</p></div></div>
+                <div class="pkg-card p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-5"><div class="text-2xl">💵</div><div><h4 class="text-white font-black text-sm uppercase">STARTER DOLLARS</h4><p class="price-display"><span class="price-dollar">FREE</span> / <span class="price-coin">5,000 Coins</span></p></div></div>
                     <button onclick="addToCart('Starter Dollars', 0, 5000)" class="fire-btn">Add to Cart</button>
                 </div>
-                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold hover:text-orange-500">← Back to home</button>
+                <button onclick="goHome()" class="text-[10px] text-zinc-500 uppercase font-bold">← Back</button>
             </div>
         </main>
     </div>
@@ -188,16 +184,28 @@
         let cart = [];
         function updatePlayerHead(username) { const headUrl = username.trim() === "" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${username}/32`; document.getElementById('player-head').src = headUrl; document.getElementById('login-head').src = headUrl; document.getElementById('display-name').innerText = username.trim() === "" ? "Guest Player" : username; }
         function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-        function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); document.querySelectorAll('.price-tag').forEach(tag => { const d = tag.getAttribute('data-dollars'); const c = tag.getAttribute('data-coins'); tag.innerText = type === 'DOLLARS' ? `${Number(d).toLocaleString()} Dollars` : `${Number(c).toLocaleString()} Coins`; }); renderCart(); }
-        function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added! Check cart to complete."); }
+        function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); renderCart(); }
+        function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added! Set IGN in cart."); }
         function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-        function renderCart() { const container = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); container.innerHTML = ""; let total = 0; if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } cart.forEach((item, index) => { const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; total += val; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs font-bold">Remove</button></div>`; }); totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; }
+        function renderCart() { 
+            const container = document.getElementById('cart-items'); 
+            const totalEl = document.getElementById('cart-total'); 
+            container.innerHTML = ""; let total = 0; 
+            if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } 
+            cart.forEach((item, index) => { 
+                const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; 
+                total += val; 
+                container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; 
+            }); 
+            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; 
+        }
         function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-        function processCheckout() { const user = document.getElementById('username-input').value; if(!user) { alert("Enter IGN in cart first!"); return; } if(cart.length === 0) { alert("Cart empty!"); return; } alert(`Request sent for ${user}!`); }
+        function processCheckout() { const user = document.getElementById('username-input').value; if(!user) { alert("Enter IGN in cart!"); return; } alert("Request sent!"); }
         function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active')); }
         function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('btn-' + id).classList.add('active'); }
-        async function fetchDiscord() { try { const r = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true'); const d = await r.json(); document.getElementById('discord-count').innerText = d.approximate_member_count || '0'; } catch (e) {} }
-        async function fetchMinecraft() { try { const r = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const d = await r.json(); document.getElementById('mc-count').innerText = d.players ? d.players.online : '0'; } catch (e) {} }
+        function checkGiftcard() { const msg = document.getElementById('gc-msg'); msg.classList.remove('hidden'); msg.innerText = "Balance: 0 Dollars"; msg.style.color = "#f97316"; }
+        async function fetchDiscord() { const r = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true'); const d = await r.json(); document.getElementById('discord-count').innerText = d.approximate_member_count || '0'; }
+        async function fetchMinecraft() { const r = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const d = await r.json(); document.getElementById('mc-count').innerText = d.players ? d.players.online : '0'; }
         fetchDiscord(); fetchMinecraft();
     </script>
 </body>
