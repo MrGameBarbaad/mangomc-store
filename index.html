@@ -8,172 +8,194 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
         
-        body { 
-            background-color: #151518; 
-            color: white; 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-        }
+        body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* FIXED BACKGROUND */
+        /* STILL BACKGROUND */
         .hero-section { 
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(21,21,24,1)), 
-                              url('https://i.ibb.co/XfXvX9X/mangomc-bg.jpg'); /* Reliable host for your generated image */
-            background-size: cover; 
-            background-position: center; 
+            height: 520px; 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(21,21,24,1)), url('https://i.ibb.co/XfXvX9X/mangomc-bg.jpg');
+            background-size: cover;
+            background-position: center;
             background-attachment: fixed;
-            height: 500px; 
-            position: relative;
         }
 
-        .home-nav-btn { position: absolute; top: 24px; left: 24px; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-size: 11px; font-weight: 900; letter-spacing: 1px; cursor: pointer; transition: 0.2s; z-index: 10; }
-        .home-nav-btn:hover { background: #f97316; border-color: #f97316; }
+        /* LOGO ZOOM ANIMATION */
+        .main-logo { 
+            width: 380px; 
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.8)); 
+            margin-bottom: 40px; 
+            z-index: 10;
+            animation: logoPulse 6s ease-in-out infinite alternate;
+        }
 
-        .status-badge { width: 44px; height: 44px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11px; box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); border: 2px solid rgba(255,255,255,0.1); }
-        .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
-        .sidebar-btn { border-bottom: 1px solid #151518; transition: 0.2s; cursor: pointer; }
-        .sidebar-btn.active { border-left: 4px solid #f97316; background: #25252b; }
+        @keyframes logoPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .home-nav-btn { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-size: 10px; font-weight: 900; letter-spacing: 1px; cursor: pointer; transition: 0.2s; z-index: 50; }
+        .home-nav-btn:hover { background: #f97316; }
+
+        .cart-box { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.6); padding: 8px 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; cursor: pointer; z-index: 50; }
+
+        /* IP & DISCORD BAR */
+        .header-info-bar { display: flex; gap: 60px; justify-content: center; width: 100%; }
+        .info-item { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .status-dot { width: 40px; height: 40px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; border: 2px solid rgba(255,255,255,0.1); }
+
+        /* INCREASED CATEGORY SIZE */
+        .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 4px; width: 100%; }
+        .sidebar-btn { 
+            padding: 18px 20px; /* Increased padding */
+            border-bottom: 1px solid #151518; 
+            transition: 0.2s; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .sidebar-btn.active { border-left: 5px solid #f97316; background: #25252b; }
+        .sidebar-btn span.cat-text { 
+            font-size: 12px; /* Increased text size */
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
         
-        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
-        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); box-shadow: 0 4px 0 #9a3412; border-radius: 4px; cursor: pointer; }
-        
+        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 4px; border-left: 4px solid #22c55e; margin-bottom: 10px; }
+        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); box-shadow: 0 3px 0 #9a3412; border-radius: 4px; font-weight: 900; }
+
         .category-content { display: none; }
         .category-content.active { display: block; }
-        .hidden { display: none !important; }
-
-        .fire-title { color: #f97316; font-weight: 900; text-transform: uppercase; font-size: 13px; font-style: italic; letter-spacing: 1px; }
         .fire-body { color: #a1a1aa; font-size: 12px; line-height: 1.8; }
-        .fire-sub { color: #f97316; font-weight: 900; text-transform: uppercase; font-size: 11px; margin-bottom: 10px; }
-        .red-policy-btn { background: #e11d48; font-size: 10px; font-weight: 900; padding: 8px 16px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="hero-section flex flex-col items-center justify-center text-center">
+    <div class="hero-section">
         <div onclick="goHome()" class="home-nav-btn uppercase">Home</div>
 
-        <div class="absolute top-6 right-6 flex items-center gap-3 bg-black/70 p-3 rounded border border-white/10 backdrop-blur-md cursor-pointer">
+        <div class="cart-box" onclick="alert('Cart is empty!')">
             <div class="text-right">
-                <p class="text-[9px] text-zinc-400 font-bold uppercase">Real_Warrior's Cart</p>
-                <p id="cart-status" class="text-[11px] font-black uppercase">0 ITEMS</p>
+                <p class="text-[8px] text-zinc-400 font-bold uppercase leading-none">Your Cart</p>
+                <p id="cart-status" class="text-[10px] font-black uppercase">0 ITEMS</p>
             </div>
-            <img src="https://mc-heads.net/avatar/steve/32" class="rounded border border-white/20 w-8 h-8">
+            <div class="bg-orange-600 p-2 rounded">🛒</div>
         </div>
 
-        <img src="logo.png" class="w-56 mb-10 drop-shadow-[0_25px_25px_rgba(0,0,0,0.9)]">
+        <img src="logo.png" class="main-logo">
 
-        <div class="flex flex-row justify-center gap-12 w-full">
-            <div class="flex items-center gap-4 cursor-pointer group" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-                <div class="status-badge" id="mc-count">...</div>
+        <div class="header-info-bar">
+            <div class="info-item group" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
+                <div class="status-dot" id="mc-count">...</div>
                 <div class="text-left">
-                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase tracking-wider">MANGOMC.INFO.GF</p>
-                    <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Click to Copy IP</p>
+                    <p class="text-orange-500 font-black text-[12px] group-hover:text-orange-400 uppercase">MANGOMC.INFO.GF</p>
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest leading-none">Click to Copy IP</p>
                 </div>
             </div>
 
-            <a href="https://discord.gg/H8X9kGGmbE" target="_blank" class="flex items-center gap-4 group">
-                <div class="status-badge" id="discord-count">...</div>
+            <a href="https://discord.gg/H8X9kGGmbE" target="_blank" class="info-item group">
+                <div class="status-dot" id="discord-count">...</div>
                 <div class="text-left">
-                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase tracking-wider">Discord Server</p>
-                    <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Join Community</p>
+                    <p class="text-orange-500 font-black text-[12px] group-hover:text-orange-400 uppercase">Discord Server</p>
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest leading-none">Join Community</p>
                 </div>
             </a>
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
+    <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-8 pb-20">
         <aside>
-            <h3 class="fire-sub italic pl-1">Categories</h3>
-            <div class="sidebar-card overflow-hidden shadow-xl">
-                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Ranks</span>
+            <h3 class="text-orange-500 font-black uppercase text-[11px] italic mb-4 tracking-widest">Categories</h3>
+            <div class="sidebar-card overflow-hidden">
+                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn group">
+                    <span class="text-2xl">🛡️</span> <span class="cat-text group-hover:text-orange-500">Ranks [Lifesteal]</span>
                 </div>
-                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">⚔️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Kits</span>
+                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn group">
+                    <span class="text-2xl">⚔️</span> <span class="cat-text group-hover:text-orange-500">Kits [Lifesteal]</span>
                 </div>
-                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🪙</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Coins</span>
-                </div>
-                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn p-4 border-none flex items-center gap-4 group">
-                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Dollars</span>
+                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn group">
+                    <span class="text-2xl">🪙</span> <span class="cat-text group-hover:text-orange-500">Coins [Lifesteal]</span>
                 </div>
             </div>
         </aside>
 
         <main class="md:col-span-3">
-            <div id="home-text" class="space-y-12">
-                <section>
-                    <p class="text-[10px] text-orange-500 font-black uppercase italic mb-1">Welcome to the Official</p>
-                    <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MangoMC Store</h2>
-                    <p class="fire-body italic">
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks.<br>
-                        <strong>To begin, please select a category from the sidebar.</strong>
-                    </p>
-                </section>
+            <div id="home-text">
+                
+                <div class="mb-12">
+                    <h3 class="text-orange-500 font-black uppercase text-[11px] italic mb-4 tracking-widest">Featured Packages</h3>
+                    <div class="pkg-card p-5 flex items-center justify-between">
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🛡️</div>
+                            <div>
+                                <h4 class="text-green-500 font-black text-sm uppercase italic leading-none">VIP RANK</h4>
+                                <p class="text-[10px] text-zinc-500 font-bold mt-2">$5.00</p>
+                            </div>
+                        </div>
+                        <button class="fire-btn px-6 py-2.5 text-[10px] uppercase text-white">Purchase</button>
+                    </div>
+                </div>
 
-                <section>
-                    <h2 class="text-orange-500 font-black uppercase text-[13px] italic mb-3">Support</h2>
-                    <p class="fire-body mb-5">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <span class="text-orange-500 underline">raambasm4@gmail.com</span>
-                    </p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-6 py-2.5 font-black text-[10px] uppercase text-white inline-block">Discord Server</a>
-                </section>
+                <section class="space-y-8">
+                    <div>
+                        <p class="text-[10px] text-orange-500 font-black uppercase italic mb-1">Welcome to the Official</p>
+                        <h2 class="text-3xl text-orange-500 font-black uppercase mb-4">MangoMC Store</h2>
+                        <p class="fire-body italic">
+                            MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay.<br>
+                            <strong>To begin, please select a category from the sidebar.</strong>
+                        </p>
+                    </div>
 
-                <section>
-                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-3">Refund Policy</h2>
-                    <p class="fire-body mb-8">
-                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores.<br>
-                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions.<br><br>
-                        It could take between 1-20 minutes for your purchase to be credited in-game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.<br>
-                        If you are banned from MangoMC for breaking our rules, you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Terms and Conditions</button>
-                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Impressum</button>
-                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Privacy Policy</button>
+                    <div>
+                        <h2 class="text-orange-500 font-black uppercase text-[13px] italic mb-2">Support</h2>
+                        <p class="fire-body mb-4">Waited more than 20 minutes? Contact us at: <span class="text-orange-500 underline">raambasm4@gmail.com</span></p>
+                        <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3 text-[10px] uppercase text-white inline-block">Discord Server</a>
                     </div>
                 </section>
 
-                <div class="bg-[#1e1e22] p-6 rounded-lg border border-zinc-800 shadow-inner">
+                <div class="mt-12 bg-[#1e1e22] p-8 rounded border border-zinc-800">
                     <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2">
-                        <span class="text-sm">💼</span> Giftcard Balance
+                        <span>💼</span> Giftcard Balance
                     </h2>
                     <div class="flex gap-2">
-                        <input type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
-                        <button class="bg-emerald-600 px-6 py-2 rounded text-[10px] font-black uppercase">Check</button>
+                        <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
+                        <button onclick="checkGiftcard()" class="bg-green-600 px-8 py-2 rounded text-[10px] font-black uppercase hover:bg-green-500">Check</button>
                     </div>
+                    <p id="gc-msg" class="text-[10px] mt-3 font-bold uppercase hidden"></p>
                 </div>
             </div>
 
-            <div id="ranks" class="category-content space-y-4">
-                <h3 class="fire-sub italic">Featured Packages</h3>
-                <div class="pkg-card p-4 flex items-center justify-between border-l-4 border-green-500">
-                    <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🔥</div>
-                        <div>
-                            <h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4>
-                            <p class="text-[10px] text-zinc-500 font-bold">$5.00</p>
-                        </div>
-                    </div>
-                    <button class="fire-btn px-6 py-2 text-[10px] font-black uppercase text-white">Purchase</button>
-                </div>
-            </div>
+            <div id="ranks" class="category-content"><h3 class="text-orange-500 font-black uppercase text-[12px] italic mb-4">Ranks</h3></div>
         </main>
     </div>
 
     <script>
         function goHome() {
-            document.getElementById('home-text').classList.remove('hidden');
+            document.getElementById('home-text').style.display = 'block';
             document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
         }
 
         function showCategory(id) {
-            document.getElementById('home-text').classList.add('hidden');
+            document.getElementById('home-text').style.display = 'none';
             document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('btn-' + id).classList.add('active');
+        }
+
+        function checkGiftcard() {
+            const input = document.getElementById('gc-input').value;
+            const msg = document.getElementById('gc-msg');
+            msg.classList.remove('hidden');
+            msg.innerText = input.length < 5 ? "Invalid Card Number." : "Card not found or Balance is $0.00";
+            msg.style.color = input.length < 5 ? "#e11d48" : "#f97316";
         }
 
         async function fetchDiscord() {
