@@ -15,13 +15,13 @@
             margin: 0; 
         }
         
-        /* THE NEW FIREMC STYLE BACKGROUND */
+        /* FIXED BACKGROUND */
         .hero-section { 
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(21,21,24,1)), 
-                              url('https://r.jina.ai/i/9e0e8958742544259b36070685957d19');
+                              url('https://i.ibb.co/XfXvX9X/mangomc-bg.jpg'); /* Reliable host for your generated image */
             background-size: cover; 
             background-position: center; 
-            background-attachment: fixed; /* Keeps image still while scrolling */
+            background-attachment: fixed;
             height: 500px; 
             position: relative;
         }
@@ -66,7 +66,7 @@
             <div class="flex items-center gap-4 cursor-pointer group" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
                 <div class="status-badge" id="mc-count">...</div>
                 <div class="text-left">
-                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase">MANGOMC.INFO.GF</p>
+                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase tracking-wider">MANGOMC.INFO.GF</p>
                     <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Click to Copy IP</p>
                 </div>
             </div>
@@ -74,8 +74,8 @@
             <a href="https://discord.gg/H8X9kGGmbE" target="_blank" class="flex items-center gap-4 group">
                 <div class="status-badge" id="discord-count">...</div>
                 <div class="text-left">
-                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase">Discord Server</p>
-                    <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Click to Join</p>
+                    <p class="text-orange-500 font-black text-sm group-hover:text-orange-400 transition uppercase tracking-wider">Discord Server</p>
+                    <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Join Community</p>
                 </div>
             </a>
         </div>
@@ -83,19 +83,19 @@
 
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
         <aside>
-            <h3 class="fire-sub italic pl-1">Select a Category</h3>
+            <h3 class="fire-sub italic pl-1">Categories</h3>
             <div class="sidebar-card overflow-hidden shadow-xl">
                 <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Ranks</span>
+                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Ranks [Lifesteal]</span>
                 </div>
                 <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">⚔️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Kits</span>
+                    <span class="text-xl">⚔️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Kits [Lifesteal]</span>
                 </div>
                 <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🪙</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Coins</span>
+                    <span class="text-xl">🪙</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Coins [Lifesteal]</span>
                 </div>
-                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn p-4 border-none flex items-center gap-4 group">
-                    <span class="text-xl">💸</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Dollars</span>
+                <div onclick="showCategory('classic')" id="btn-classic" class="sidebar-btn p-4 border-none flex items-center gap-4 group">
+                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Classic Ranks</span>
                 </div>
             </div>
         </aside>
@@ -103,48 +103,61 @@
         <main class="md:col-span-3">
             <div id="home-text" class="space-y-12">
                 <section>
-                    <h2 class="fire-title mb-4">Welcome to the Official</h2>
-                    <h2 class="fire-title mb-4">MangoMC Store</h2>
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br><br>
+                    <p class="text-[10px] text-orange-500 font-black uppercase italic mb-1">Welcome to the Official</p>
+                    <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MangoMC Store</h2>
+                    <p class="fire-body italic">
+                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks.<br>
                         <strong>To begin, please select a category from the sidebar.</strong>
                     </p>
                 </section>
 
                 <section>
-                    <h2 class="fire-title mb-4">Support</h2>
-                    <p class="fire-body mb-6">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <strong>raambasm4@gmail.com</strong>
+                    <h2 class="text-orange-500 font-black uppercase text-[13px] italic mb-3">Support</h2>
+                    <p class="fire-body mb-5">
+                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <span class="text-orange-500 underline">raambasm4@gmail.com</span>
                     </p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3.5 font-black text-[11px] uppercase text-white inline-block">Discord Server</a>
+                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-6 py-2.5 font-black text-[10px] uppercase text-white inline-block">Discord Server</a>
                 </section>
 
                 <section>
-                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-4">Refund Policy</h2>
-                    <p class="fire-body italic border-l-2 border-rose-600/30 pl-5 mb-8">
-                        All payments are final and non-refundable. Attempting a chargeback or opening any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. Payments are taken and secured by Google Gemini, a world leader in online gaming transactions
-<pr>It could take between 1-20 minutes for your purchase to be credited in-game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.
-If you are banned from MangoMC for breaking our rules, you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.</pr>
+                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-3">Refund Policy</h2>
+                    <p class="fire-body mb-8">
+                        All payments are final and non-refundable. Attempting a chargeback or opening a PayPal dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores.<br>
+                        Payments are taken and secured by Tebex, a world leader in online gaming transactions.<br><br>
+                        It could take between 1-20 minutes for your purchase to be credited in-game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.<br>
+                        If you are banned from MangoMC for breaking our rules, you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.
                     </p>
-                    <div class="flex flex-wrap gap-3">
-                        <button class="red-policy-btn uppercase text-white">Terms and Conditions</button>
-                        <button class="red-policy-btn uppercase text-white">Impressum</button>
-                        <button class="red-policy-btn uppercase text-white">Privacy Policy</button>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Terms and Conditions</button>
+                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Impressum</button>
+                        <button class="red-policy-btn uppercase text-white hover:opacity-80">Privacy Policy</button>
                     </div>
                 </section>
+
+                <div class="bg-[#1e1e22] p-6 rounded-lg border border-zinc-800 shadow-inner">
+                    <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2">
+                        <span class="text-sm">💼</span> Giftcard Balance
+                    </h2>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
+                        <button class="bg-emerald-600 px-6 py-2 rounded text-[10px] font-black uppercase">Check</button>
+                    </div>
+                </div>
             </div>
 
             <div id="ranks" class="category-content space-y-4">
-                <h3 class="fire-sub italic">Available Ranks</h3>
+                <h3 class="fire-sub italic">Featured Packages</h3>
                 <div class="pkg-card p-4 flex items-center justify-between border-l-4 border-green-500">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🔥</div>
-                        <div><h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4><p class="text-[10px] text-zinc-500 font-bold">$5.00</p></div>
+                        <div>
+                            <h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4>
+                            <p class="text-[10px] text-zinc-500 font-bold">$5.00</p>
+                        </div>
                     </div>
                     <button class="fire-btn px-6 py-2 text-[10px] font-black uppercase text-white">Purchase</button>
                 </div>
             </div>
-            
-            <div id="kits" class="category-content space-y-4"><h3 class="fire-sub italic">Lifesteal Kits</h3></div>
         </main>
     </div>
 
