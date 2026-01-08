@@ -7,13 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
-        body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; }
         
-        /* CUSTOM BACKGROUND IMAGE HERE */
-        .hero-section { 
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(21,21,24,1)), url('https://wallpaperaccess.com/full/223162.jpg');
-            background-size: cover; background-position: center; height: 480px; position: relative;
+        body { 
+            background-color: #151518; 
+            color: white; 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
         }
+        
+        /* THE NEW FIREMC STYLE BACKGROUND */
+        .hero-section { 
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(21,21,24,1)), 
+                              url('https://r.jina.ai/i/9e0e8958742544259b36070685957d19');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; /* Keeps image still while scrolling */
+            height: 500px; 
+            position: relative;
+        }
+
+        .home-nav-btn { position: absolute; top: 24px; left: 24px; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-size: 11px; font-weight: 900; letter-spacing: 1px; cursor: pointer; transition: 0.2s; z-index: 10; }
+        .home-nav-btn:hover { background: #f97316; border-color: #f97316; }
 
         .status-badge { width: 44px; height: 44px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11px; box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); border: 2px solid rgba(255,255,255,0.1); }
         .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
@@ -21,27 +35,24 @@
         .sidebar-btn.active { border-left: 4px solid #f97316; background: #25252b; }
         
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
-        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); box-shadow: 0 4px 0 #9a3412; border-radius: 4px; transition: 0.1s; cursor: pointer; }
-        .fire-btn:active { box-shadow: none; transform: translateY(2px); }
+        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); box-shadow: 0 4px 0 #9a3412; border-radius: 4px; cursor: pointer; }
         
-        /* Visibility Logic */
         .category-content { display: none; }
         .category-content.active { display: block; }
-        #home-text.hidden { display: none; }
+        .hidden { display: none !important; }
 
         .fire-title { color: #f97316; font-weight: 900; text-transform: uppercase; font-size: 13px; font-style: italic; letter-spacing: 1px; }
-        .fire-body { color: #a1a1aa; font-size: 12px; line-height: 1.7; }
+        .fire-body { color: #a1a1aa; font-size: 12px; line-height: 1.8; }
         .fire-sub { color: #f97316; font-weight: 900; text-transform: uppercase; font-size: 11px; margin-bottom: 10px; }
         .red-policy-btn { background: #e11d48; font-size: 10px; font-weight: 900; padding: 8px 16px; border-radius: 4px; }
-        
-        /* Cart Popup */
-        #cart-dropdown { display: none; position: absolute; top: 70px; right: 24px; width: 250px; background: #1e1e22; border: 1px solid #333; z-index: 100; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
     <div class="hero-section flex flex-col items-center justify-center text-center">
-        <div onclick="toggleCart()" class="absolute top-6 right-6 flex items-center gap-3 bg-black/70 p-3 rounded border border-white/10 backdrop-blur-md cursor-pointer hover:bg-black/90 transition">
+        <div onclick="goHome()" class="home-nav-btn uppercase">Home</div>
+
+        <div class="absolute top-6 right-6 flex items-center gap-3 bg-black/70 p-3 rounded border border-white/10 backdrop-blur-md cursor-pointer">
             <div class="text-right">
                 <p class="text-[9px] text-zinc-400 font-bold uppercase">Real_Warrior's Cart</p>
                 <p id="cart-status" class="text-[11px] font-black uppercase">0 ITEMS</p>
@@ -49,13 +60,7 @@
             <img src="https://mc-heads.net/avatar/steve/32" class="rounded border border-white/20 w-8 h-8">
         </div>
 
-        <div id="cart-dropdown" class="p-4">
-            <p class="text-[10px] font-bold text-zinc-500 uppercase mb-2">Your Basket</p>
-            <div id="cart-items" class="text-[11px] py-4 border-y border-white/5 mb-4 text-zinc-400">Your cart is empty.</div>
-            <button class="w-full bg-zinc-800 py-2 text-[10px] font-black uppercase rounded">Checkout</button>
-        </div>
-
-        <img src="logo.png" class="w-52 mb-10 drop-shadow-[0_20px_20px_rgba(0,0,0,0.8)]">
+        <img src="logo.png" class="w-56 mb-10 drop-shadow-[0_25px_25px_rgba(0,0,0,0.9)]">
 
         <div class="flex flex-row justify-center gap-12 w-full">
             <div class="flex items-center gap-4 cursor-pointer group" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
@@ -78,104 +83,83 @@
 
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
         <aside>
-            <h3 class="fire-sub italic pl-1">Store Navigation</h3>
-            <div class="sidebar-card overflow-hidden shadow-2xl">
+            <h3 class="fire-sub italic pl-1">Select a Category</h3>
+            <div class="sidebar-card overflow-hidden shadow-xl">
                 <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-black uppercase group-hover:text-orange-500">Ranks</span>
+                    <span class="text-xl">🛡️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Ranks</span>
                 </div>
                 <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">⚔️</span> <span class="text-[11px] font-black uppercase group-hover:text-orange-500">Kits</span>
+                    <span class="text-xl">⚔️</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Kits</span>
                 </div>
                 <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn p-4 flex items-center gap-4 group">
-                    <span class="text-xl">🪙</span> <span class="text-[11px] font-black uppercase group-hover:text-orange-500">Coins</span>
+                    <span class="text-xl">🪙</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Coins</span>
                 </div>
                 <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn p-4 border-none flex items-center gap-4 group">
-                    <span class="text-xl">💸</span> <span class="text-[11px] font-black uppercase group-hover:text-orange-500">Dollars</span>
+                    <span class="text-xl">💸</span> <span class="text-[11px] font-bold uppercase group-hover:text-orange-500">Dollars</span>
                 </div>
             </div>
         </aside>
 
         <main class="md:col-span-3">
-            
             <div id="home-text" class="space-y-12">
                 <section>
                     <h2 class="fire-title mb-4">Welcome to the Official MangoMC Store</h2>
-                    <p class="fire-body italic">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br><br><strong>To begin, please select a category from the sidebar navigation.</strong></p>
+                    <p class="fire-body italic">
+                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br><br>
+                        <strong>To begin, please select a category from the sidebar.</strong>
+                    </p>
                 </section>
-
-                <div class="bg-[#1e1e22] p-6 rounded-lg border border-zinc-800 shadow-inner">
-                    <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2">
-                        <span class="text-sm">💼</span> Giftcard Balance Checker
-                    </h2>
-                    <div class="flex gap-2">
-                        <input id="gc-input" type="text" placeholder="Enter Giftcard Number..." class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
-                        <button onclick="checkGC()" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded text-[10px] font-black uppercase transition">Check</button>
-                    </div>
-                    <p id="gc-result" class="text-[10px] mt-3 font-bold text-orange-500 hidden uppercase">No card found with that ID.</p>
-                </div>
 
                 <section>
                     <h2 class="fire-title mb-4">Support</h2>
-                    <p class="fire-body mb-6">Need help? Join our Discord or email <strong>contactmangomc@gmail.com</strong>.</p>
-                    <a href="https://discord.gg/H8X9kGGmbE" target="_blank" class="fire-btn px-8 py-3.5 font-black text-[11px] uppercase text-white inline-block">Join Discord</a>
+                    <p class="fire-body mb-6">
+                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <strong>contactmangomc@gmail.com</strong>
+                    </p>
+                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn px-8 py-3.5 font-black text-[11px] uppercase text-white inline-block">Discord Server</a>
+                </section>
+
+                <section>
+                    <h2 class="text-rose-600 font-black uppercase text-[13px] italic mb-4">Refund Policy</h2>
+                    <p class="fire-body italic border-l-2 border-rose-600/30 pl-5 mb-8">
+                        All payments are final and non-refundable. Attempting a chargeback or opening a dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores.<br><br>
+                        Payments are taken and secured by Tebex, a world leader in online gaming transactions.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="red-policy-btn uppercase text-white">Terms and Conditions</button>
+                        <button class="red-policy-btn uppercase text-white">Impressum</button>
+                        <button class="red-policy-btn uppercase text-white">Privacy Policy</button>
+                    </div>
                 </section>
             </div>
 
             <div id="ranks" class="category-content space-y-4">
-                <h3 class="fire-sub italic">Featured Ranks</h3>
+                <h3 class="fire-sub italic">Available Ranks</h3>
                 <div class="pkg-card p-4 flex items-center justify-between border-l-4 border-green-500">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl">🔥</div>
-                        <div>
-                            <h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4>
-                            <p class="text-[10px] font-bold text-zinc-500">$5,000 / 50 Coins</p>
-                        </div>
+                        <div><h4 class="text-green-500 font-black text-sm uppercase italic">VIP RANK</h4><p class="text-[10px] text-zinc-500 font-bold">$5.00</p></div>
                     </div>
-                    <button onclick="addToCart('VIP Rank')" class="fire-btn px-6 py-2 text-[10px] font-black uppercase text-white">Purchase</button>
+                    <button class="fire-btn px-6 py-2 text-[10px] font-black uppercase text-white">Purchase</button>
                 </div>
             </div>
-
+            
             <div id="kits" class="category-content space-y-4"><h3 class="fire-sub italic">Lifesteal Kits</h3></div>
-            <div id="coins" class="category-content space-y-4"><h3 class="fire-sub italic">Buy Coins</h3></div>
-            <div id="dollars" class="category-content space-y-4"><h3 class="fire-sub italic">In-Game Cash</h3></div>
-
         </main>
     </div>
 
     <script>
-        let cart = [];
+        function goHome() {
+            document.getElementById('home-text').classList.remove('hidden');
+            document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
+        }
 
         function showCategory(id) {
-            // Hide Home Text
             document.getElementById('home-text').classList.add('hidden');
-            // Hide all categories
             document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active'));
-            // Deactivate all sidebar buttons
             document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
-            
-            // Show target category
             document.getElementById(id).classList.add('active');
             document.getElementById('btn-' + id).classList.add('active');
-        }
-
-        function toggleCart() {
-            const dropdown = document.getElementById('cart-dropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function addToCart(itemName) {
-            cart.push(itemName);
-            document.getElementById('cart-status').innerText = cart.length + " ITEMS";
-            document.getElementById('cart-items').innerText = cart.join(", ");
-            alert(itemName + " added to basket!");
-        }
-
-        function checkGC() {
-            const val = document.getElementById('gc-input').value;
-            const res = document.getElementById('gc-result');
-            res.classList.remove('hidden');
-            if(!val) res.innerText = "Please enter a code.";
-            else res.innerText = "Checking balance for: " + val + "... (0.00 USD)";
         }
 
         async function fetchDiscord() {
