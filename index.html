@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMC Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000; color: white; }
+        .mango-grad { background: linear-gradient(90deg, #FFCC00, #FF8800); }
+        .item-card { background: #0a0a0a; border: 1px solid #222; }
+    </style>
+</head>
+<body class="flex flex-col items-center p-5">
+    <header class="text-center my-10">
+        <img src="logo.png" alt="Logo" class="w-32 mx-auto mb-4">
+        <h1 class="text-4xl font-black mango-grad bg-clip-text text-transparent uppercase">MangoMC Store</h1>
+        <p class="text-gray-500 text-xs font-bold mt-2 tracking-widest">IN-GAME CURRENCY ONLY</p>
+    </header>
+
+    <div class="w-full max-w-md item-card p-6 rounded-2xl text-center">
+        <h2 class="text-2xl font-bold">VIP RANK</h2>
+        <p class="text-gray-400 my-4">Access to /fly and Yellow Chat Color!</p>
+        <div class="text-xl font-bold text-yellow-500 mb-6">$5,000 or 50 Coins</div>
+        <button class="mango-grad w-full py-3 rounded-xl text-black font-black active:scale-95 transition-transform">ORDER NOW</button>
+    </div>
+</body>
+</html>
