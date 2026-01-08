@@ -24,18 +24,18 @@
         
         .count-bubble { 
             position: absolute; 
-            top: -24px; /* Set as requested */
+            top: -24px; 
             left: 50%; 
             transform: translateX(-50%);
             background: #f97316; 
             color: #000; 
             font-weight: 900; 
             font-size: 11px; 
-            padding: 3px 20px; /* Increased width/padding as requested */
+            padding: 3px 20px; 
             border-radius: 20px; 
             z-index: 30;
             white-space: nowrap;
-            box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); /* Set as requested */
+            box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); 
             border: 2px solid #151518;
             min-width: 60px;
             text-align: center;
@@ -164,7 +164,9 @@
                 </section>
 
                 <div class="bg-[#1e1e22] p-8 rounded-lg border border-zinc-800 shadow-inner">
-                    <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2"> <weak><img src="giftcard.png"></weak> Giftcard Balance</h2>
+                    <h2 class="text-zinc-500 font-black uppercase text-[10px] mb-4 flex items-center gap-2"> 
+                        <img src="giftcard.png" class="h-4 w-auto object-contain -mt-0.5"> Giftcard Balance
+                    </h2>
                     <div class="flex gap-2">
                         <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-800 px-4 py-3 rounded text-xs outline-none focus:border-orange-500 text-white">
                         <button onclick="checkGiftcard()" class="bg-green-600 px-8 py-2 rounded text-[10px] font-black uppercase text-white">Check</button>
