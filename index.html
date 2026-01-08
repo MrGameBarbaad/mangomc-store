@@ -19,24 +19,26 @@
         .main-logo { width: 500px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); z-index: 10; animation: logoPulse 5s ease-in-out infinite alternate; }
         @keyframes logoPulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-        /* FIXED FLOATING OVAL BUBBLES */
+        /* UPDATED FLOATING OVAL BUBBLES */
         .status-container { position: relative; width: 85px; height: 85px; display: flex; align-items: center; justify-content: center; }
         
         .count-bubble { 
             position: absolute; 
-            top: -23px; /* Moves it up to float over the image */
+            top: -24px; /* Set as requested */
             left: 50%; 
             transform: translateX(-50%);
             background: #f97316; 
             color: #000; 
             font-weight: 900; 
             font-size: 11px; 
-            padding: 2px 14px; 
+            padding: 3px 20px; /* Increased width/padding as requested */
             border-radius: 20px; 
             z-index: 30;
             white-space: nowrap;
-            box-shadow: 0 4px 21px rgba(249, 115, 22, 0.5);
-            border: 2px solid #151518; /* Helps it pop against the icon */
+            box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); /* Set as requested */
+            border: 2px solid #151518;
+            min-width: 60px;
+            text-align: center;
         }
         
         .header-ip-box { position: absolute; bottom: 40px; left: 5%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
@@ -105,7 +107,7 @@
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
         <aside>
             <h3 class="fire-sub italic pl-1">Categories</h3>
-            <div class="sidebar-card shadow-xl
+            <div class="sidebar-card shadow-xl">
                 <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn group"><span class="text-2xl">🛡️</span> <span class="cat-text">Ranks</span></div>
                 <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn group"><span class="text-2xl">⚔️</span> <span class="cat-text">Kits</span></div>
                 <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn group"><span class="text-2xl">🪙</span> <span class="cat-text">Coins</span></div>
