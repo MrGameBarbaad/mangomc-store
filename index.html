@@ -26,3 +26,21 @@
     </div>
 </body>
 </html>
+<script>
+    document.querySelector('button').onclick = function() {
+        const name = prompt("Enter your Minecraft Username:");
+        if (!name) return;
+
+        const webhookURL = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
+        const message = {
+            content: `🛒 **New Order!** \n**Player:** ${name} \n**Item:** VIP Rank \n**Price:** $5,000 / 50 Coins`
+        };
+
+        fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(message)
+        }).then(() => alert("Order sent! Staff will contact you in-game."));
+    };
+</script>
+
