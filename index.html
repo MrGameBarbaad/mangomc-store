@@ -3,92 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MangoMC Store | FireMC Style</title>
+    <title>MangoMC | Official Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #1a1a1d; color: white; font-family: sans-serif; }
-        .sidebar { background-color: #25252b; }
-        .card-bg { background-color: #25252b; border: 1px solid #333; }
-        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); }
-        .category-item:hover { background-color: #33333b; border-left: 4px solid #f97316; }
+        body { 
+            background-color: #1a1a1d; 
+            color: white; 
+            font-family: 'Segoe UI', sans-serif;
+            background-image: linear-gradient(to bottom, rgba(26, 26, 29, 0.9), rgba(26, 26, 29, 0.95)), url('https://wallpaperaccess.com/full/223162.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .sidebar-box { background: #25252b; border: 1px solid #333; }
+        .package-card { background: #25252b; border: 1px solid #333; transition: 0.3s; }
+        .package-card:hover { border-color: #f97316; }
+        .fire-btn { background: linear-gradient(to bottom, #f97316, #ea580c); border-bottom: 3px solid #9a3412; }
+        .pkg-img { width: 64px; height: 64px; object-fit: cover; border-radius: 4px; border: 1px solid #444; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="pb-10">
 
-    <div class="relative w-full h-64 bg-cover bg-center flex flex-col items-center justify-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://wallpaperaccess.com/full/223162.jpg');">
-        <img src="logo.png" alt="MangoMC Logo" class="w-28 mb-2">
-        <h1 class="text-4xl font-black italic tracking-tighter uppercase">Mango<span class="text-orange-500">MC</span></h1>
-        
-        <div class="flex gap-4 mt-4 text-[10px] font-bold uppercase tracking-widest">
-            <div class="flex flex-col items-center cursor-pointer" onclick="navigator.clipboard.writeText('play.mangomc.net'); alert('IP Copied!')">
-                <span class="text-orange-500">PLAY.MANGOMC.NET</span>
-                <span>CLICK TO COPY</span>
-            </div>
-            <div class="flex flex-col items-center cursor-pointer">
-                <span class="text-orange-500">DISCORD SERVER</span>
-                <span>CLICK TO JOIN</span>
+    <nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <div class="flex gap-4 items-center">
+            <img src="logo.png" class="w-12 h-12" alt="Logo">
+            <span class="font-black italic uppercase text-2xl tracking-tighter text-white">Mango<span class="text-orange-500">MC</span></span>
+        </div>
+        <div class="flex items-center gap-3 bg-black/40 px-5 py-2 rounded border border-white/10">
+            <span class="text-orange-500 text-xl">🛒</span>
+            <div class="text-right">
+                <p class="text-[9px] text-zinc-400 uppercase font-bold leading-none mb-1">Your Cart</p>
+                <p class="text-xs font-black leading-none uppercase">0 Items - $0.00</p>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="max-w-6xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
         
-        <aside class="md:col-span-1">
-            <h3 class="text-orange-500 font-bold uppercase text-xs mb-4 px-2">Select a Category</h3>
-            <div class="sidebar rounded-lg overflow-hidden border border-zinc-800">
-                <div class="category-item p-4 border-b border-zinc-800 flex items-center gap-3 cursor-pointer">
-                    <span class="text-xl">💰</span> <span class="text-sm font-bold">Coins</span>
+        <aside>
+            <h3 class="text-orange-500 font-black uppercase text-[10px] mb-3 tracking-widest px-1">Select a Category</h3>
+            <div class="sidebar-box rounded shadow-2xl">
+                <div class="p-4 border-b border-white/5 flex items-center gap-4 hover:bg-white/5 cursor-pointer">
+                    <img src="https://i.imgur.com/vHQuN7v.png" class="w-7 h-7" alt="coins">
+                    <span class="text-xs font-bold uppercase">Coins [LifeSteal]</span>
                 </div>
-                <div class="category-item p-4 border-b border-zinc-800 flex items-center gap-3 cursor-pointer">
-                    <span class="text-xl">⚔️</span> <span class="text-sm font-bold">Ranks</span>
+                <div class="p-4 border-b border-white/5 flex items-center gap-4 hover:bg-white/5 cursor-pointer">
+                    <img src="https://i.imgur.com/3N0jQ7G.png" class="w-7 h-7" alt="ranks">
+                    <span class="text-xs font-bold uppercase">Lifesteal Ranks</span>
                 </div>
-                <div class="category-item p-4 border-b border-zinc-800 flex items-center gap-3 cursor-pointer">
-                    <span class="text-xl">📦</span> <span class="text-sm font-bold">Crate Keys</span>
+                <div class="p-4 border-b border-white/5 flex items-center gap-4 hover:bg-white/5 cursor-pointer">
+                    <img src="https://i.imgur.com/vHQuN7v.png" class="w-7 h-7" alt="coins">
+                    <span class="text-xs font-bold uppercase">Coins [Classic]</span>
                 </div>
             </div>
         </aside>
 
         <main class="md:col-span-3">
-            <h3 class="text-orange-500 font-bold uppercase text-xs mb-4">Featured Packages</h3>
+            <h3 class="text-orange-500 font-black uppercase text-[10px] mb-3 tracking-widest">Featured Packages</h3>
             
-            <div class="space-y-4">
-                <div class="card-bg p-4 rounded-lg flex items-center justify-between border-l-4 border-orange-500">
+            <div class="space-y-3">
+                <div class="package-card p-3 rounded flex items-center justify-between border-l-4 border-green-600">
                     <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 bg-zinc-800 rounded flex items-center justify-center text-2xl italic font-black text-orange-500">VIP</div>
+                        <img src="https://i.imgur.com/U83P162.png" class="pkg-img" alt="God Rank">
                         <div>
-                            <h4 class="font-bold text-sm">VIP Rank (+1000 Coins)</h4>
-                            <p class="text-zinc-400 text-[10px]">5,000 Dollars / 50 Coins</p>
+                            <h4 class="font-black text-xs uppercase text-green-500">GOD Rank (+3500 Coins)</h4>
+                            <p class="text-zinc-500 text-[10px] font-bold mt-1 uppercase">Price: $50,000 / 500 Coins</p>
                         </div>
                     </div>
-                    <button class="fire-btn px-4 py-2 rounded text-[10px] font-black uppercase">Purchase</button>
+                    <button class="fire-btn px-6 py-2 rounded text-[10px] font-black uppercase">Purchase</button>
                 </div>
 
-                <div class="card-bg p-4 rounded-lg flex items-center justify-between border-l-4 border-yellow-500">
+                <div class="package-card p-3 rounded flex items-center justify-between border-l-4 border-yellow-500">
                     <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 bg-zinc-800 rounded flex items-center justify-center text-2xl italic font-black text-yellow-500">MVP</div>
+                        <img src="https://i.imgur.com/P5G5t7U.png" class="pkg-img" alt="Coins Pack">
                         <div>
-                            <h4 class="font-bold text-sm">MVP Rank (+2500 Coins)</h4>
-                            <p class="text-zinc-400 text-[10px]">15,000 Dollars / 150 Coins</p>
+                            <h4 class="font-black text-xs uppercase text-yellow-500">15600 Coins (LIFESTEAL)</h4>
+                            <p class="text-zinc-500 text-[10px] font-bold mt-1 uppercase">Price: $20,000 Dollars</p>
                         </div>
                     </div>
-                    <button class="fire-btn px-4 py-2 rounded text-[10px] font-black uppercase">Purchase</button>
+                    <button class="fire-btn px-6 py-2 rounded text-[10px] font-black uppercase">Purchase</button>
                 </div>
-            </div>
 
-            <div class="mt-12 text-[11px] text-zinc-400 leading-relaxed">
-                <h3 class="text-orange-500 font-bold uppercase mb-2">Welcome to the Official MangoMC Store</h3>
-                <p class="mb-4">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here using in-game currency to enhance gameplay.</p>
-                <div class="bg-orange-500/10 border border-orange-500/20 p-4 rounded text-orange-400 font-bold">
-                    SUPPORT: Need help? Ask the community/staff on Discord.
+                <div class="package-card p-3 rounded flex items-center justify-between border-l-4 border-cyan-500">
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.imgur.com/6X2p9pD.png" class="pkg-img" alt="Deadliest Rank">
+                        <div>
+                            <h4 class="font-black text-xs uppercase text-cyan-500">Deadliest Rank (+1000 Coins)</h4>
+                            <p class="text-zinc-500 text-[10px] font-bold mt-1 uppercase">Price: $10,000 / 100 Coins</p>
+                        </div>
+                    </div>
+                    <button class="fire-btn px-6 py-2 rounded text-[10px] font-black uppercase">Purchase</button>
                 </div>
             </div>
         </main>
     </div>
-
-    <footer class="text-center py-8 text-[10px] text-zinc-600 border-t border-zinc-900 mt-10">
-        Copyright © MangoMC 2026. All Rights Reserved.<br>
-        We are not affiliated with Mojang AB.
-    </footer>
 
 </body>
 </html>
