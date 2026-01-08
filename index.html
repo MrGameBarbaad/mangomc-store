@@ -11,10 +11,20 @@
         body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         
         .hero-section { 
-            height: 520px; position: relative; display: flex; align-items: center; justify-content: center;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(21,21,24,1)), url('background.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 100vh; /* This makes it take up the full screen height */
+            width: 100%;
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            /* Update the URL below to your image file name */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(21,21,24,1)), url('background.png');
+            background-size: cover; /* This forces the image to cover the whole area */
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
+
 
         .main-logo { width: 500px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); z-index: 10; animation: logoPulse 5s ease-in-out infinite alternate; }
         @keyframes logoPulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
