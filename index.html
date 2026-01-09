@@ -20,9 +20,65 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
-        .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; overflow: hidden; }
-        .sidebar-btn { padding: 20px; border-bottom: 1px solid #151518; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 15px; }
-        .sidebar-btn.active { border-left: 5px solid #f97316; background: #25252b; }
+        /* --- VISUAL SIDEBAR STYLING --- */
+        .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
+        .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
+        .sidebar-header h3 { color: #f97316; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .sidebar-btn { 
+            position: relative;
+            display: flex; 
+            align-items: center; 
+            padding: 20px 15px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid #151518;
+        }
+
+        .sidebar-btn:hover { background: rgba(249, 115, 22, 0.05); }
+
+        /* Selection Indicator (Arrow and Bar) */
+        .sidebar-btn.active { background: rgba(249, 115, 22, 0.12); }
+        .sidebar-btn.active::before { 
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            bottom: 0; 
+            width: 4px; 
+            background: #f97316; 
+        }
+        .sidebar-btn.active::after {
+            content: '▶';
+            position: absolute;
+            left: 2px;
+            color: #f97316;
+            font-size: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .sidebar-icon-box { 
+            width: 50px; 
+            height: 50px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-right: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+        .sidebar-icon-box span { font-size: 32px; }
+
+        .sidebar-label { 
+            font-weight: 800; 
+            font-size: 15px; 
+            color: #d1d1d1;
+            text-transform: capitalize;
+        }
+        .sidebar-btn.active .sidebar-label { color: #f97316; }
+
+        /* Store Packages Styling */
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
         .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
         .fire-btn:hover { background: #fb923c; }
@@ -48,13 +104,6 @@
             <div class="flex items-center gap-3 bg-black/40 p-3 rounded border border-zinc-700">
                 <img id="login-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded">
                 <input id="username-input" oninput="updatePlayerHead(this.value)" type="text" placeholder="Enter IGN..." class="bg-transparent w-full text-xs outline-none text-white">
-            </div>
-        </div>
-        <div class="mb-6">
-            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Payment Currency</p>
-            <div class="flex gap-2">
-                <button onclick="setCurrency('DOLLARS')" id="curr-dollars" class="currency-btn active">DOLLARS</button>
-                <button onclick="setCurrency('COINS')" id="curr-coins" class="currency-btn">COINS</button>
             </div>
         </div>
         <div id="cart-items" class="space-y-4 mb-8 pt-4 border-t border-zinc-800">
@@ -90,19 +139,40 @@
     </div>
 
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
+        
         <aside>
-            <div class="sidebar-card shadow-xl">
-                <div onclick="showCategory('ranks')" class="sidebar-btn font-black uppercase text-xs">🛡️ Ranks</div>
-                <div onclick="showCategory('kits')" class="sidebar-btn font-black uppercase text-xs">⚔️ Kits</div>
-                <div onclick="showCategory('coins')" class="sidebar-btn font-black uppercase text-xs">🪙 Coins</div>
-                <div onclick="showCategory('dollars')" class="sidebar-btn font-black uppercase text-xs border-none">💵 Dollars</div>
+            <div class="sidebar-container shadow-2xl">
+                <div class="sidebar-header">
+                    <h3>Select Category</h3>
+                </div>
+                
+                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn">
+                    <div class="sidebar-icon-box"><span>🛡️</span></div>
+                    <span class="sidebar-label">Ranks</span>
+                </div>
+                
+                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn">
+                    <div class="sidebar-icon-box"><span>⚔️</span></div>
+                    <span class="sidebar-label">Kits</span>
+                </div>
+                
+                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn">
+                    <div class="sidebar-icon-box"><span>🪙</span></div>
+                    <span class="sidebar-label">Coins</span>
+                </div>
+                
+                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn border-none">
+                    <div class="sidebar-icon-box"><span>💵</span></div>
+                    <span class="sidebar-label">Dollars</span>
+                </div>
             </div>
         </aside>
 
         <main class="md:col-span-3">
             <div id="home-text">
-                <h3 class="text-white font-black text-lg mb-6">Featured Packages</h3>
-                <div class="grid grid-cols-1 gap-4 mb-10">
+                
+                <h3 class="text-white font-black text-lg mb-6 uppercase italic">Featured Packages</h3>
+                <div class="grid grid-cols-1 gap-4 mb-12">
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="flex items-center gap-6">
                             <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
@@ -125,32 +195,14 @@
                     
                     <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
                     <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a>
+                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the community/staff on Discord. Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a>
                     </p>
                     <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10">Discord Server</a>
 
                     <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
                     <p class="text-zinc-400 text-xs leading-relaxed mb-4">
-                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>
-                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>
-                        It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue. <br>
-                        if you are banned from MangoMC for breaking our rules you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.
+                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers.
                     </p>
-                    <div class="flex gap-2 mb-10">
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Terms and Conditions</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Impressum</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
-                    </div>
-
-                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
-                        <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic">
-                            <img src="giftcard.png" class="w-4 h-4"> GIFTCARD BALANCE
-                        </h3>
-                        <div class="flex gap-2">
-                            <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-700 px-4 py-2 text-xs rounded text-white outline-none">
-                            <button onclick="checkGiftcard()" class="bg-green-600 text-white font-black text-xs px-6 py-2 rounded">Check</button>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -162,24 +214,38 @@
     </div>
 
     <script>
-        let currentCurrency = 'DOLLARS';
         let cart = [];
-        function updatePlayerHead(username) { const headUrl = username.trim() === "" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${username}/32`; document.getElementById('player-head').src = headUrl; document.getElementById('login-head').src = headUrl; document.getElementById('display-name').innerText = username.trim() === "" ? "Guest Player" : username; }
+        function updatePlayerHead(username) { 
+            const headUrl = username.trim() === "" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${username}/32`; 
+            document.getElementById('player-head').src = headUrl; 
+            document.getElementById('login-head').src = headUrl; 
+            document.getElementById('display-name').innerText = username.trim() === "" ? "Guest Player" : username; 
+        }
         function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-        function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); renderCart(); }
-        function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added! Open cart to set IGN."); }
+        function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added!"); }
         function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
         function renderCart() { 
-            const container = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); 
-            container.innerHTML = ""; let total = 0; if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } 
-            cart.forEach((item, index) => { const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; total += val; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; }); 
-            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; 
+            const container = document.getElementById('cart-items'); 
+            const totalEl = document.getElementById('cart-total'); 
+            container.innerHTML = ""; let total = 0; 
+            if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>'; totalEl.innerText = `0 Dollars`; return; } 
+            cart.forEach((item, index) => { total += item.dollars; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${item.dollars.toLocaleString()} Dollars</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; }); 
+            totalEl.innerText = `${total.toLocaleString()} Dollars`; 
         }
         function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-        function processCheckout() { const u = document.getElementById('username-input').value; if(!u) { alert("Enter IGN in cart!"); return; } alert("Request Processed!"); }
-        function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); }
-        function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-        function checkGiftcard() { alert("Balance: 0 Dollars"); }
+        function processCheckout() { if(!document.getElementById('username-input').value) { alert("Enter IGN in cart!"); return; } alert("Checkout processing..."); }
+        function goHome() { 
+            document.getElementById('home-text').style.display = 'block'; 
+            document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); 
+            document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active')); 
+        }
+        function showCategory(id) { 
+            document.getElementById('home-text').style.display = 'none'; 
+            document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); 
+            document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+            document.getElementById('btn-' + id).classList.add('active'); 
+        }
         async function fetchStats() { try { const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const mcData = await mc.json(); document.getElementById('mc-count').innerText = mcData.players ? mcData.players.online : '0'; const disc = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true'); const discData = await disc.json(); document.getElementById('discord-count').innerText = discData.approximate_member_count || '0'; } catch(e) {} }
         fetchStats();
     </script>
