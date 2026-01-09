@@ -77,7 +77,7 @@
                 <span>Total</span>
                 <span id="cart-total" class="text-orange-500">0 Dollars</span>
             </div>
-            <button onclick="alert('Checkout initiated!')" class="w-full fire-btn py-4">Checkout</button>
+            <button onclick="processcheckout()" class="w-full fire-btn py-4">Checkout</button>
         </div>
     </div>
 
@@ -193,6 +193,8 @@
     <script>
     let currentCurrency = 'DOLLARS';
     let cart = [];
+    let ownedRank = ""; // Stores the current rank the player has
+    const DISCORD_WEBHOOK = "YOUR_WEBHOOK_URL_HERE"; 
 
     function updatePlayerHead(u) {
         const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
@@ -211,6 +213,15 @@
     }
 
     function addToCart(name, dollars, coins) {
+        const username = document.getElementById('username-input').value;
+        if (!username) { alert("Please enter your Minecraft Username first!"); toggleCart(); return; }
+        
+        // Prevent buying the same thing twice in one cart
+        if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
+        
+        // Check if they already "own" this rank
+        if (name === ownedRank) { alert("You already own this rank!"); return; }
+
         cart.push({ name, dollars, coins });
         updateCartCount();
         renderCart();
@@ -239,6 +250,51 @@
 
     function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
 
+    // --- CHECKOUT & WEBHOOK LOGIC ---
+    async function processCheckout() {
+        const username = document.getElementById('username-input').value;
+        if (cart.length === 0) return;
+
+        // Check for ranks in the cart to update "Owned" status
+        cart.forEach(item => {
+            if (item.name.toLowerCase().includes("rank")) {
+                ownedRank = item.name; // User now owns this new rank
+            }
+        });
+
+        // Send to Discord Webhook
+        const payload = {
+            embeds: [{
+                title: "🛒 NEW PURCHASE: " + username,
+                color: 16744192, // Orange color
+                fields: [
+                    { name: "Player", value: username, inline: true },
+                    { name: "Total", value: document.getElementById('cart-total').innerText, inline: true },
+                    { name: "Items", value: cart.map(i => "• " + i.name).join("\n") }
+                ],
+                footer: { text: "MangoMC Store Tracking" },
+                timestamp: new Date()
+            }]
+        };
+
+        try {
+            await fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            alert("Purchase Successful! Check Discord for the receipt.");
+        } catch (e) {
+            alert("Purchase processed, but Webhook failed. (Did you set the URL?)");
+        }
+
+        // RESET EVERYTHING
+        cart = [];
+        updateCartCount();
+        renderCart();
+        toggleCart();
+    }
+
     function goHome() {
         document.getElementById('home-text').style.display = 'block';
         document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
@@ -253,32 +309,18 @@
         document.getElementById('btn-'+id).classList.add('active');
     }
 
-    // UPDATED STATS LOGIC
     async function fetchStats() {
         try {
-            // 1. Minecraft Status - Testing with FireMC
             const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
             const mcData = await mc.json();
-            if(mcData.online) {
-                document.getElementById('mc-count').innerText = mcData.players.online;
-            }
-
-            // 2. Discord Status - Fetching via Invite Code Metadata
-            // This works by checking the invite 'H8X9kGGmbE'
+            if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
+            
             const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
             const dsData = await ds.json();
-            if(dsData.approximate_presence_count) {
-                document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
-            } else if (dsData.approximate_member_count) {
-                document.getElementById('discord-count').innerText = dsData.approximate_member_count;
-            }
-        } catch(e) { 
-            console.log("Stats error:", e); 
-        }
+            if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
+        } catch(e) {}
     }
-
     fetchStats();
-    // Refresh every 30 seconds
     setInterval(fetchStats, 30000);
     </script>
 </body>
