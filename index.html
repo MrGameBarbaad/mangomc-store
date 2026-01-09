@@ -20,38 +20,24 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
-        /* --- VISUAL SIDEBAR --- */
         .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
         .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
         .sidebar-header h3 { color: #f97316; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .sidebar-btn { 
-            position: relative;
-            display: flex; 
-            align-items: center; 
-            padding: 20px 15px; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.02);
-            border-bottom: 1px solid #151518;
-        }
-
+        .sidebar-btn { position: relative; display: flex; align-items: center; padding: 20px 15px; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.02); border-bottom: 1px solid #151518; }
         .sidebar-btn:hover { background: rgba(249, 115, 22, 0.05); }
         .sidebar-btn.active { background: rgba(249, 115, 22, 0.12); }
         .sidebar-btn.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f97316; }
-        .sidebar-btn.active::after { content: '▶'; position: absolute; left: 2px; color: #f97316; font-size: 12px; top: 50%; transform: translateY(-50%); }
 
         .sidebar-icon-box { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
         .sidebar-label { font-weight: 800; font-size: 15px; color: #d1d1d1; }
         .sidebar-btn.active .sidebar-label { color: #f97316; }
-        
-        /* New Sidebar Image Style */
         .side-img { width: 60px; height: 60px; object-fit: contain; }
 
-        /* Store Styling */
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
-        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
+        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
         .fire-btn:hover { background: #fb923c; }
+        
         .category-content { display: none; }
         .category-content.active { display: block; }
 
@@ -59,7 +45,6 @@
         .side-menu.active { right: 0; }
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; }
         .currency-btn.active { background: #f97316; color: black; }
-
         .giftcard-icon { width: 18px; height: 18px; object-fit: contain; }
     </style>
 </head>
@@ -92,7 +77,7 @@
                 <span>Total</span>
                 <span id="cart-total" class="text-orange-500">0 Dollars</span>
             </div>
-            <button onclick="processCheckout()" class="w-full fire-btn py-4">Checkout</button>
+            <button onclick="alert('Proceeding to checkout...')" class="w-full fire-btn py-4">Checkout</button>
         </div>
     </div>
 
@@ -107,12 +92,12 @@
         </div>
         <img src="logo.png" class="main-logo">
         <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><div class="status-container"><img src="ipcopy.png" class="w-full"></div></div>
+            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
             <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
         </div>
-        <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box decoration-none">
+        <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box" target="_blank">
             <div><p class="info-text-main">DISCORD SERVER</p><p class="info-text-sub">CLICK TO JOIN</p></div>
-            <div class="status-container"><span class="count-bubble" id="discord-count">0</span><div class="status-container"><img src="discord.png" class="w-full"></div></div>
+            <div class="status-container"><span class="count-bubble" id="discord-count">0</span><img src="discord.png" class="w-full"></div>
         </a>
     </div>
 
@@ -133,9 +118,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-12">
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center">
-                                <img src="ranks.png" class="w-12 h-12 object-contain">
-                            </div>
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center"><img src="ranks.png" class="w-12 h-12 object-contain"></div>
                             <div>
                                 <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
                                 <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
@@ -144,38 +127,11 @@
                         <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
                     </div>
                 </div>
-
                 <div class="mb-10">
-                    <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br>
-                        <strong>To begin, please select a category from the sidebar.</strong>
-                    </p>
-                    
-                    <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a>
-                    </p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10">Discord Server</a>
-
-                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
-                    <p class="text-zinc-400 text-xs leading-relaxed mb-4">
-                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>
-                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>
-                        It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue. <br>
-                        if you are banned from MangoMC for breaking our rules you will lose access to your purchased goods for the duration of your ban. The strict "no refund policy" will also remain in place.
-                    </p>
-                    <div class="flex gap-2 mb-10">
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Terms and Conditions</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Impressum</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
-                    </div>
-
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-8">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay. To begin, please select a category from the sidebar.</p>
                     <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
-                        <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic">
-                            <img src="giftcard.png" class="giftcard-icon">GIFTCARD BALANCE
-                        </h3>
+                        <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic"><img src="giftcard.png" class="giftcard-icon"> GIFTCARD BALANCE</h3>
                         <div class="flex gap-2">
                             <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-700 px-4 py-2 text-xs rounded text-white outline-none">
                             <button onclick="alert('Balance: 0 Dollars')" class="bg-green-600 text-white font-black text-xs px-6 py-2 rounded">Check</button>
@@ -183,95 +139,111 @@
                     </div>
                 </div>
             </div>
+
             <div id="ranks" class="category-content">
-               <div class="flex items-center gap-4 mb-4">
-                  <img src="ranks.png" class="w-10 h-10">
-                     <h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3>
-                       </div>
-                     <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
-                        Supporting the server by purchasing a rank grants you exclusive cosmetic perks, priority access, and special commands. All ranks are permanent and help us keep the server running!
-                     </p>
-                  <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
-               </div>
+                <div class="flex items-center gap-4 mb-4"><img src="ranks.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
+                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Exclusive cosmetic perks, priority access, and special commands.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+            </div>
 
-           <div id="kits" class="category-content">
-               <div class="flex items-center gap-4 mb-4">
-                  <img src="kits.png" class="w-10 h-10">
-                     <h3 class="text-orange-500 font-black italic text-2xl uppercase">Exclusive Kits</h3>
-                       </div>
-                     <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
-                        Gear up for the fight! These kits provide you with essential items, armor, and tools to give you an edge in your adventure. One-time purchase per season.
-                     </p>
-                  <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
-               </div>
+            <div id="kits" class="category-content">
+                <div class="flex items-center gap-4 mb-4"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Exclusive Kits</h3></div>
+                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Gear up with essential items, armor, and tools.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+            </div>
 
-           <div id="coins" class="category-content">
-               <div class="flex items-center gap-4 mb-4">
-                  <img src="coins.png" class="w-10 h-10">
-                     <h3 class="text-orange-500 font-black italic text-2xl uppercase">Mango Coins</h3>
-                       </div>
-                     <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
-                        Mango Coins are our premium currency used for special shop items, unique cosmetics, and rare crate keys.
-                     </p>
-                  <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
-               </div>
+            <div id="coins" class="category-content">
+                <div class="flex items-center gap-4 mb-4"><img src="coins.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Mango Coins</h3></div>
+                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Premium currency for special shop items and cosmetics.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+            </div>
 
-           <div id="dollars" class="category-content">
-    <div class="flex items-center gap-4 mb-4">
-        <img src="dollars.png" class="w-10 h-10">
-        <h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3>
+            <div id="dollars" class="category-content">
+                <div class="flex items-center gap-4 mb-4"><img src="dollars.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3></div>
+                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Boost your economy for player markets.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+            </div>
+        </main>
     </div>
-    <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
-        Need a boost to your economy? Purchase in-game dollars to spend at the player market or server shops.
-    </p>
-    <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
-</div> ```
 
----
+    <script>
+        let currentCurrency = 'DOLLARS';
+        let cart = [];
 
-### 2. Fix the Script (Live Stats)
-Replace your entire `<script>` block at the bottom with this. I updated the Discord logic to fetch your specific server data:
+        function updatePlayerHead(u) {
+            const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
+            document.getElementById('player-head').src = url;
+            document.getElementById('login-head').src = url;
+            document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
+        }
 
-```javascript
-<script>
-    let currentCurrency = 'DOLLARS';
-    let cart = [];
+        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
 
-    function updatePlayerHead(u) { const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`; document.getElementById('player-head').src = url; document.getElementById('login-head').src = url; document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u; }
-    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-    function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); renderCart(); }
-    function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added!"); }
-    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-    function renderCart() { 
-        const container = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); 
-        container.innerHTML = ""; let total = 0; if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } 
-        cart.forEach((item, index) => { const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; total += val; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; }); 
-        totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; 
-    }
-    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-    function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); }
-    function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('btn-'+id).classList.add('active'); }
+        function setCurrency(type) {
+            currentCurrency = type;
+            document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
+            document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
+            renderCart();
+        }
 
-    // FIXED STATS FETCH
-    async function fetchStats() { 
-        try { 
-            // Minecraft Status
-            const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042');
-            const mcData = await mc.json();
-            if(mcData.online) {
-                document.getElementById('mc-count').innerText = mcData.players.online;
+        function addToCart(name, dollars, coins) {
+            cart.push({ name, dollars, coins });
+            updateCartCount();
+            renderCart();
+            alert(name + " added to cart!");
+        }
+
+        function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            container.innerHTML = "";
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>';
+                totalEl.innerText = `0 ${currentCurrency}`;
+                return;
             }
+            cart.forEach((item, index) => {
+                const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
+                total += val;
+                container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`;
+            });
+            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
+        }
 
-            // Discord Status (Updated with your ID: 1269584310578511904)
-            const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
-            const dsData = await ds.json();
-            if(dsData.presence_count !== undefined) {
-                document.getElementById('discord-count').innerText = dsData.presence_count;
-            }
-        } catch(e) { console.log("Stats error", e); } 
-    }
-    fetchStats();
-    setInterval(fetchStats, 60000); // Check every minute 
-</script>
+        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+
+        function goHome() {
+            document.getElementById('home-text').style.display = 'block';
+            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+        }
+
+        function showCategory(id) {
+            document.getElementById('home-text').style.display = 'none';
+            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('btn-'+id).classList.add('active');
+        }
+
+        async function fetchStats() {
+            try {
+                // MC Status
+                const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042');
+                const mcData = await mc.json();
+                if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
+                
+                // Discord Status (Correct ID 1269584310578511904)
+                const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
+                const dsData = await ds.json();
+                if(dsData.presence_count) document.getElementById('discord-count').innerText = dsData.presence_count;
+            } catch(e) { console.log("Stats update failed"); }
+        }
+        fetchStats();
+        setInterval(fetchStats, 60000);
+    </script>
 </body>
 </html>
