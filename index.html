@@ -5,358 +5,368 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MangoMC | Official Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
-        body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
-        
-        .hero-section { height: 575px; position: relative; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(21,21,24,1)), url('background.png'); background-size: cover; background-position: center bottom; }
-        .main-logo { width: 575px; z-index: 10; animation: logoPulse 1.5s ease-in-out infinite alternate; }
-        @keyframes logoPulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-        
-        .status-container { position: relative; width: 50px; height: 85px; display: flex; align-items: center; justify-content: center; }
-        .count-bubble { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #f97316; color: #000; font-weight: 900; font-size: 11px; padding: 3px 20px; border-radius: 20px; z-index: 30; white-space: nowrap; box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); border: 2px solid #151518; }
-        .header-ip-box { position: absolute; bottom: 1px; left: 3%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
-        .header-discord-box { position: absolute; bottom: 1px; right: 3%; display: flex; align-items: center; gap: 15px; cursor: pointer; text-align: right; }
-        .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
-        .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
-
-        .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
-        .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
-        .sidebar-header h3 { color: #f97316; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-
-        .sidebar-btn { position: relative; display: flex; align-items: center; padding: 20px 15px; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.02); border-bottom: 1px solid #151518; }
-        .sidebar-btn:hover { background: rgba(249, 115, 22, 0.05); }
-        .sidebar-btn.active { background: rgba(249, 115, 22, 0.12); }
-        .sidebar-btn.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f97316; }
-
-        .sidebar-icon-box { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
-        .sidebar-label { font-weight: 800; font-size: 15px; color: #d1d1d1; }
-        .sidebar-btn.active .sidebar-label { color: #f97316; }
-        .side-img { width: 60px; height: 60px; object-fit: contain; }
-
-        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
-        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
-        .fire-btn:hover { background: #fb923c; }
-        
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #fafafa; overflow-x: hidden; }
+        .sidebar-btn.active { background: #f97316; color: #000; }
         .category-content { display: none; }
-        .category-content.active { display: block; }
-
-        .side-menu { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
-        .side-menu.active { right: 0; }
-        .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; }
-        .currency-btn.active { background: #f97316; color: black; }
-        .giftcard-icon { width: 18px; height: 18px; object-fit: contain; }
+        .category-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .pkg-card { background: #18181b; border-radius: 8px; transition: all 0.2s; border: 1px solid #27272a; }
+        .pkg-card:hover { border-color: #f97316; transform: scale(1.01); }
+        .fire-btn { background: #f97316; color: #000; font-weight: 900; text-transform: uppercase; font-size: 10px; padding: 8px 16px; border-radius: 4px; transition: 0.2s; }
+        .fire-btn:hover { background: #fb923c; box-shadow: 0 0 15px rgba(249, 115, 22, 0.4); }
+        #cart-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        #cart-menu.active { transform: translateX(0); }
+        .currency-btn.active { border-color: #f97316; color: #f97316; }
     </style>
 </head>
 <body>
 
-    <div id="cart-menu" class="side-menu">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-orange-500 font-black italic uppercase text-lg">Your Cart</h2>
-            <button onclick="toggleCart()" class="text-white text-xl">×</button>
-        </div>
-        <div class="mb-6">
-            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Minecraft Username</p>
-            <div class="flex items-center gap-3 bg-black/40 p-3 rounded border border-zinc-700">
-                <img id="login-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded">
-                <input id="username-input" oninput="updatePlayerHead(this.value)" type="text" placeholder="Enter IGN..." class="bg-transparent w-full text-xs outline-none text-white">
+    <nav class="border-b border-zinc-800 bg-black/50 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="goHome()">
+                <div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center font-black text-black">M</div>
+                <h1 class="font-black italic text-xl tracking-tighter">MANGOMC</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex gap-4 text-[10px] font-bold text-zinc-500 uppercase">
+                    <div class="flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> <span id="mc-count">0</span> Online</div>
+                    <div class="flex items-center gap-1"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <span id="discord-count">0</span> Members</div>
+                </div>
+                <button onclick="toggleCart()" class="relative bg-zinc-900 p-2 rounded-lg border border-zinc-800 hover:border-orange-500 transition">
+                    🛒 <span id="cart-count-text" class="ml-1 text-[10px] font-black">0 ITEMS</span>
+                </button>
             </div>
         </div>
-        <div class="mb-6">
-            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Payment Currency</p>
-            <div class="flex gap-2">
-                <button onclick="setCurrency('DOLLARS')" id="curr-dollars" class="currency-btn active">DOLLARS</button>
-                <button onclick="setCurrency('COINS')" id="curr-coins" class="currency-btn">COINS</button>
-            </div>
-        </div>
-        <div id="cart-items" class="space-y-4 mb-8 pt-4 border-t border-zinc-800">
-            <p class="text-zinc-500 italic text-xs text-center">Empty.</p>
-        </div>
-        <div class="border-t border-zinc-800 pt-5">
-            <div class="flex justify-between font-black text-sm uppercase mb-5">
-                <span>Total</span>
-                <span id="cart-total" class="text-orange-500">0 Dollars</span>
-            </div>
-            <button onclick="processCheckout()" class="w-full fire-btn py-4">Checkout</button>
-        </div>
-    </div>
+    </nav>
 
-    <div class="hero-section">
-        <div onclick="goHome()" class="absolute top-5 left-5 bg-black/50 px-4 py-2 rounded text-[10px] font-black cursor-pointer">HOME</div>
-        <div class="absolute top-5 right-5 flex items-center gap-3 cursor-pointer" onclick="toggleCart()">
-            <div class="text-right">
-                <p id="display-name" class="text-[10px] font-bold uppercase">Guest Player</p>
-                <p id="cart-count-text" class="text-[9px] text-orange-500 font-black">0 ITEMS</p>
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <aside class="lg:col-span-3 space-y-6">
+            <div class="bg-zinc-900/50 p-6 rounded-xl border border-zinc-800">
+                <div class="flex items-center gap-4 mb-6">
+                    <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-10 h-10 rounded">
+                    <div>
+                        <p class="text-[10px] text-zinc-500 font-bold uppercase">Welcome,</p>
+                        <p id="display-name" class="font-black text-sm italic uppercase truncate">Guest Player</p>
+                    </div>
+                </div>
+                <input type="text" id="username-input" oninput="updatePlayerHead(this.value)" placeholder="Your Minecraft Username..." class="w-full bg-black border border-zinc-800 rounded px-3 py-2 text-xs focus:outline-none focus:border-orange-500 mb-4 uppercase font-bold">
             </div>
-            <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
-        </div>
-        <img src="logo.png" class="main-logo">
-        <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
-            <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
-        </div>
-        <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box" target="_blank">
-            <div><p class="info-text-main">DISCORD SERVER</p><p class="info-text-sub">CLICK TO JOIN</p></div>
-            <div class="status-container"><span class="count-bubble" id="discord-count">0</span><img src="discord.png" class="w-full"></div>
-        </a>
-    </div>
 
-    <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
-        <aside>
-            <div class="sidebar-container shadow-2xl">
-                <div class="sidebar-header"><h3>Select Category</h3></div>
-                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn"><div class="sidebar-icon-box"><img src="ranks.png" class="side-img"></div><span class="sidebar-label">Ranks</span></div>
-                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn"><div class="sidebar-icon-box"><img src="kits.png" class="side-img"></div><span class="sidebar-label">Kits</span></div>
-                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn"><div class="sidebar-icon-box"><img src="coins.png" class="side-img"></div><span class="sidebar-label">Coins</span></div>
-                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn border-none"><div class="sidebar-icon-box"><img src="dollars.png" class="side-img"></div><span class="sidebar-label">Dollars</span></div>
+            <div class="space-y-2">
+                <button id="btn-home" onclick="goHome()" class="sidebar-btn active w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic flex items-center justify-between"><span>🏠 Home</span></button>
+                <button id="btn-ranks" onclick="showCategory('ranks')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>⚔️ Ranks</span></button>
+                <button id="btn-kits" onclick="showCategory('kits')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>📦 Kits</span></button>
+                <button id="btn-coins" onclick="showCategory('coins')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>💰 Currency</span></button>
             </div>
         </aside>
 
-        <main class="md:col-span-3">
+        <main class="lg:col-span-9">
+            
             <div id="home-text">
+                <div class="bg-gradient-to-br from-orange-600 to-red-600 p-8 rounded-2xl mb-12 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-black italic uppercase leading-none mb-2">Winter Sale</h2>
+                        <p class="text-black font-bold uppercase text-sm">Use code <span class="bg-black text-white px-2">MANGO</span> for 10% off!</p>
+                    </div>
+                </div>
+
                 <h3 class="text-white font-black text-lg mb-6 uppercase italic">Featured Packages</h3>
                 <div class="grid grid-cols-1 gap-4 mb-12">
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center"><img src="ranks.png" class="w-12 h-12 object-contain"></div>
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">💎</div>
                             <div>
-                                <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
-                                <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
+                                <h4 class="text-white font-black text-base uppercase">VIP+ Rank</h4>
+                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 3,700 FREE COINS</p>
+                                <p class="text-xs font-bold text-orange-500">10,000 Dollars / 2,000 Coins</p>
                             </div>
                         </div>
-                        <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
-                    <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br>
-                        <strong>To begin, please select a category from the sidebar.</strong>
-                    </p>
-                    <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a>
-                    </p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10">Discord Server</a>
-
-                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
-                    <p class="text-zinc-400 text-xs leading-relaxed mb-4">
-                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>
-                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>
-                        It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue. <br>
-                        if you are banned from MangoMC for breaking our rules you will lose access to your purchased goods for the duration of your ban.
-                    </p>
-                    <div class="flex gap-2 mb-10">
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Terms and Conditions</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Impressum</button>
-                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
+                        <button onclick="addToCart('VIP+ Rank', 10000, 2000)" class="fire-btn">Add to Cart</button>
                     </div>
 
-                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
-                        <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic"><img src="giftcard.png" class="giftcard-icon"> GIFTCARD BALANCE</h3>
-                        <div class="flex gap-2">
-                            <input id="gc-input" type="text" placeholder="Card Number" class="flex-1 bg-black/40 border border-zinc-700 px-4 py-2 text-xs rounded text-white outline-none">
-                            <button onclick="alert('Balance: 0 Dollars')" class="bg-green-600 text-white font-black text-xs px-6 py-2 rounded">Check</button>
+                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-blue-500">
+                        <div class="flex items-center gap-6">
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">👑</div>
+                            <div>
+                                <h4 class="text-white font-black text-base uppercase">MVP++ Rank</h4>
+                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 3,000 COINS & 50,000 DOLLARS FREE</p>
+                                <p class="text-xs font-bold text-orange-500">30,000 Dollars / 6,000 Coins</p>
+                            </div>
                         </div>
+                        <button onclick="addToCart('MVP++ Rank', 30000, 6000)" class="fire-btn">Add to Cart</button>
+                    </div>
+
+                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-purple-500">
+                        <div class="flex items-center gap-6">
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">⚡</div>
+                            <div>
+                                <h4 class="text-white font-black text-base uppercase">Elite+ Rank</h4>
+                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 10,000 FREE COINS</p>
+                                <p class="text-xs font-bold text-orange-500">50,000 Dollars / 10,000 Coins</p>
+                            </div>
+                        </div>
+                        <button onclick="addToCart('Elite+ Rank', 50000, 10000)" class="fire-btn">Add to Cart</button>
                     </div>
                 </div>
             </div>
 
             <div id="ranks" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><img src="ranks.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Supporting the server by purchasing a rank grants you exclusive cosmetic perks, priority access, and special commands. All ranks are permanent and help us keep the server running!</p>
+                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
+                
+                <h4 class="text-zinc-500 font-black text-[10px] uppercase mb-3 tracking-widest">Special Offers</h4>
+                <div class="grid grid-cols-1 gap-4 mb-8">
+                    <div class="pkg-card p-4 border border-orange-500/50 flex justify-between items-center bg-orange-500/5">
+                        <div>
+                            <span class="bg-orange-500 text-black text-[8px] font-black px-2 py-0.5 rounded">FEATURED</span>
+                            <h4 class="text-white font-black text-sm uppercase mt-1">VIP+ Rank</h4>
+                            <p class="text-[9px] text-green-400 font-bold">+ 3,700 FREE COINS</p>
+                        </div>
+                        <button onclick="addToCart('VIP+ Rank', 10000, 2000)" class="fire-btn">Add</button>
+                    </div>
+                    <div class="pkg-card p-4 border border-blue-500/50 flex justify-between items-center bg-blue-500/5">
+                        <div>
+                            <span class="bg-blue-500 text-white text-[8px] font-black px-2 py-0.5 rounded">FEATURED</span>
+                            <h4 class="text-white font-black text-sm uppercase mt-1">MVP++ Rank</h4>
+                            <p class="text-[9px] text-green-400 font-bold">+ 3,000 COINS & 50k DOLLARS</p>
+                        </div>
+                        <button onclick="addToCart('MVP++ Rank', 30000, 6000)" class="fire-btn">Add</button>
+                    </div>
+                </div>
+
+                <h4 class="text-zinc-500 font-black text-[10px] uppercase mb-3 tracking-widest">Standard Ranks</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">Noob Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">500 $ / 100 C</p>
+                        <button onclick="addToCart('Noob Rank', 500, 100)" class="fire-btn">Add</button></div>
+                    </div>
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">VIP Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">2,500 $ / 500 C</p>
+                        <button onclick="addToCart('VIP Rank', 2500, 500)" class="fire-btn">Add</button></div>
+                    </div>
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">MVP Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">6,000 $ / 1,200 C</p>
+                        <button onclick="addToCart('MVP Rank', 6000, 1200)" class="fire-btn">Add</button></div>
+                    </div>
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">MVP+ Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">12,000 $ / 2,400 C</p>
+                        <button onclick="addToCart('MVP+ Rank', 12000, 2400)" class="fire-btn">Add</button></div>
+                    </div>
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">Elite Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">25,000 $ / 5,000 C</p>
+                        <button onclick="addToCart('Elite Rank', 25000, 5000)" class="fire-btn">Add</button></div>
+                    </div>
+                    <div class="pkg-card p-4 flex flex-col gap-3">
+                        <h4 class="text-white font-black text-sm uppercase">Pro Rank</h4>
+                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">40,000 $ / 8,000 C</p>
+                        <button onclick="addToCart('Pro Rank', 40000, 8000)" class="fire-btn">Add</button></div>
+                    </div>
+                </div>
                 <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
             <div id="kits" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Exclusive Kits</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Gear up for the fight! These kits provide you with essential items, armor, and tools to give you an edge in your adventure.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Kits & Items</h3></div>
+                <p class="text-zinc-500 italic text-sm">Kits coming soon...</p>
+                <button onclick="goHome()" class="mt-4 text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
             <div id="coins" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><img src="coins.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Mango Coins</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Mango Coins are our premium currency used for special shop items, unique cosmetics, and rare crate keys.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Buy Coins</h3></div>
+                <p class="text-zinc-500 italic text-sm">Coin packages coming soon...</p>
+                <button onclick="goHome()" class="mt-4 text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
-            <div id="dollars" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><img src="dollars.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Need a boost to your economy? Purchase in-game dollars to spend at the player market or server shops.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+            <div class="text-center py-20 opacity-20 hover:opacity-100 transition">
+                <button onclick="manualReset()" class="text-[10px] uppercase font-black text-zinc-500 hover:text-orange-500 border border-zinc-800 px-4 py-2 rounded">
+                    Reset Order Status (If cancelled by staff)
+                </button>
             </div>
         </main>
     </div>
 
-    <script>
-    let currentCurrency = 'DOLLARS';
-    let cart = [];
-    let ownedRank = localStorage.getItem('mangoOwnedRank') || ""; 
-    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm"; 
-
-    window.onload = function() {
-        refreshOwnedButtons();
-    };
-
-    function manualReset() {
-        if(confirm("Did staff cancel your order? Click OK to unlock the store buttons again.")) {
-            localStorage.removeItem('mangoOwnedRank');
-            ownedRank = "";
-            refreshOwnedButtons();
-            alert("Buttons unlocked! You can now try your order again.");
-        }
-    }
-
-    function updatePlayerHead(u) {
-        const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
-        document.getElementById('player-head').src = url;
-        document.getElementById('login-head').src = url;
-        document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
-    }
-
-    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-
-    function setCurrency(type) {
-        currentCurrency = type;
-        document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
-        document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
-        renderCart();
-    }
-
-    function addToCart(name, dollars, coins) {
-        const username = document.getElementById('username-input').value;
-        if (!username) { 
-            alert("Please enter your Minecraft Username first!"); 
-            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
-            return; 
-        }
-        if (name === ownedRank) { alert("You already own this rank!"); return; }
-        if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
-        cart.push({ name, dollars, coins });
-        updateCartCount();
-        renderCart();
-        alert(name + " added!");
-    }
-
-    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-
-    function renderCart() {
-        const container = document.getElementById('cart-items');
-        const totalEl = document.getElementById('cart-total');
-        container.innerHTML = "";
-        let total = 0;
-        if (cart.length === 0) {
-            container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
-            totalEl.innerText = `0 ${currentCurrency}`;
-            return;
-        }
-        cart.forEach((item, index) => {
-            const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
-            total += val;
-            container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`;
-        });
-        totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
-    }
-
-    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-
-    function refreshOwnedButtons() {
-        const allButtons = document.querySelectorAll('button');
-        allButtons.forEach(btn => {
-            if (ownedRank !== "" && btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${ownedRank}'`)) {
-                btn.innerText = "ALREADY OWNED";
-                btn.style.background = "#3f3f46";
-                btn.style.color = "#a1a1aa";
-                btn.style.cursor = "not-allowed";
-                btn.disabled = true;
-            } else if (btn.innerText === "ALREADY OWNED") {
-                btn.innerText = "Add to Cart";
-                btn.style.background = "#f97316";
-                btn.style.color = "#000";
-                btn.style.cursor = "pointer";
-                btn.disabled = false;
-            }
-        });
-    }
-
-    async function processCheckout() {
-        const username = document.getElementById('username-input').value.trim();
-        if (!username) { alert("Please enter your IGN!"); return; }
-        if (cart.length === 0) { alert("Cart is empty!"); return; }
-
-        const totalAmount = document.getElementById('cart-total').innerText;
-        const itemList = cart.map(i => `• ${i.name}`).join("\n");
+    <div id="cart-menu" class="fixed top-0 right-0 w-80 h-full bg-zinc-900 border-l border-zinc-800 z-50 p-6 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="font-black italic text-lg">YOUR CART</h3>
+            <button onclick="toggleCart()" class="text-zinc-500 hover:text-white">✕</button>
+        </div>
         
-        // AUTO-ASSIGNED COMMANDS
-        const failCmd = `/mail send ${username} You Don't Have Sufficient amount of ${currentCurrency} to purchase the order so your order has been cancelled.`;
-        const successCmd = `/mail send ${username} Your order for ${totalAmount} has been approved! Thank you for supporting MangoMC.`;
+        <div class="flex gap-2 mb-6">
+            <button id="curr-dollars" onclick="setCurrency('DOLLARS')" class="currency-btn active flex-1 py-2 border border-zinc-800 rounded font-black text-[10px] uppercase transition">Dollars</button>
+            <button id="curr-coins" onclick="setCurrency('COINS')" class="currency-btn flex-1 py-2 border border-zinc-800 rounded font-black text-[10px] uppercase transition">Coins</button>
+        </div>
 
-        const payload = {
-            "username": "MangoMC Order Manager",
-            "embeds": [{
-                "title": "📋 PENDING ORDER: Verification Needed",
-                "color": 16744192,
-                "fields": [
-                    { "name": "👤 Player (IGN)", "value": "```" + username + "```", "inline": true },
-                    { "name": "💰 Total Price", "value": "```" + totalAmount + "```", "inline": true },
-                    { "name": "📦 Items Requested", "value": itemList },
-                    { "name": "✅ IF SUCCESS (Copy/Paste):", "value": "```" + successCmd + "```" },
-                    { "name": "🚫 IF INSUFFICIENT FUNDS (Copy/Paste):", "value": "```" + failCmd + "```" },
-                    { "name": "🛠️ Staff Note", "value": "1. Check balance in-game.\n2. Paste command.\n3. React with ❌ or ✅ to this message." }
-                ],
-                "thumbnail": { "url": `https://mc-heads.net/body/${username}/right` }
-            }]
+        <div id="cart-items" class="flex-1 space-y-4 overflow-y-auto">
+            </div>
+
+        <div class="mt-auto pt-6 border-t border-zinc-800">
+            <div class="flex justify-between mb-4">
+                <p class="text-[10px] font-black text-zinc-500 uppercase">Total Cost</p>
+                <p id="cart-total" class="font-black text-orange-500">0 DOLLARS</p>
+            </div>
+            <button onclick="processCheckout()" class="w-full bg-orange-500 text-black font-black py-4 rounded uppercase italic tracking-tighter hover:bg-orange-400 transition">Complete Purchase</button>
+        </div>
+    </div>
+
+    <script>
+        let currentCurrency = 'DOLLARS';
+        let cart = [];
+        let ownedRank = localStorage.getItem('mangoOwnedRank') || ""; 
+        const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm"; 
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('staffreset')) {
+                localStorage.removeItem('mangoOwnedRank');
+                ownedRank = "";
+                alert("STAFF ACTION: Your store storage has been reset.");
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+            refreshOwnedButtons();
         };
 
-        try {
-            const response = await fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                alert("Order submitted! Staff will verify your balance. If you don't have enough " + currentCurrency + ", check your /mail in-game later.");
-                cart.forEach(item => {
-                    if (item.name.toLowerCase().includes("rank")) { 
-                        ownedRank = item.name; 
-                        localStorage.setItem('mangoOwnedRank', ownedRank);
-                    }
-                });
-                cart = [];
-                updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
+        function manualReset() {
+            if(confirm("Did staff cancel your order? Click OK to unlock buttons.")) {
+                localStorage.removeItem('mangoOwnedRank');
+                ownedRank = "";
+                refreshOwnedButtons();
+                alert("Store status reset!");
             }
-        } catch (e) { alert("Error sending order."); }
-    }
+        }
 
-    function goHome() {
-        document.getElementById('home-text').style.display = 'block';
-        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
-    }
+        function updatePlayerHead(u) {
+            const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
+            document.getElementById('player-head').src = url;
+            document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
+        }
 
-    function showCategory(id) {
-        document.getElementById('home-text').style.display = 'none';
-        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.getElementById('btn-'+id).classList.add('active');
-    }
+        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
 
-    async function fetchStats() {
-        try {
-            const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
-            const mcData = await mc.json();
-            if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
-            const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
-            const dsData = await ds.json();
-            if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
-        } catch(e) {}
-    }
-    fetchStats();
-    setInterval(fetchStats, 30000);
+        function setCurrency(type) {
+            currentCurrency = type;
+            document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
+            document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
+            renderCart();
+        }
+
+        function addToCart(name, dollars, coins) {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username) { alert("Enter your username!"); return; }
+            if (name === ownedRank) { alert("You already own this!"); return; }
+            if (cart.some(item => item.name === name)) { alert("Already in cart!"); return; }
+            cart.push({ name, dollars, coins });
+            updateCartCount();
+            renderCart();
+            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
+        }
+
+        function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            container.innerHTML = "";
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
+                totalEl.innerText = `0 ${currentCurrency}`;
+                return;
+            }
+            cart.forEach((item, index) => {
+                const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
+                total += val;
+                container.innerHTML += `<div class="bg-black/40 p-3 rounded flex justify-between items-center border border-zinc-800"><div class="text-[10px] font-black uppercase text-white">${item.name}<br><span class="text-orange-500">${val.toLocaleString()} ${currentCurrency}</span></div><button onclick="removeFromCart(${index})" class="text-rose-500">×</button></div>`;
+            });
+            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+
+        function refreshOwnedButtons() {
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                if (ownedRank !== "" && btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${ownedRank}'`)) {
+                    btn.innerText = "ALREADY OWNED";
+                    btn.style.background = "#3f3f46";
+                    btn.style.color = "#a1a1aa";
+                    btn.disabled = true;
+                } else if (btn.innerText === "ALREADY OWNED") {
+                    btn.innerText = "Add to Cart";
+                    btn.style.background = "#f97316";
+                    btn.style.color = "#000";
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        async function processCheckout() {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username) { alert("Enter IGN!"); return; }
+            if (cart.length === 0) { alert("Empty!"); return; }
+
+            const totalAmount = document.getElementById('cart-total').innerText;
+            const itemList = cart.map(i => `• ${i.name}`).join("\n");
+            const failCmd = `/mail send ${username} You Don't Have Sufficient amount of ${currentCurrency} to purchase the order so your order has been cancelled.`;
+            const resetLink = window.location.href.split('?')[0] + "?staffreset=true";
+
+            const payload = {
+                "username": "MangoMC Manager",
+                "embeds": [{
+                    "title": "📋 PENDING ORDER",
+                    "color": 16744192,
+                    "fields": [
+                        { "name": "👤 Player", "value": "```" + username + "```", "inline": true },
+                        { "name": "💰 Price", "value": "```" + totalAmount + "```", "inline": true },
+                        { "name": "📦 Items", "value": itemList },
+                        { "name": "🚫 REJECTION COMMAND (If no money):", "value": "```" + failCmd + "```" },
+                        { "name": "🔄 STORAGE RESET LINK (If player stuck):", "value": resetLink }
+                    ],
+                    "thumbnail": { "url": `https://mc-heads.net/body/${username}/right` }
+                }]
+            };
+
+            try {
+                const response = await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (response.ok) {
+                    alert("Order Sent! Staff will check your balance.");
+                    cart.forEach(item => { if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; localStorage.setItem('mangoOwnedRank', ownedRank); } });
+                    cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
+                }
+            } catch (e) { alert("Error!"); }
+        }
+
+        function goHome() {
+            document.getElementById('home-text').style.display = 'block';
+            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+            document.getElementById('btn-home').classList.add('active');
+        }
+
+        function showCategory(id) {
+            document.getElementById('home-text').style.display = 'none';
+            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('btn-'+id).classList.add('active');
+        }
+
+        async function fetchStats() {
+            try {
+                const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
+                const mcData = await mc.json();
+                if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
+                const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
+                const dsData = await ds.json();
+                if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
+            } catch(e) {}
+        }
+        fetchStats();
     </script>
 </body>
 </html>
