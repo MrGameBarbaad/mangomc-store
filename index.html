@@ -9,12 +9,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
         body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* Hero & Header Styles */
         .hero-section { height: 600px; position: relative; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(21,21,24,1)), url('background.png'); background-size: cover; background-position: center bottom; }
         .main-logo { width: 500px; z-index: 10; animation: logoPulse 5s ease-in-out infinite alternate; }
         @keyframes logoPulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
         
-        /* Header Info Boxes */
         .status-container { position: relative; width: 85px; height: 85px; display: flex; align-items: center; justify-content: center; }
         .count-bubble { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); background: #f97316; color: #000; font-weight: 900; font-size: 11px; padding: 3px 20px; border-radius: 20px; z-index: 30; white-space: nowrap; box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); border: 2px solid #151518; }
         .header-ip-box { position: absolute; bottom: 1px; left: 5%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
@@ -22,7 +20,6 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
-        /* Store UI */
         .sidebar-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; overflow: hidden; }
         .sidebar-btn { padding: 20px; border-bottom: 1px solid #151518; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 15px; }
         .sidebar-btn.active { border-left: 5px solid #f97316; background: #25252b; }
@@ -30,11 +27,9 @@
         .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
         .fire-btn:hover { background: #fb923c; }
         
-        /* Category content */
         .category-content { display: none; }
         .category-content.active { display: block; }
 
-        /* Side Menu Cart */
         .side-menu { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
         .side-menu.active { right: 0; }
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; }
@@ -83,9 +78,7 @@
             </div>
             <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
-
         <img src="logo.png" class="main-logo">
-
         <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
             <div class="status-container"><span class="count-bubble" id="mc-count">0</span><div class="status-container"><img src="ipcopy.png" class="w-full"></div></div>
             <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
@@ -98,11 +91,11 @@
 
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
         <aside>
-            <div class="sidebar-card">
-                <div onclick="showCategory('ranks')" class="sidebar-btn font-black uppercase text-xs">Ranks</div>
-                <div onclick="showCategory('kits')" class="sidebar-btn font-black uppercase text-xs">Kits</div>
-                <div onclick="showCategory('coins')" class="sidebar-btn font-black uppercase text-xs">Coins</div>
-                <div onclick="showCategory('dollars')" class="sidebar-btn font-black uppercase text-xs border-none">Dollars</div>
+            <div class="sidebar-card shadow-xl">
+                <div onclick="showCategory('ranks')" class="sidebar-btn font-black uppercase text-xs">🛡️ Ranks</div>
+                <div onclick="showCategory('kits')" class="sidebar-btn font-black uppercase text-xs">⚔️ Kits</div>
+                <div onclick="showCategory('coins')" class="sidebar-btn font-black uppercase text-xs">🪙 Coins</div>
+                <div onclick="showCategory('dollars')" class="sidebar-btn font-black uppercase text-xs border-none">💵 Dollars</div>
             </div>
         </aside>
 
@@ -135,7 +128,7 @@
                         <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
                     </div>
 
-                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
+                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800 mb-10">
                         <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic">
                             <img src="giftcard.png" class="w-4 h-4"> GIFTCARD BALANCE
                         </h3>
@@ -144,19 +137,19 @@
                             <button onclick="checkGiftcard()" class="bg-green-600 text-white font-black text-xs px-6 py-2 rounded">Check</button>
                         </div>
                     </div>
-                </div>
 
-                <h3 class="text-white font-black text-lg mb-6">Featured Packages</h3>
-                <div class="grid grid-cols-1 gap-4">
-                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
-                        <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
-                            <div>
-                                <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
-                                <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
+                    <h3 class="text-white font-black text-lg mb-6">Featured Packages</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
+                            <div class="flex items-center gap-6">
+                                <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
+                                <div>
+                                    <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
+                                    <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
+                                </div>
                             </div>
+                            <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
                         </div>
-                        <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -187,14 +180,7 @@
         function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); }
         function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active')); document.getElementById(id).classList.add('active'); }
         function checkGiftcard() { alert("Balance: 0 Dollars"); }
-        async function fetchStats() {
-            try {
-                const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const mcData = await mc.json();
-                document.getElementById('mc-count').innerText = mcData.players ? mcData.players.online : '0';
-                const disc = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true'); const discData = await disc.json();
-                document.getElementById('discord-count').innerText = discData.approximate_member_count || '0';
-            } catch(e) {}
-        }
+        async function fetchStats() { try { const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const mcData = await mc.json(); document.getElementById('mc-count').innerText = mcData.players ? mcData.players.online : '0'; const disc = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true'); const discData = await disc.json(); document.getElementById('discord-count').innerText = discData.approximate_member_count || '0'; } catch(e) {} }
         fetchStats();
     </script>
 </body>
