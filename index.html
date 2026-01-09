@@ -101,6 +101,20 @@
 
         <main class="md:col-span-3">
             <div id="home-text">
+                <h3 class="text-white font-black text-lg mb-6">Featured Packages</h3>
+                <div class="grid grid-cols-1 gap-4 mb-10">
+                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
+                        <div class="flex items-center gap-6">
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
+                            <div>
+                                <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
+                                <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
+                            </div>
+                        </div>
+                        <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
+                    </div>
+                </div>
+
                 <div class="mb-10">
                     <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
@@ -128,7 +142,7 @@
                         <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
                     </div>
 
-                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800 mb-10">
+                    <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
                         <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic">
                             <img src="giftcard.png" class="w-4 h-4"> GIFTCARD BALANCE
                         </h3>
@@ -137,27 +151,13 @@
                             <button onclick="checkGiftcard()" class="bg-green-600 text-white font-black text-xs px-6 py-2 rounded">Check</button>
                         </div>
                     </div>
-
-                    <h3 class="text-white font-black text-lg mb-6">Featured Packages</h3>
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
-                            <div class="flex items-center gap-6">
-                                <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
-                                <div>
-                                    <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
-                                    <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div id="ranks" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">RANKS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
-            <div id="kits" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">KITS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
-            <div id="coins" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">COINS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
-            <div id="dollars" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">DOLLARS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
+            <div id="ranks" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">🛡️ RANKS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
+            <div id="kits" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">⚔️ KITS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
+            <div id="coins" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">🪙 COINS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
+            <div id="dollars" class="category-content"><h3 class="text-orange-500 font-black italic mb-4">💵 DOLLARS</h3><button onclick="goHome()" class="text-xs text-zinc-500 font-bold uppercase">← Back</button></div>
         </main>
     </div>
 
