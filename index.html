@@ -77,7 +77,7 @@
                 <span>Total</span>
                 <span id="cart-total" class="text-orange-500">0 Dollars</span>
             </div>
-            <button onclick="alert('Proceeding to checkout...')" class="w-full fire-btn py-4">Checkout</button>
+            <button onclick="alert('Checkout initiated!')" class="w-full fire-btn py-4">Checkout</button>
         </div>
     </div>
 
@@ -127,9 +127,33 @@
                         <button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add to Cart</button>
                     </div>
                 </div>
+
                 <div class="mb-10">
+                    <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-8">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay. To begin, please select a category from the sidebar.</p>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                        MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br>
+                        <strong>To begin, please select a category from the sidebar.</strong>
+                    </p>
+                    <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                        Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a>
+                    </p>
+                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10">Discord Server</a>
+
+                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
+                    <p class="text-zinc-400 text-xs leading-relaxed mb-4">
+                        All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>
+                        Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>
+                        It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue. <br>
+                        if you are banned from MangoMC for breaking our rules you will lose access to your purchased goods for the duration of your ban.
+                    </p>
+                    <div class="flex gap-2 mb-10">
+                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Terms and Conditions</button>
+                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Impressum</button>
+                        <button class="bg-rose-500 text-white font-black text-[10px] px-4 py-2 rounded">Privacy Policy</button>
+                    </div>
+
                     <div class="bg-[#1e1e22] p-6 rounded border border-zinc-800">
                         <h3 class="text-orange-500 font-black text-xs uppercase flex items-center gap-2 mb-4 italic"><img src="giftcard.png" class="giftcard-icon"> GIFTCARD BALANCE</h3>
                         <div class="flex gap-2">
@@ -142,26 +166,26 @@
 
             <div id="ranks" class="category-content">
                 <div class="flex items-center gap-4 mb-4"><img src="ranks.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Exclusive cosmetic perks, priority access, and special commands.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Supporting the server by purchasing a rank grants you exclusive cosmetic perks, priority access, and special commands. All ranks are permanent and help us keep the server running!</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
             <div id="kits" class="category-content">
                 <div class="flex items-center gap-4 mb-4"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Exclusive Kits</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Gear up with essential items, armor, and tools.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Gear up for the fight! These kits provide you with essential items, armor, and tools to give you an edge in your adventure. One-time purchase per season.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
             <div id="coins" class="category-content">
                 <div class="flex items-center gap-4 mb-4"><img src="coins.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Mango Coins</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Premium currency for special shop items and cosmetics.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Mango Coins are our premium currency used for special shop items, unique cosmetics, and rare crate keys.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
             <div id="dollars" class="category-content">
                 <div class="flex items-center gap-4 mb-4"><img src="dollars.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 border-l-2 border-orange-500 pl-4">Boost your economy for player markets.</p>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back</button>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Need a boost to your economy? Purchase in-game dollars to spend at the player market or server shops.</p>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
         </main>
     </div>
@@ -190,7 +214,7 @@
             cart.push({ name, dollars, coins });
             updateCartCount();
             renderCart();
-            alert(name + " added to cart!");
+            alert(name + " added!");
         }
 
         function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
@@ -231,16 +255,14 @@
 
         async function fetchStats() {
             try {
-                // MC Status
                 const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042');
                 const mcData = await mc.json();
                 if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
                 
-                // Discord Status (Correct ID 1269584310578511904)
                 const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
                 const dsData = await ds.json();
                 if(dsData.presence_count) document.getElementById('discord-count').innerText = dsData.presence_count;
-            } catch(e) { console.log("Stats update failed"); }
+            } catch(e) { console.log("Stats fetch failed"); }
         }
         fetchStats();
         setInterval(fetchStats, 60000);
