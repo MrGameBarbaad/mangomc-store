@@ -26,6 +26,26 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
+        /* IP POPUP MODAL (NEW) */
+        #ip-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .ip-modal-content {
+            background: #1e1e22;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid #2d2d33;
+        }
+
         /* SIDEBAR */
         .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
         .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
@@ -35,25 +55,15 @@
         .sidebar-label { font-weight: 800; font-size: 15px; color: #d1d1d1; }
         .side-img { width: 60px; height: 60px; object-fit: contain; }
 
-        /* FIREMC STYLE CENTERED CART MODAL */
-        #cart-modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 10000; 
-            display: none; align-items: center; justify-content: center; 
-        }
-        .cart-modal { 
-            background: #232328; width: 100%; max-width: 450px; 
-            border-radius: 8px; overflow: hidden; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .cart-modal-header { background: #2d2d33; padding: 20px; display: flex; align-items: center; gap: 15px; }
-        .cart-modal-body { padding: 25px; }
-        
+        /* CART SLIDE-OUT */
+        .side-menu { position: fixed; top: 0; right: -450px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 1000; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
+        .side-menu.active { right: 0; }
         .input-field { background: #111; border: 1px solid #333; padding: 12px; border-radius: 4px; width: 100%; outline: none; color: white; font-weight: bold; margin-bottom: 15px; font-size: 12px; }
         .toggle-btn { padding: 8px; border-radius: 4px; font-size: 10px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; background: transparent; color: white; transition: 0.2s; text-transform: uppercase; }
         .toggle-btn.active { background: #f97316; color: black; border-color: #f97316; }
 
-        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 12px 20px; font-size: 12px; text-transform: uppercase; transition: 0.3s; cursor: pointer; border: none; }
+        /* BUTTONS */
+        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; border: none; }
     </style>
 </head>
 <body>
@@ -67,38 +77,40 @@
         </div>
     </div>
 
-    <div id="cart-modal-overlay" onclick="if(event.target == this) toggleCart(false)">
-        <div class="cart-modal">
-            <div class="cart-modal-header">
-                <img id="modal-player-head" src="https://mc-heads.net/avatar/steve/48" class="w-12 h-12 rounded">
-                <div class="flex-1">
-                    <h3 id="modal-player-name" class="text-orange-500 font-black uppercase text-sm">Player Name's Cart</h3>
-                    <p class="text-zinc-400 text-[10px] font-bold uppercase" id="modal-cart-count">0 ITEMS</p>
-                </div>
-                <button onclick="toggleCart(false)" class="text-zinc-500 hover:text-white text-xl">✕</button>
+    <div id="ip-modal">
+        <div class="ip-modal-content">
+            <h2 class="text-white font-black text-xl uppercase mb-2">MangoMC.info.gf</h2>
+            <p class="text-zinc-400 text-xs font-bold uppercase mb-6">We hope to see you online soon!</p>
+            <button onclick="closeIpModal()" class="fire-btn w-full py-3">OK</button>
+        </div>
+    </div>
+
+    <div id="cart-menu" class="side-menu">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-orange-500 font-black italic uppercase text-lg">Your Cart</h2>
+            <button onclick="toggleCart(false)" class="text-white text-xl">×</button>
+        </div>
+        <div class="mb-6">
+            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Select Payment Currency</p>
+            <div class="flex gap-2">
+                <button onclick="setCurrency('DOLLARS')" id="curr-dollars" class="toggle-btn active">DOLLARS</button>
+                <button onclick="setCurrency('COINS')" id="curr-coins" class="toggle-btn">COINS</button>
             </div>
-            
-            <div class="cart-modal-body">
-                <h4 class="text-white font-black uppercase text-[11px] mb-4 italic tracking-widest">Shopping Cart</h4>
-                
-                <div id="cart-items" class="space-y-3 mb-6">
-                    </div>
-
-                <div class="mb-6 pt-4 border-t border-zinc-800">
-                    <p class="text-[9px] text-orange-500 font-black uppercase mb-3">Choose Payment Method</p>
-                    <div class="flex gap-2">
-                        <button onclick="setCurrency('DOLLARS')" id="curr-dollars" class="toggle-btn active">DOLLARS</button>
-                        <button onclick="setCurrency('COINS')" id="curr-coins" class="toggle-btn">COINS</button>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-white font-black uppercase text-xs">Total Amount</span>
-                    <span id="cart-total" class="text-orange-500 font-black text-lg">0 DOLLARS</span>
-                </div>
-
-                <button onclick="processCheckout()" class="w-full fire-btn italic">PROCEED TO CHECKOUT →</button>
+        </div>
+        <div id="cart-items" class="space-y-4 mb-6 pt-4 border-t border-zinc-800"></div>
+        <div class="mb-6 pt-4 border-t border-zinc-800">
+            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Gift Card / Coupon</p>
+            <div class="flex gap-2">
+                <input type="text" placeholder="CODE" class="input-field mb-0 py-2">
+                <button class="fire-btn py-2">Apply</button>
             </div>
+        </div>
+        <div class="border-t border-zinc-800 pt-5">
+            <div class="flex justify-between font-black text-sm uppercase mb-5">
+                <span>Total</span>
+                <span id="cart-total" class="text-orange-500">0 Dollars</span>
+            </div>
+            <button onclick="processCheckout()" class="w-full fire-btn py-4">Complete Checkout</button>
         </div>
     </div>
 
@@ -106,14 +118,15 @@
         <div class="absolute top-5 right-5 flex items-center gap-3 cursor-pointer" onclick="toggleCart(true)">
             <div class="text-right">
                 <p id="top-display-name" class="text-[10px] font-bold uppercase">Guest</p>
-                <p id="cart-count-text" class="text-[9px] text-orange-500 font-black">0 ITEMS</p>
+                <p id="cart-count-text" class="text-[9px] text-orange-500 font-black">0 ITEMS IN CART</p>
             </div>
             <img id="top-player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
         <img src="logo.png" class="main-logo">
-        <div class="header-ip-box">
+        
+        <div class="header-ip-box" onclick="copyIp()">
             <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
-            <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">IP ADDRESS</p></div>
+            <div><p class="info-text-main">MangoMC.info.gf</p><p class="info-text-sub">CLICK TO COPY</p></div>
         </div>
     </div>
 
@@ -173,46 +186,26 @@
 
         function applyLoginData() {
             document.getElementById('top-display-name').innerText = userData.ign;
-            document.getElementById('modal-player-name').innerText = userData.ign + "'s Cart";
-            const headUrl = `https://mc-heads.net/avatar/${userData.ign}`;
-            document.getElementById('top-player-head').src = headUrl + "/32";
-            document.getElementById('modal-player-head').src = headUrl + "/48";
+            document.getElementById('top-player-head').src = `https://mc-heads.net/avatar/${userData.ign}/32`;
         }
 
-        function toggleCart(s) { 
-            document.getElementById('cart-modal-overlay').style.display = s ? 'flex' : 'none'; 
-            if(s) renderCart();
-        }
-
+        function toggleCart(s) { document.getElementById('cart-menu').classList.toggle('active', s); }
         function setCurrency(c) { 
             currentCurrency = c; 
             document.getElementById('curr-dollars').classList.toggle('active', c === 'DOLLARS');
             document.getElementById('curr-coins').classList.toggle('active', c === 'COINS');
-            renderCart();
+            document.getElementById('cart-total').innerText = "0 " + currentCurrency;
         }
 
-        function renderCart() {
-            const con = document.getElementById('cart-items');
-            con.innerHTML = cart.length ? "" : "<p class='text-[10px] text-zinc-500 uppercase font-bold'>Your cart is empty.</p>";
-            let tot = 0;
-            cart.forEach((i, idx) => {
-                const price = (currentCurrency === 'DOLLARS') ? i.d : i.c;
-                tot += price;
-                con.innerHTML += `
-                    <div class="bg-black/20 p-3 rounded flex justify-between items-center border border-zinc-800">
-                        <div>
-                            <p class="text-[10px] font-black uppercase text-white">${i.n}</p>
-                            <p class="text-orange-500 text-[9px] font-bold">${price.toLocaleString()} ${currentCurrency}</p>
-                        </div>
-                        <button onclick="cart.splice(${idx},1);renderCart();" class="text-rose-500 text-xs">✕</button>
-                    </div>`;
-            });
-            document.getElementById('cart-total').innerText = tot.toLocaleString() + " " + currentCurrency;
-            document.getElementById('cart-count-text').innerText = cart.length + " ITEMS";
-            document.getElementById('modal-cart-count').innerText = cart.length + " ITEMS";
+        // IP MODAL FUNCTIONS
+        function copyIp() {
+            const ip = "MangoMC.info.gf";
+            navigator.clipboard.writeText(ip);
+            document.getElementById('ip-modal').style.display = 'flex';
         }
-
-        function processCheckout() { alert("Checkout logic would go here!"); }
+        function closeIpModal() {
+            document.getElementById('ip-modal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
