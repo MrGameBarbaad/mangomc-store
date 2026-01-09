@@ -245,7 +245,25 @@
         function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
         function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); }
         function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('btn-'+id).classList.add('active'); }
-        async function fetchStats() { try { const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); const mcData = await mc.json(); document.getElementById('mc-count').innerText = mcData.players ? mcData.players.online : '0'; } catch(e) {} }
+        async function fetchStats() { 
+    try { 
+        // Minecraft Status
+        const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); 
+        const mcData = await mc.json(); 
+        // Check if server is online before setting count
+        if (mcData.online) {
+            document.getElementById('mc-count').innerText = mcData.players.online; 
+        }
+
+        // Discord Status
+        // Replace '1269584310578511904' with your actual Server ID if this isn't it
+        const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
+        const dsData = await ds.json();
+        if (dsData.presence_count !== undefined) {
+            document.getElementById('discord-count').innerText = dsData.presence_count;
+        }
+    } catch(e) { console.log("Stats error:", e); } 
+}
         fetchStats();
     </script>
 </body>
