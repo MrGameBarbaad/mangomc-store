@@ -191,81 +191,95 @@
     </div>
 
     <script>
-        let currentCurrency = 'DOLLARS';
-        let cart = [];
+    let currentCurrency = 'DOLLARS';
+    let cart = [];
 
-        function updatePlayerHead(u) {
-            const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
-            document.getElementById('player-head').src = url;
-            document.getElementById('login-head').src = url;
-            document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
+    function updatePlayerHead(u) {
+        const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
+        document.getElementById('player-head').src = url;
+        document.getElementById('login-head').src = url;
+        document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
+    }
+
+    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
+
+    function setCurrency(type) {
+        currentCurrency = type;
+        document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
+        document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
+        renderCart();
+    }
+
+    function addToCart(name, dollars, coins) {
+        cart.push({ name, dollars, coins });
+        updateCartCount();
+        renderCart();
+        alert(name + " added!");
+    }
+
+    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
+
+    function renderCart() {
+        const container = document.getElementById('cart-items');
+        const totalEl = document.getElementById('cart-total');
+        container.innerHTML = "";
+        let total = 0;
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>';
+            totalEl.innerText = `0 ${currentCurrency}`;
+            return;
         }
+        cart.forEach((item, index) => {
+            const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
+            total += val;
+            container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`;
+        });
+        totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
+    }
 
-        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
+    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
 
-        function setCurrency(type) {
-            currentCurrency = type;
-            document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
-            document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
-            renderCart();
-        }
+    function goHome() {
+        document.getElementById('home-text').style.display = 'block';
+        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+    }
 
-        function addToCart(name, dollars, coins) {
-            cart.push({ name, dollars, coins });
-            updateCartCount();
-            renderCart();
-            alert(name + " added!");
-        }
+    function showCategory(id) {
+        document.getElementById('home-text').style.display = 'none';
+        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-'+id).classList.add('active');
+    }
 
-        function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-
-        function renderCart() {
-            const container = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-            container.innerHTML = "";
-            let total = 0;
-            if (cart.length === 0) {
-                container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>';
-                totalEl.innerText = `0 ${currentCurrency}`;
-                return;
+    // UPDATED STATS LOGIC
+    async function fetchStats() {
+        try {
+            // 1. Minecraft Status - Testing with FireMC
+            const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
+            const mcData = await mc.json();
+            if(mcData.online) {
+                document.getElementById('mc-count').innerText = mcData.players.online;
             }
-            cart.forEach((item, index) => {
-                const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
-                total += val;
-                container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`;
-            });
-            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
-        }
 
-        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-
-        function goHome() {
-            document.getElementById('home-text').style.display = 'block';
-            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
+            // 2. Discord Status - Fetching via Invite Code Metadata
+            // This works by checking the invite 'H8X9kGGmbE'
+            const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
+            const dsData = await ds.json();
+            if(dsData.approximate_presence_count) {
+                document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
+            } else if (dsData.approximate_member_count) {
+                document.getElementById('discord-count').innerText = dsData.approximate_member_count;
+            }
+        } catch(e) { 
+            console.log("Stats error:", e); 
         }
+    }
 
-        function showCategory(id) {
-            document.getElementById('home-text').style.display = 'none';
-            document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('btn-'+id).classList.add('active');
-        }
-
-        async function fetchStats() {
-            try {
-                const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042');
-                const mcData = await mc.json();
-                if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
-                
-                const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
-                const dsData = await ds.json();
-                if(dsData.presence_count) document.getElementById('discord-count').innerText = dsData.presence_count;
-            } catch(e) { console.log("Stats fetch failed"); }
-        }
-        fetchStats();
-        setInterval(fetchStats, 60000);
+    fetchStats();
+    // Refresh every 30 seconds
+    setInterval(fetchStats, 30000);
     </script>
 </body>
 </html>
