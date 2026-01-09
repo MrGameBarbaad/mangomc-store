@@ -193,8 +193,14 @@
     <script>
     let currentCurrency = 'DOLLARS';
     let cart = [];
-    let ownedRank = ""; 
+    // Load the owned rank from the browser's storage so it remembers after a refresh
+    let ownedRank = localStorage.getItem('mangoOwnedRank') || ""; 
     const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm"; 
+
+    // Runs when the page loads to check for owned ranks
+    window.onload = function() {
+        refreshOwnedButtons();
+    };
 
     function updatePlayerHead(u) {
         const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
@@ -222,8 +228,13 @@
             return; 
         }
         
+        // Prevent adding if already owned
+        if (name === ownedRank) {
+            alert("You already own this rank!");
+            return;
+        }
+
         if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
-        if (name === ownedRank) { alert("You already own this rank!"); return; }
 
         cart.push({ name, dollars, coins });
         updateCartCount();
@@ -257,6 +268,28 @@
         cart.splice(index, 1); 
         updateCartCount(); 
         renderCart(); 
+    }
+
+    // Logic to update all buttons on the site if a rank is owned
+    function refreshOwnedButtons() {
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(btn => {
+            // Check if the button's click function contains the name of the owned rank
+            if (ownedRank !== "" && btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${ownedRank}'`)) {
+                btn.innerText = "ALREADY OWNED";
+                btn.style.background = "#3f3f46"; // Gray color
+                btn.style.color = "#a1a1aa";
+                btn.style.cursor = "not-allowed";
+                btn.disabled = true;
+            } else if (btn.innerText === "ALREADY OWNED") {
+                // If they bought a new rank, the old one becomes buyable again
+                btn.innerText = "Add to Cart";
+                btn.style.background = "#f97316";
+                btn.style.color = "#000";
+                btn.style.cursor = "pointer";
+                btn.disabled = false;
+            }
+        });
     }
 
     async function processCheckout() {
@@ -297,15 +330,19 @@
             if (response.ok) {
                 alert("Purchase Successful! Check Discord for the receipt.");
 
-                // Check for ranks to mark as owned
+                // Update ownership logic
                 cart.forEach(item => {
-                    if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; }
+                    if (item.name.toLowerCase().includes("rank")) { 
+                        ownedRank = item.name; 
+                        localStorage.setItem('mangoOwnedRank', ownedRank); // Save to browser
+                    }
                 });
 
                 cart = [];
                 updateCartCount();
                 renderCart();
                 toggleCart();
+                refreshOwnedButtons(); // Update buttons immediately
             } else {
                 alert("Order failed. Check your Webhook URL.");
             }
