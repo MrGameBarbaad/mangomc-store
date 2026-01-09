@@ -42,9 +42,11 @@
         .sidebar-btn.active::after { content: '▶'; position: absolute; left: 2px; color: #f97316; font-size: 12px; top: 50%; transform: translateY(-50%); }
 
         .sidebar-icon-box { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
-        .sidebar-icon-box span { font-size: 32px; }
         .sidebar-label { font-weight: 800; font-size: 15px; color: #d1d1d1; }
         .sidebar-btn.active .sidebar-label { color: #f97316; }
+        
+        /* New Sidebar Image Style */
+        .side-img { width: 35px; height: 35px; object-fit: contain; }
 
         /* Store Styling */
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
@@ -58,11 +60,7 @@
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; }
         .currency-btn.active { background: #f97316; color: black; }
 
-        .giftcard-icon {
-            width: 18px;    /* Adjust this to make it bigger or smaller */
-            height: 18px;
-            object-fit: contain; }
-
+        .giftcard-icon { width: 18px; height: 18px; object-fit: contain; }
     </style>
 </head>
 <body>
@@ -122,10 +120,10 @@
         <aside>
             <div class="sidebar-container shadow-2xl">
                 <div class="sidebar-header"><h3>Select Category</h3></div>
-                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn"><div class="sidebar-icon-box"><span>🛡️</span></div><span class="sidebar-label">Ranks</span></div>
-                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn"><div class="sidebar-icon-box"><span>⚔️</span></div><span class="sidebar-label">Kits</span></div>
-                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn"><div class="sidebar-icon-box"><span>🪙</span></div><span class="sidebar-label">Coins</span></div>
-                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn border-none"><div class="sidebar-icon-box"><span>💵</span></div><span class="sidebar-label">Dollars</span></div>
+                <div onclick="showCategory('ranks')" id="btn-ranks" class="sidebar-btn"><div class="sidebar-icon-box"><img src="ranks.png" class="side-img"></div><span class="sidebar-label">Ranks</span></div>
+                <div onclick="showCategory('kits')" id="btn-kits" class="sidebar-btn"><div class="sidebar-icon-box"><img src="kits.png" class="side-img"></div><span class="sidebar-label">Kits</span></div>
+                <div onclick="showCategory('coins')" id="btn-coins" class="sidebar-btn"><div class="sidebar-icon-box"><img src="coins.png" class="side-img"></div><span class="sidebar-label">Coins</span></div>
+                <div onclick="showCategory('dollars')" id="btn-dollars" class="sidebar-btn border-none"><div class="sidebar-icon-box"><img src="dollars.png" class="side-img"></div><span class="sidebar-label">Dollars</span></div>
             </div>
         </aside>
 
@@ -135,7 +133,9 @@
                 <div class="grid grid-cols-1 gap-4 mb-12">
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center text-3xl">🔥</div>
+                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center">
+                                <img src="ranks.png" class="w-12 h-12 object-contain">
+                            </div>
                             <div>
                                 <h4 class="text-white font-black text-base uppercase">VIP RANK</h4>
                                 <p class="text-xs font-bold text-orange-500">5,000 Dollars <span class="text-zinc-600 mx-1">/</span> <span class="text-zinc-400">1,000 Coins</span></p>
