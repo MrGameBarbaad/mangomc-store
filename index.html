@@ -217,54 +217,61 @@
                </div>
 
            <div id="dollars" class="category-content">
-               <div class="flex items-center gap-4 mb-4">
-                  <img src="dollars.png" class="w-10 h-10">
-                     <h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3>
-                       </div>
-                     <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
-                        Need a boost to your economy? Purchase in-game dollars to spend at the player market or server shops.
-                     </p>
-                  <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
-        </main>
+    <div class="flex items-center gap-4 mb-4">
+        <img src="dollars.png" class="w-10 h-10">
+        <h3 class="text-orange-500 font-black italic text-2xl uppercase">In-Game Dollars</h3>
     </div>
+    <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">
+        Need a boost to your economy? Purchase in-game dollars to spend at the player market or server shops.
+    </p>
+    <button onclick="goHome()" class="text-[10px] bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+</div> ```
 
-    <script>
-        let currentCurrency = 'DOLLARS';
-        let cart = [];
-        function updatePlayerHead(u) { const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`; document.getElementById('player-head').src = url; document.getElementById('login-head').src = url; document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u; }
-        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-        function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); renderCart(); }
-        function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added!"); }
-        function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-        function renderCart() { 
-            const container = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); 
-            container.innerHTML = ""; let total = 0; if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } 
-            cart.forEach((item, index) => { const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; total += val; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; }); 
-            totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; 
-        }
-        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-        function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); }
-        function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('btn-'+id).classList.add('active'); }
-        async function fetchStats() { 
-    try { 
-        // Minecraft Status
-        const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042'); 
-        const mcData = await mc.json(); 
-        // Check if server is online before setting count
-        if (mcData.online) {
-            document.getElementById('mc-count').innerText = mcData.players.online; 
-        }
+---
 
-        // Discord Status
-        // Replace '1269584310578511904' with your actual Server ID if this isn't it
-        const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
-        const dsData = await ds.json();
-        if (dsData.presence_count !== undefined) {
-            document.getElementById('discord-count').innerText = dsData.presence_count;
-        }
-    } catch(e) { console.log("Stats error:", e); } 
-}
-        fetchStats();
-    </script>
+### 2. Fix the Script (Live Stats)
+Replace your entire `<script>` block at the bottom with this. I updated the Discord logic to fetch your specific server data:
+
+```javascript
+<script>
+    let currentCurrency = 'DOLLARS';
+    let cart = [];
+
+    function updatePlayerHead(u) { const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`; document.getElementById('player-head').src = url; document.getElementById('login-head').src = url; document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u; }
+    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
+    function setCurrency(type) { currentCurrency = type; document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS'); document.getElementById('curr-coins').classList.toggle('active', type === 'COINS'); renderCart(); }
+    function addToCart(name, dollars, coins) { cart.push({ name, dollars, coins }); updateCartCount(); renderCart(); alert(name + " added!"); }
+    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
+    function renderCart() { 
+        const container = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); 
+        container.innerHTML = ""; let total = 0; if (cart.length === 0) { container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>'; totalEl.innerText = `0 ${currentCurrency}`; return; } 
+        cart.forEach((item, index) => { const val = currentCurrency === 'DOLLARS' ? item.dollars : item.coins; total += val; container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500 text-xs">×</button></div>`; }); 
+        totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`; 
+    }
+    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+    function goHome() { document.getElementById('home-text').style.display = 'block'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); }
+    function showCategory(id) { document.getElementById('home-text').style.display = 'none'; document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('btn-'+id).classList.add('active'); }
+
+    // FIXED STATS FETCH
+    async function fetchStats() { 
+        try { 
+            // Minecraft Status
+            const mc = await fetch('https://api.mcsrvstat.us/2/MangoMC.info.gf:25042');
+            const mcData = await mc.json();
+            if(mcData.online) {
+                document.getElementById('mc-count').innerText = mcData.players.online;
+            }
+
+            // Discord Status (Updated with your ID: 1269584310578511904)
+            const ds = await fetch('https://discord.com/api/guilds/1269584310578511904/widget.json');
+            const dsData = await ds.json();
+            if(dsData.presence_count !== undefined) {
+                document.getElementById('discord-count').innerText = dsData.presence_count;
+            }
+        } catch(e) { console.log("Stats error", e); } 
+    }
+    fetchStats();
+    setInterval(fetchStats, 60000); // Check every minute 
+</script>
 </body>
 </html>
