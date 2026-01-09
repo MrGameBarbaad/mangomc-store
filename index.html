@@ -16,8 +16,9 @@
         .pkg-card:hover { border-color: #f97316; transform: scale(1.01); }
         .fire-btn { background: #f97316; color: #000; font-weight: 900; text-transform: uppercase; font-size: 10px; padding: 8px 16px; border-radius: 4px; transition: 0.2s; }
         .fire-btn:hover { background: #fb923c; box-shadow: 0 0 15px rgba(249, 115, 22, 0.4); }
-        #cart-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        #cart-menu.active { transform: translateX(0); }
+        .fire-btn:disabled { background: #3f3f46; color: #a1a1aa; cursor: not-allowed; box-shadow: none; }
+        #cart-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); visibility: hidden; }
+        #cart-menu.active { transform: translateX(0); visibility: visible; }
         .currency-btn.active { border-color: #f97316; color: #f97316; }
     </style>
 </head>
@@ -27,15 +28,11 @@
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
             <div class="flex items-center gap-2 cursor-pointer" onclick="goHome()">
                 <div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center font-black text-black">M</div>
-                <h1 class="font-black italic text-xl tracking-tighter">MANGOMC</h1>
+                <h1 class="font-black italic text-xl tracking-tighter uppercase">MANGOMC</h1>
             </div>
             <div class="flex items-center gap-4">
-                <div class="hidden md:flex gap-4 text-[10px] font-bold text-zinc-500 uppercase">
-                    <div class="flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> <span id="mc-count">0</span> Online</div>
-                    <div class="flex items-center gap-1"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <span id="discord-count">0</span> Members</div>
-                </div>
                 <button onclick="toggleCart()" class="relative bg-zinc-900 p-2 rounded-lg border border-zinc-800 hover:border-orange-500 transition">
-                    🛒 <span id="cart-count-text" class="ml-1 text-[10px] font-black">0 ITEMS</span>
+                    🛒 <span id="cart-count-text" class="ml-1 text-[10px] font-black uppercase">0 ITEMS</span>
                 </button>
             </div>
         </div>
@@ -45,42 +42,42 @@
         <aside class="lg:col-span-3 space-y-6">
             <div class="bg-zinc-900/50 p-6 rounded-xl border border-zinc-800">
                 <div class="flex items-center gap-4 mb-6">
-                    <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-10 h-10 rounded">
+                    <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-10 h-10 rounded shadow-lg">
                     <div>
                         <p class="text-[10px] text-zinc-500 font-bold uppercase">Welcome,</p>
                         <p id="display-name" class="font-black text-sm italic uppercase truncate">Guest Player</p>
                     </div>
                 </div>
-                <input type="text" id="username-input" oninput="updatePlayerHead(this.value)" placeholder="Your Minecraft Username..." class="w-full bg-black border border-zinc-800 rounded px-3 py-2 text-xs focus:outline-none focus:border-orange-500 mb-4 uppercase font-bold">
+                <input type="text" id="username-input" oninput="updatePlayerHead(this.value)" placeholder="YOUR MINECRAFT USERNAME..." class="w-full bg-black border border-zinc-800 rounded px-3 py-2 text-xs focus:outline-none focus:border-orange-500 mb-4 uppercase font-bold tracking-tight">
             </div>
 
             <div class="space-y-2">
-                <button id="btn-home" onclick="goHome()" class="sidebar-btn active w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic flex items-center justify-between"><span>🏠 Home</span></button>
-                <button id="btn-ranks" onclick="showCategory('ranks')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>⚔️ Ranks</span></button>
-                <button id="btn-kits" onclick="showCategory('kits')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>📦 Kits</span></button>
-                <button id="btn-coins" onclick="showCategory('coins')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-xs uppercase italic hover:bg-zinc-800 transition"><span>💰 Currency</span></button>
+                <button id="btn-home" onclick="goHome()" class="sidebar-btn active w-full text-left px-4 py-3 rounded-lg font-black text-[11px] uppercase italic transition-all">🏠 Home</button>
+                <button id="btn-ranks" onclick="showCategory('ranks')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-[11px] uppercase italic transition-all">⚔️ Ranks</button>
+                <button id="btn-kits" onclick="showCategory('kits')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-[11px] uppercase italic transition-all">📦 Kits</button>
+                <button id="btn-coins" onclick="showCategory('coins')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg font-black text-[11px] uppercase italic transition-all">💰 Currency</button>
             </div>
         </aside>
 
         <main class="lg:col-span-9">
             
             <div id="home-text">
-                <div class="bg-gradient-to-br from-orange-600 to-red-600 p-8 rounded-2xl mb-12 relative overflow-hidden">
+                <div class="bg-gradient-to-br from-orange-600 to-red-600 p-10 rounded-2xl mb-12 relative overflow-hidden shadow-2xl">
                     <div class="relative z-10">
-                        <h2 class="text-4xl font-black italic uppercase leading-none mb-2">Winter Sale</h2>
-                        <p class="text-black font-bold uppercase text-sm">Use code <span class="bg-black text-white px-2">MANGO</span> for 10% off!</p>
+                        <h2 class="text-5xl font-black italic uppercase leading-none mb-2 tracking-tighter">Winter Sale</h2>
+                        <p class="text-black font-black uppercase text-xs tracking-widest">Use code <span class="bg-black text-white px-2 py-0.5 rounded">MANGO</span> for 10% off!</p>
                     </div>
                 </div>
 
-                <h3 class="text-white font-black text-lg mb-6 uppercase italic">Featured Packages</h3>
+                <h3 class="text-white font-black text-sm mb-6 uppercase italic tracking-widest opacity-80">Featured Packages</h3>
                 <div class="grid grid-cols-1 gap-4 mb-12">
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">💎</div>
+                            <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl shadow-inner">💎</div>
                             <div>
-                                <h4 class="text-white font-black text-base uppercase">VIP+ Rank</h4>
-                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 3,700 FREE COINS</p>
-                                <p class="text-xs font-bold text-orange-500">10,000 Dollars / 2,000 Coins</p>
+                                <h4 class="text-white font-black text-base uppercase tracking-tight">VIP+ Rank</h4>
+                                <p class="text-[9px] text-green-400 font-black uppercase tracking-widest mb-1">+ BONUS: 3,700 FREE COINS</p>
+                                <p class="text-[10px] font-bold text-orange-500 opacity-90">10,000 Dollars / 2,000 Coins</p>
                             </div>
                         </div>
                         <button onclick="addToCart('VIP+ Rank', 10000, 2000)" class="fire-btn">Add to Cart</button>
@@ -88,11 +85,11 @@
 
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-blue-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">👑</div>
+                            <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl shadow-inner">👑</div>
                             <div>
-                                <h4 class="text-white font-black text-base uppercase">MVP++ Rank</h4>
-                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 3,000 COINS & 50,000 DOLLARS FREE</p>
-                                <p class="text-xs font-bold text-orange-500">30,000 Dollars / 6,000 Coins</p>
+                                <h4 class="text-white font-black text-base uppercase tracking-tight">MVP++ Rank</h4>
+                                <p class="text-[9px] text-green-400 font-black uppercase tracking-widest mb-1">+ BONUS: 3,000 COINS & 50,000 DOLLARS FREE</p>
+                                <p class="text-[10px] font-bold text-orange-500 opacity-90">30,000 Dollars / 6,000 Coins</p>
                             </div>
                         </div>
                         <button onclick="addToCart('MVP++ Rank', 30000, 6000)" class="fire-btn">Add to Cart</button>
@@ -100,11 +97,11 @@
 
                     <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-purple-500">
                         <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center font-black text-2xl">⚡</div>
+                            <div class="w-14 h-14 bg-black/40 rounded flex items-center justify-center text-2xl shadow-inner">⚡</div>
                             <div>
-                                <h4 class="text-white font-black text-base uppercase">Elite+ Rank</h4>
-                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 10,000 FREE COINS</p>
-                                <p class="text-xs font-bold text-orange-500">50,000 Dollars / 10,000 Coins</p>
+                                <h4 class="text-white font-black text-base uppercase tracking-tight">Elite+ Rank</h4>
+                                <p class="text-[9px] text-green-400 font-black uppercase tracking-widest mb-1">+ BONUS: 10,000 FREE COINS</p>
+                                <p class="text-[10px] font-bold text-orange-500 opacity-90">50,000 Dollars / 10,000 Coins</p>
                             </div>
                         </div>
                         <button onclick="addToCart('Elite+ Rank', 50000, 10000)" class="fire-btn">Add to Cart</button>
@@ -113,79 +110,58 @@
             </div>
 
             <div id="ranks" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
+                <div class="flex items-center gap-4 mb-8">
+                    <h3 class="text-orange-500 font-black italic text-3xl uppercase tracking-tighter">Server Ranks</h3>
+                </div>
                 
-                <h4 class="text-zinc-500 font-black text-[10px] uppercase mb-3 tracking-widest">Special Offers</h4>
-                <div class="grid grid-cols-1 gap-4 mb-8">
-                    <div class="pkg-card p-4 border border-orange-500/50 flex justify-between items-center bg-orange-500/5">
-                        <div>
-                            <span class="bg-orange-500 text-black text-[8px] font-black px-2 py-0.5 rounded">FEATURED</span>
-                            <h4 class="text-white font-black text-sm uppercase mt-1">VIP+ Rank</h4>
-                            <p class="text-[9px] text-green-400 font-bold">+ 3,700 FREE COINS</p>
-                        </div>
-                        <button onclick="addToCart('VIP+ Rank', 10000, 2000)" class="fire-btn">Add</button>
-                    </div>
-                    <div class="pkg-card p-4 border border-blue-500/50 flex justify-between items-center bg-blue-500/5">
-                        <div>
-                            <span class="bg-blue-500 text-white text-[8px] font-black px-2 py-0.5 rounded">FEATURED</span>
-                            <h4 class="text-white font-black text-sm uppercase mt-1">MVP++ Rank</h4>
-                            <p class="text-[9px] text-green-400 font-bold">+ 3,000 COINS & 50k DOLLARS</p>
-                        </div>
-                        <button onclick="addToCart('MVP++ Rank', 30000, 6000)" class="fire-btn">Add</button>
-                    </div>
-                </div>
-
-                <h4 class="text-zinc-500 font-black text-[10px] uppercase mb-3 tracking-widest">Standard Ranks</h4>
+                <h4 class="text-zinc-600 font-black text-[9px] uppercase mb-4 tracking-[0.2em]">Standard Selection</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">Noob Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">500 $ / 100 C</p>
-                        <button onclick="addToCart('Noob Rank', 500, 100)" class="fire-btn">Add</button></div>
+                    <div class="pkg-card p-4 flex flex-col gap-4">
+                        <h4 class="text-white font-black text-sm uppercase tracking-tight">Noob Rank</h4>
+                        <div class="flex justify-between items-center border-t border-zinc-800 pt-3">
+                            <p class="text-[10px] font-bold text-orange-500">500 $ / 100 C</p>
+                            <button onclick="addToCart('Noob Rank', 500, 100)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">VIP Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">2,500 $ / 500 C</p>
-                        <button onclick="addToCart('VIP Rank', 2500, 500)" class="fire-btn">Add</button></div>
+                    <div class="pkg-card p-4 flex flex-col gap-4">
+                        <h4 class="text-white font-black text-sm uppercase tracking-tight">VIP Rank</h4>
+                        <div class="flex justify-between items-center border-t border-zinc-800 pt-3">
+                            <p class="text-[10px] font-bold text-orange-500">2,500 $ / 500 C</p>
+                            <button onclick="addToCart('VIP Rank', 2500, 500)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">MVP Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">6,000 $ / 1,200 C</p>
-                        <button onclick="addToCart('MVP Rank', 6000, 1200)" class="fire-btn">Add</button></div>
+                    <div class="pkg-card p-4 flex flex-col gap-4">
+                        <h4 class="text-white font-black text-sm uppercase tracking-tight">MVP Rank</h4>
+                        <div class="flex justify-between items-center border-t border-zinc-800 pt-3">
+                            <p class="text-[10px] font-bold text-orange-500">6,000 $ / 1,200 C</p>
+                            <button onclick="addToCart('MVP Rank', 6000, 1200)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">MVP+ Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">12,000 $ / 2,400 C</p>
-                        <button onclick="addToCart('MVP+ Rank', 12000, 2400)" class="fire-btn">Add</button></div>
-                    </div>
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">Elite Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">25,000 $ / 5,000 C</p>
-                        <button onclick="addToCart('Elite Rank', 25000, 5000)" class="fire-btn">Add</button></div>
-                    </div>
-                    <div class="pkg-card p-4 flex flex-col gap-3">
-                        <h4 class="text-white font-black text-sm uppercase">Pro Rank</h4>
-                        <div class="flex justify-between items-center"><p class="text-[11px] font-bold text-orange-500">40,000 $ / 8,000 C</p>
-                        <button onclick="addToCart('Pro Rank', 40000, 8000)" class="fire-btn">Add</button></div>
+                    <div class="pkg-card p-4 flex flex-col gap-4">
+                        <h4 class="text-white font-black text-sm uppercase tracking-tight">Elite Rank</h4>
+                        <div class="flex justify-between items-center border-t border-zinc-800 pt-3">
+                            <p class="text-[10px] font-bold text-orange-500">25,000 $ / 5,000 C</p>
+                            <button onclick="addToCart('Elite Rank', 25000, 5000)" class="fire-btn">Add</button>
+                        </div>
                     </div>
                 </div>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <button onclick="goHome()" class="text-[9px] bg-zinc-800 px-6 py-2 rounded font-black uppercase tracking-widest hover:bg-zinc-700 transition">← Back to Home</button>
             </div>
 
             <div id="kits" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Kits & Items</h3></div>
-                <p class="text-zinc-500 italic text-sm">Kits coming soon...</p>
-                <button onclick="goHome()" class="mt-4 text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <h3 class="text-orange-500 font-black italic text-3xl uppercase mb-6">Kits</h3>
+                <p class="text-zinc-500 italic text-sm border-l-2 border-zinc-800 pl-4">Restocking soon...</p>
+                <button onclick="goHome()" class="mt-8 text-[9px] bg-zinc-800 px-6 py-2 rounded font-black uppercase tracking-widest hover:bg-zinc-700 transition">← Back to Home</button>
             </div>
-
             <div id="coins" class="category-content">
-                <div class="flex items-center gap-4 mb-4"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Buy Coins</h3></div>
-                <p class="text-zinc-500 italic text-sm">Coin packages coming soon...</p>
-                <button onclick="goHome()" class="mt-4 text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <h3 class="text-orange-500 font-black italic text-3xl uppercase mb-6">Currency</h3>
+                <p class="text-zinc-500 italic text-sm border-l-2 border-zinc-800 pl-4">Exchange portal loading...</p>
+                <button onclick="goHome()" class="mt-8 text-[9px] bg-zinc-800 px-6 py-2 rounded font-black uppercase tracking-widest hover:bg-zinc-700 transition">← Back to Home</button>
             </div>
 
-            <div class="text-center py-20 opacity-20 hover:opacity-100 transition">
-                <button onclick="manualReset()" class="text-[10px] uppercase font-black text-zinc-500 hover:text-orange-500 border border-zinc-800 px-4 py-2 rounded">
-                    Reset Order Status (If cancelled by staff)
+            <div class="text-center py-20 opacity-20 hover:opacity-100 transition duration-500">
+                <button onclick="manualReset()" class="text-[8px] uppercase font-black text-zinc-600 hover:text-orange-500 border border-zinc-900 px-4 py-2 rounded tracking-[0.3em]">
+                    Reset Order Data
                 </button>
             </div>
         </main>
@@ -193,24 +169,23 @@
 
     <div id="cart-menu" class="fixed top-0 right-0 w-80 h-full bg-zinc-900 border-l border-zinc-800 z-50 p-6 flex flex-col shadow-2xl">
         <div class="flex justify-between items-center mb-8">
-            <h3 class="font-black italic text-lg">YOUR CART</h3>
-            <button onclick="toggleCart()" class="text-zinc-500 hover:text-white">✕</button>
+            <h3 class="font-black italic text-xl tracking-tighter uppercase">CART</h3>
+            <button onclick="toggleCart()" class="text-zinc-600 hover:text-white transition">✕</button>
         </div>
         
         <div class="flex gap-2 mb-6">
-            <button id="curr-dollars" onclick="setCurrency('DOLLARS')" class="currency-btn active flex-1 py-2 border border-zinc-800 rounded font-black text-[10px] uppercase transition">Dollars</button>
-            <button id="curr-coins" onclick="setCurrency('COINS')" class="currency-btn flex-1 py-2 border border-zinc-800 rounded font-black text-[10px] uppercase transition">Coins</button>
+            <button id="curr-dollars" onclick="setCurrency('DOLLARS')" class="currency-btn active flex-1 py-2 border border-zinc-800 rounded font-black text-[9px] uppercase tracking-widest">Dollars</button>
+            <button id="curr-coins" onclick="setCurrency('COINS')" class="currency-btn flex-1 py-2 border border-zinc-800 rounded font-black text-[9px] uppercase tracking-widest">Coins</button>
         </div>
 
-        <div id="cart-items" class="flex-1 space-y-4 overflow-y-auto">
-            </div>
+        <div id="cart-items" class="flex-1 space-y-4 overflow-y-auto pr-2 custom-scroll"></div>
 
         <div class="mt-auto pt-6 border-t border-zinc-800">
             <div class="flex justify-between mb-4">
-                <p class="text-[10px] font-black text-zinc-500 uppercase">Total Cost</p>
+                <p class="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Subtotal</p>
                 <p id="cart-total" class="font-black text-orange-500">0 DOLLARS</p>
             </div>
-            <button onclick="processCheckout()" class="w-full bg-orange-500 text-black font-black py-4 rounded uppercase italic tracking-tighter hover:bg-orange-400 transition">Complete Purchase</button>
+            <button onclick="processCheckout()" class="w-full bg-orange-500 text-black font-black py-4 rounded uppercase italic tracking-tighter hover:bg-orange-400 transition-all shadow-lg">Complete Purchase</button>
         </div>
     </div>
 
@@ -225,18 +200,16 @@
             if (urlParams.has('staffreset')) {
                 localStorage.removeItem('mangoOwnedRank');
                 ownedRank = "";
-                alert("STAFF ACTION: Your store storage has been reset.");
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
             refreshOwnedButtons();
         };
 
         function manualReset() {
-            if(confirm("Did staff cancel your order? Click OK to unlock buttons.")) {
+            if(confirm("Unlock store buttons?")) {
                 localStorage.removeItem('mangoOwnedRank');
                 ownedRank = "";
                 refreshOwnedButtons();
-                alert("Store status reset!");
             }
         }
 
@@ -257,9 +230,9 @@
 
         function addToCart(name, dollars, coins) {
             const username = document.getElementById('username-input').value.trim();
-            if (!username) { alert("Enter your username!"); return; }
-            if (name === ownedRank) { alert("You already own this!"); return; }
-            if (cart.some(item => item.name === name)) { alert("Already in cart!"); return; }
+            if (!username) { alert("Enter Username First!"); return; }
+            if (name === ownedRank) { alert("Already Owned!"); return; }
+            if (cart.some(item => item.name === name)) { alert("In Cart!"); return; }
             cart.push({ name, dollars, coins });
             updateCartCount();
             renderCart();
@@ -274,14 +247,14 @@
             container.innerHTML = "";
             let total = 0;
             if (cart.length === 0) {
-                container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
+                container.innerHTML = '<p class="text-zinc-600 italic text-[10px] text-center mt-10 uppercase tracking-widest">Cart is empty</p>';
                 totalEl.innerText = `0 ${currentCurrency}`;
                 return;
             }
             cart.forEach((item, index) => {
                 const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
                 total += val;
-                container.innerHTML += `<div class="bg-black/40 p-3 rounded flex justify-between items-center border border-zinc-800"><div class="text-[10px] font-black uppercase text-white">${item.name}<br><span class="text-orange-500">${val.toLocaleString()} ${currentCurrency}</span></div><button onclick="removeFromCart(${index})" class="text-rose-500">×</button></div>`;
+                container.innerHTML += `<div class="bg-black/40 p-3 rounded flex justify-between items-center border border-zinc-800"><div class="text-[10px] font-black uppercase text-white">${item.name}<br><span class="text-orange-500">${val.toLocaleString()} ${currentCurrency}</span></div><button onclick="removeFromCart(${index})" class="text-rose-500 hover:text-white transition">✕</button></div>`;
             });
             totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
         }
@@ -291,16 +264,15 @@
         function refreshOwnedButtons() {
             const allButtons = document.querySelectorAll('button');
             allButtons.forEach(btn => {
-                if (ownedRank !== "" && btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${ownedRank}'`)) {
-                    btn.innerText = "ALREADY OWNED";
-                    btn.style.background = "#3f3f46";
-                    btn.style.color = "#a1a1aa";
-                    btn.disabled = true;
-                } else if (btn.innerText === "ALREADY OWNED") {
-                    btn.innerText = "Add to Cart";
-                    btn.style.background = "#f97316";
-                    btn.style.color = "#000";
-                    btn.disabled = false;
+                const clickAttr = btn.getAttribute('onclick');
+                if (clickAttr && clickAttr.includes('addToCart')) {
+                    if (ownedRank !== "" && clickAttr.includes(`'${ownedRank}'`)) {
+                        btn.innerText = "ALREADY OWNED";
+                        btn.disabled = true;
+                    } else {
+                        btn.innerText = btn.closest('.category-content') ? "Add" : "Add to Cart";
+                        btn.disabled = false;
+                    }
                 }
             });
         }
@@ -312,11 +284,10 @@
 
             const totalAmount = document.getElementById('cart-total').innerText;
             const itemList = cart.map(i => `• ${i.name}`).join("\n");
-            const failCmd = `/mail send ${username} You Don't Have Sufficient amount of ${currentCurrency} to purchase the order so your order has been cancelled.`;
             const resetLink = window.location.href.split('?')[0] + "?staffreset=true";
 
             const payload = {
-                "username": "MangoMC Manager",
+                "username": "MangoMC Order",
                 "embeds": [{
                     "title": "📋 PENDING ORDER",
                     "color": 16744192,
@@ -324,8 +295,7 @@
                         { "name": "👤 Player", "value": "```" + username + "```", "inline": true },
                         { "name": "💰 Price", "value": "```" + totalAmount + "```", "inline": true },
                         { "name": "📦 Items", "value": itemList },
-                        { "name": "🚫 REJECTION COMMAND (If no money):", "value": "```" + failCmd + "```" },
-                        { "name": "🔄 STORAGE RESET LINK (If player stuck):", "value": resetLink }
+                        { "name": "🔄 RESET LINK (If rejected):", "value": resetLink }
                     ],
                     "thumbnail": { "url": `https://mc-heads.net/body/${username}/right` }
                 }]
@@ -334,7 +304,7 @@
             try {
                 const response = await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 if (response.ok) {
-                    alert("Order Sent! Staff will check your balance.");
+                    alert("Order Submitted!");
                     cart.forEach(item => { if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; localStorage.setItem('mangoOwnedRank', ownedRank); } });
                     cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
                 }
@@ -355,18 +325,6 @@
             document.getElementById(id).classList.add('active');
             document.getElementById('btn-'+id).classList.add('active');
         }
-
-        async function fetchStats() {
-            try {
-                const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
-                const mcData = await mc.json();
-                if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
-                const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
-                const dsData = await ds.json();
-                if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
-            } catch(e) {}
-        }
-        fetchStats();
     </script>
 </body>
 </html>
