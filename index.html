@@ -172,7 +172,7 @@
 
             <div id="kits" class="category-content">
                 <div class="flex items-center gap-4 mb-4"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Exclusive Kits</h3></div>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Gear up for the fight! These kits provide you with essential items, armor, and tools to give you an edge in your adventure. One-time purchase per season.</p>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed border-l-2 border-orange-500 pl-4">Gear up for the fight! These kits provide you with essential items, armor, and tools to give you an edge in your adventure.</p>
                 <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
             </div>
 
@@ -203,7 +203,9 @@
         document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
     }
 
-    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
+    function toggleCart() {
+        document.getElementById('cart-menu').classList.toggle('active');
+    }
 
     function setCurrency(type) {
         currentCurrency = type;
@@ -214,7 +216,12 @@
 
     function addToCart(name, dollars, coins) {
         const username = document.getElementById('username-input').value;
-        if (!username) { alert("Please enter your Minecraft Username first!"); toggleCart(); return; }
+        if (!username) { 
+            alert("Please enter your Minecraft Username first!"); 
+            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
+            return; 
+        }
+        
         if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
         if (name === ownedRank) { alert("You already own this rank!"); return; }
 
@@ -224,7 +231,9 @@
         alert(name + " added!");
     }
 
-    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
+    function updateCartCount() { 
+        document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; 
+    }
 
     function renderCart() {
         const container = document.getElementById('cart-items');
@@ -232,7 +241,7 @@
         container.innerHTML = "";
         let total = 0;
         if (cart.length === 0) {
-            container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Empty.</p>';
+            container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
             totalEl.innerText = `0 ${currentCurrency}`;
             return;
         }
@@ -244,12 +253,18 @@
         totalEl.innerText = `${total.toLocaleString()} ${currentCurrency}`;
     }
 
-    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+    function removeFromCart(index) { 
+        cart.splice(index, 1); 
+        updateCartCount(); 
+        renderCart(); 
+    }
 
     async function processCheckout() {
-        const username = document.getElementById('username-input').value.trim();
+        const usernameInput = document.getElementById('username-input');
+        const username = usernameInput.value.trim();
+        
         if (!username) { alert("Please enter your IGN!"); return; }
-        if (cart.length === 0) return;
+        if (cart.length === 0) { alert("Cart is empty!"); return; }
 
         const orderTime = new Date().toLocaleString();
         const totalAmount = document.getElementById('cart-total').innerText;
@@ -273,21 +288,27 @@
         };
 
         try {
-            await fetch(https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm, {
+            const response = await fetch(DISCORD_WEBHOOK, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
-            alert("Purchase Successful! Check Discord for the receipt.");
 
-            cart.forEach(item => {
-                if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; }
-            });
+            if (response.ok) {
+                alert("Purchase Successful! Check Discord for the receipt.");
 
-            cart = [];
-            updateCartCount();
-            renderCart();
-            toggleCart();
+                // Check for ranks to mark as owned
+                cart.forEach(item => {
+                    if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; }
+                });
+
+                cart = [];
+                updateCartCount();
+                renderCart();
+                toggleCart();
+            } else {
+                alert("Order failed. Check your Webhook URL.");
+            }
         } catch (e) {
             alert("Error sending order to Discord.");
         }
@@ -312,6 +333,7 @@
             const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
             const mcData = await mc.json();
             if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
+            
             const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
             const dsData = await ds.json();
             if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
