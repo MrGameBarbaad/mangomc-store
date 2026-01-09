@@ -16,7 +16,7 @@
             overflow-x: hidden; 
         }
 
-        /* LOGIN OVERLAY - FORCED FIRST TIME */
+        /* LOGIN OVERLAY */
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -104,11 +104,13 @@
         .side-img { width: 60px; height: 60px; object-fit: contain; }
 
         /* PACKAGES */
-        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; position: relative; overflow: hidden; }
+        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; position: relative; overflow: hidden; transition: 0.3s; }
+        .pkg-card.owned-style { border-color: #22c55e; background: rgba(34, 197, 94, 0.05); }
         .pkg-featured-tag { position: absolute; top: 0; right: 0; background: #f97316; color: black; font-size: 9px; font-weight: 900; padding: 4px 12px; text-transform: uppercase; border-bottom-left-radius: 6px; }
         
         .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; border: none; }
         .fire-btn:hover { background: #fb923c; transform: scale(1.05); }
+        .fire-btn:disabled { background: #22c55e; color: white; cursor: not-allowed; transform: none; }
         
         .category-content { display: none; }
         .category-content.active { display: block; }
@@ -116,7 +118,7 @@
         /* CART SLIDE-OUT */
         .side-menu { position: fixed; top: 0; right: -450px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
         .side-menu.active { right: 0; }
-        .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; background: transparent; color: white; }
+        .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; background: transparent; color: white; transition: 0.2s; }
         .currency-btn.active { background: #f97316; color: black; border-color: #f97316; }
 
         .input-field { background: #111; border: 1px solid #333; padding: 12px; border-radius: 4px; width: 100%; outline: none; color: white; font-weight: bold; margin-bottom: 15px; font-size: 12px; }
@@ -128,7 +130,6 @@
         <div class="bg-[#1e1e22] p-10 rounded-lg border border-zinc-800 w-full max-w-md shadow-2xl text-center">
             <img src="logo.png" class="w-28 mx-auto mb-6">
             <h2 class="text-orange-500 font-black text-2xl uppercase mb-1 italic">Store Login</h2>
-            
             <div class="bg-rose-500/10 border border-rose-500/50 p-4 rounded mb-6 text-left">
                 <p class="text-rose-500 text-[11px] font-black uppercase mb-1 underline">⚠️ ATTENTION PLAYER:</p>
                 <ul class="text-[10px] text-zinc-300 font-bold space-y-2 list-disc pl-4">
@@ -138,11 +139,9 @@
                     <li class="text-rose-400">LOGOUT IS NOT POSSIBLE AFTER LOGIN. THIS IS PERMANENT.</li>
                 </ul>
             </div>
-            
             <input id="login-ign" type="text" placeholder="MINECRAFT USERNAME (EXACT)" class="input-field">
             <input id="login-email" type="email" placeholder="EMAIL ADDRESS" class="input-field">
             <input id="login-pass" type="password" placeholder="PASSWORD" class="input-field">
-            
             <button onclick="saveLogin()" class="fire-btn w-full py-4 mt-2">I UNDERSTAND, LOG IN</button>
         </div>
     </div>
@@ -163,7 +162,6 @@
             <h2 class="text-orange-500 font-black italic uppercase text-lg">Your Cart</h2>
             <button onclick="toggleCart()" class="text-white text-xl">×</button>
         </div>
-
         <div class="mb-6">
             <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Account Session</p>
             <div class="flex items-center gap-3 bg-black/40 p-3 rounded border border-zinc-700">
@@ -174,7 +172,6 @@
                 </div>
             </div>
         </div>
-
         <div class="mb-6">
             <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Select Currency</p>
             <div class="flex gap-2">
@@ -182,11 +179,7 @@
                 <button onclick="setCurrency('COINS')" id="curr-coins" class="currency-btn">COINS</button>
             </div>
         </div>
-
-        <div id="cart-items" class="space-y-4 mb-8 pt-4 border-t border-zinc-800">
-            <p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>
-        </div>
-
+        <div id="cart-items" class="space-y-4 mb-8 pt-4 border-t border-zinc-800"></div>
         <div class="border-t border-zinc-800 pt-5">
             <div class="flex justify-between font-black text-sm uppercase mb-5">
                 <span>Total Amount</span>
@@ -198,7 +191,6 @@
 
     <div class="hero-section">
         <div onclick="goHome()" class="absolute top-5 left-5 bg-black/50 px-4 py-2 rounded text-[10px] font-black cursor-pointer hover:text-orange-500 transition">HOME</div>
-        
         <div class="absolute top-5 right-5 flex items-center gap-3 cursor-pointer" onclick="toggleCart()">
             <div class="text-right">
                 <p id="top-display-name" class="text-[10px] font-bold uppercase">Guest</p>
@@ -206,28 +198,18 @@
             </div>
             <img id="top-player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
-
         <img src="logo.png" class="main-logo">
-        
         <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-            <div class="status-container">
-                <span class="count-bubble" id="mc-count">0</span>
-                <img src="ipcopy.png" class="w-full">
-            </div>
+            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
             <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
         </div>
-
         <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box" target="_blank">
             <div><p class="info-text-main">DISCORD SERVER</p><p class="info-text-sub">CLICK TO JOIN</p></div>
-            <div class="status-container">
-                <span class="count-bubble" id="discord-count">...</span>
-                <img src="discord.png" class="w-full">
-            </div>
+            <div class="status-container"><span class="count-bubble" id="discord-count">...</span><img src="discord.png" class="w-full"></div>
         </a>
     </div>
 
     <div class="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-20">
-        
         <aside>
             <div class="sidebar-container shadow-2xl">
                 <div class="sidebar-header"><h3>Select Category</h3></div>
@@ -239,11 +221,10 @@
         </aside>
 
         <main class="md:col-span-3">
-            
             <div id="home-text">
                 <h3 class="text-white font-black text-lg mb-6 uppercase italic">Featured Packages</h3>
                 <div class="grid grid-cols-1 gap-4 mb-12">
-                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
+                    <div id="feat-vip-plus-card" class="pkg-card p-6 flex items-center justify-between border-l-4 border-orange-500">
                         <div class="pkg-featured-tag">Best Value</div>
                         <div class="flex items-center gap-6">
                             <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center"><img src="ranks.png" class="w-12 h-12 object-contain"></div>
@@ -253,40 +234,20 @@
                                 <p class="text-xs font-bold text-orange-500">10,000 Dollars / 2,000 Coins</p>
                             </div>
                         </div>
-                        <button onclick="addToCart('VIP+ RANK', 10000, 2000)" class="fire-btn">Add to Cart</button>
-                    </div>
-                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-blue-500">
-                        <div class="pkg-featured-tag">Most Popular</div>
-                        <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center"><img src="ranks.png" class="w-12 h-12 object-contain"></div>
-                            <div>
-                                <h4 class="text-white font-black text-base uppercase">MVP++ RANK</h4>
-                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: 3,000 COINS & 50,000 DOLLARS FREE</p>
-                                <p class="text-xs font-bold text-orange-500">30,000 Dollars / 6,000 Coins</p>
-                            </div>
-                        </div>
-                        <button onclick="addToCart('MVP++ RANK', 30000, 6000)" class="fire-btn">Add to Cart</button>
+                        <button id="feat-btn-VIP+ RANK" onclick="addToCart('VIP+ RANK', 10000, 2000, true)" class="fire-btn">Add to Cart</button>
                     </div>
                 </div>
 
                 <div class="mb-10">
-                    <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
                     <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br><strong>To begin, please select a category from the sidebar.</strong></p>
-                    
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks.</p>
                     <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a></p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10" target="_blank">Discord Server</a>
-
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">Need help? Discord: <a href="https://discord.gg/H8X9kGGmbE" class="text-orange-500 underline">Join Here</a></p>
                     <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
-                    <p class="text-zinc-400 text-xs leading-relaxed mb-10">All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>It could take between 1-20 minutes for your purchase to be credited in game.</p>
-
+                    <p class="text-zinc-400 text-xs leading-relaxed mb-10">All payments are final. Chargebacks result in a permanent ban from all services.</p>
+                    
                     <div class="bg-[#1e1e22] border border-zinc-800 p-6 rounded-lg mb-10 max-w-sm">
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="giftcard.png" class="w-6 h-6 object-contain">
-                            <h4 class="text-white font-black uppercase text-sm">Gift Card Balance</h4>
-                        </div>
-                        <p class="text-zinc-400 text-[10px] mb-4 font-bold uppercase italic">Check your remaining gift card balance here.</p>
+                        <h4 class="text-white font-black uppercase text-sm mb-4">Gift Card Balance</h4>
                         <div class="flex gap-2">
                             <input id="gc-code-home" type="text" placeholder="Enter Gift Card Code..." class="bg-black/40 border border-zinc-700 p-3 rounded text-[10px] w-full outline-none font-bold uppercase text-white">
                             <button onclick="alert('Balance: 0.00 Dollars')" class="fire-btn">Check</button>
@@ -297,85 +258,98 @@
 
             <div id="ranks" class="category-content">
                 <div class="mb-8">
-                    <div class="flex items-center gap-4 mb-2"><img src="ranks.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
-                    <p class="text-zinc-400 text-sm italic">Unlock exclusive perks, prefixes, and special commands to dominate the server.</p>
+                    <h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3>
+                    <p class="text-zinc-400 text-sm italic">Unlock exclusive perks and standing.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="pkg-card p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">Noob Rank</h4></div>
+                    <div id="card-Noob RANK" class="pkg-card p-5">
+                        <h4 class="font-black uppercase text-sm mb-1">Noob Rank</h4>
                         <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">The starter rank to begin your journey.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">1,000 $ / 200 C</p><button onclick="addToCart('Noob RANK', 1000, 200)" class="fire-btn">Add</button></div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs font-bold text-orange-500">1,000 $ / 200 C</p>
+                            <button id="btn-Noob RANK" onclick="addToCart('Noob RANK', 1000, 200, true)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">VIP Rank</h4></div>
-                        <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Access to /fly and colorful chat prefixes.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">5,000 $ / 1,000 C</p><button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add</button></div>
+
+                    <div id="card-VIP RANK" class="pkg-card p-5">
+                        <h4 class="font-black uppercase text-sm mb-1">VIP Rank</h4>
+                        <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Access to /fly and colorful prefixes.</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs font-bold text-orange-500">5,000 $ / 1,000 C</p>
+                            <button id="btn-VIP RANK" onclick="addToCart('VIP RANK', 5000, 1000, true)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-5 border border-orange-500/30">
-                        <div class="pkg-featured-tag">Hot</div>
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">VIP+ Rank</h4></div>
+
+                    <div id="card-VIP+ RANK" class="pkg-card p-5">
+                        <h4 class="font-black uppercase text-sm mb-1">VIP+ Rank</h4>
                         <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Includes 3,700 Coins and all VIP perks.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">10,000 $ / 2,000 C</p><button onclick="addToCart('VIP+ RANK', 10000, 2000)" class="fire-btn">Add</button></div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs font-bold text-orange-500">10,000 $ / 2,000 C</p>
+                            <button id="btn-VIP+ RANK" onclick="addToCart('VIP+ RANK', 10000, 2000, true)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">MVP Rank</h4></div>
+
+                    <div id="card-MVP RANK" class="pkg-card p-5">
+                        <h4 class="font-black uppercase text-sm mb-1">MVP Rank</h4>
                         <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Priority queue and exclusive lobby cosmetics.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">15,000 $ / 3,000 C</p><button onclick="addToCart('MVP RANK', 15000, 3000)" class="fire-btn">Add</button></div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs font-bold text-orange-500">15,000 $ / 3,000 C</p>
+                            <button id="btn-MVP RANK" onclick="addToCart('MVP RANK', 15000, 3000, true)" class="fire-btn">Add</button>
+                        </div>
                     </div>
-                    <div class="pkg-card p-5 border border-blue-500/30">
+
+                    <div id="card-MVP++ RANK" class="pkg-card p-5 border border-blue-500/30">
                         <div class="pkg-featured-tag">Legendary</div>
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">MVP++ Rank</h4></div>
+                        <h4 class="font-black uppercase text-sm mb-1">MVP++ Rank</h4>
                         <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">The ultimate status rank. Includes 50k Dollars.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">30,000 $ / 6,000 C</p><button onclick="addToCart('MVP++ RANK', 30000, 6000)" class="fire-btn">Add</button></div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs font-bold text-orange-500">30,000 $ / 6,000 C</p>
+                            <button id="btn-MVP++ RANK" onclick="addToCart('MVP++ RANK', 30000, 6000, true)" class="fire-btn">Add</button>
+                        </div>
                     </div>
                 </div>
-                <button onclick="goHome()" class="mt-10 bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded hover:bg-zinc-700 transition">← Back to Home Page</button>
+                <button onclick="goHome()" class="mt-10 bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded">← Back Home</button>
             </div>
 
             <div id="kits" class="category-content">
                 <div class="mb-8">
-                    <div class="flex items-center gap-4 mb-2"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Equipment Kits</h3></div>
-                    <p class="text-zinc-400 text-sm italic">Get an edge in combat with pre-enchanted gear and supplies.</p>
+                    <h3 class="text-orange-500 font-black italic text-2xl uppercase">Equipment Kits</h3>
+                    <p class="text-zinc-400 text-sm italic">Armor and tools.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="pkg-card p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">Warrior Kit</h4></div>
-                        <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Full Iron gear with Protection II enchantments.</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">2,500 $ / 500 C</p><button onclick="addToCart('Warrior KIT', 2500, 500)" class="fire-btn">Add</button></div>
+                <div class="pkg-card p-5 max-w-sm">
+                    <h4 class="font-black uppercase text-sm mb-1">Warrior Kit</h4>
+                    <p class="text-[10px] text-zinc-500 mb-4 uppercase font-bold">Full Iron gear Protection II.</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-xs font-bold text-orange-500">2,500 $ / 500 C</p>
+                        <button onclick="addToCart('Warrior KIT', 2500, 500, false)" class="fire-btn">Add</button>
                     </div>
                 </div>
             </div>
-
-            <div id="coins" class="category-content italic text-zinc-500">No coins packages currently active. Check back later!</div>
-            <div id="dollars" class="category-content italic text-zinc-500">No dollar packages currently active. Check back later!</div>
-
         </main>
     </div>
 
     <script>
         const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
-        const SERVER_ID = "1326442111880499231";
+        let cart = [], currentCurrency = 'DOLLARS';
+        let userData = JSON.parse(localStorage.getItem('mangoUser')) || null;
         
-        let cart = [], currentCurrency = 'DOLLARS', userData = JSON.parse(localStorage.getItem('mangoUser')) || null;
+        // List of owned ranks (stored as an array of strings)
+        let ownedRanks = JSON.parse(localStorage.getItem('ownedRanks')) || [];
 
         window.onload = () => {
             if(!userData) { document.getElementById('login-overlay').style.display = 'flex'; }
-            else { applyLoginData(); }
-            fetchStats(); fetchDiscord();
-            setInterval(fetchStats, 30000);
-            setInterval(fetchDiscord, 60000);
+            else { applyLoginData(); refreshOwnedRanks(); }
+            fetchStats();
         };
 
         function saveLogin() {
             const ign = document.getElementById('login-ign').value.trim();
             const email = document.getElementById('login-email').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            if(!ign || !email || !pass) return alert("Please fill in all details!");
-            
+            if(!ign || !email) return alert("Fill details!");
             userData = { ign, email };
             localStorage.setItem('mangoUser', JSON.stringify(userData));
             document.getElementById('login-overlay').style.display = 'none';
-            applyLoginData();
+            applyLoginData(); refreshOwnedRanks();
         }
 
         function applyLoginData() {
@@ -387,20 +361,82 @@
             document.getElementById('cart-email-display').innerText = userData.email;
         }
 
-        async function fetchDiscord() {
-            try {
-                const r = await fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`);
-                const d = await r.json();
-                document.getElementById('discord-count').innerText = d.presence_count || "5";
-            } catch(e) { document.getElementById('discord-count').innerText = "5"; }
+        /* Logic: Marks individual ranks as owned */
+        function refreshOwnedRanks() {
+            const rankNames = ['Noob RANK', 'VIP RANK', 'VIP+ RANK', 'MVP RANK', 'MVP++ RANK'];
+            
+            rankNames.forEach(name => {
+                const btn = document.getElementById(`btn-${name}`);
+                const card = document.getElementById(`card-${name}`);
+                const featBtn = document.getElementById(`feat-btn-${name}`);
+
+                if(ownedRanks.includes(name)) {
+                    // Update main rank list
+                    if(btn) {
+                        btn.innerText = "ALREADY OWNED";
+                        btn.disabled = true;
+                    }
+                    if(card) card.classList.add('owned-style');
+                    
+                    // Update featured button if it exists
+                    if(featBtn) {
+                        featBtn.innerText = "ALREADY OWNED";
+                        featBtn.disabled = true;
+                    }
+                }
+            });
         }
 
-        async function fetchStats() {
-            try {
-                const r = await fetch("https://api.mcstatus.io/v2/status/java/MangoMC.info.gf:25042");
-                const d = await r.json();
-                document.getElementById('mc-count').innerText = d.players?.online || 0;
-            } catch(e) { document.getElementById('mc-count').innerText = "0"; }
+        function addToCart(n, d, c, isRank) {
+            if(cart.some(i => i.n === n)) return;
+            cart.push({n, d, c, isRank});
+            updateCartCount(); renderCart();
+            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
+        }
+
+        function updateCartCount() { document.getElementById('cart-count-text').innerText = cart.length + " ITEMS"; }
+
+        function renderCart() {
+            const con = document.getElementById('cart-items');
+            con.innerHTML = ""; let tot = 0;
+            if(cart.length === 0) {
+                con.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
+                document.getElementById('cart-total').innerText = "0 " + currentCurrency;
+                return;
+            }
+            cart.forEach((i, idx) => {
+                const v = (currentCurrency === 'DOLLARS') ? i.d : i.c; tot += v;
+                con.innerHTML += `<div class="bg-black/20 p-3 rounded flex justify-between"><div><p class="text-[10px] font-bold">${i.n}</p><p class="text-orange-500 text-[9px]">${v} ${currentCurrency}</p></div><button onclick="removeFromCart(${idx})">✕</button></div>`;
+            });
+            document.getElementById('cart-total').innerText = tot.toLocaleString() + " " + currentCurrency;
+        }
+
+        function removeFromCart(idx) { cart.splice(idx, 1); updateCartCount(); renderCart(); }
+
+        function setCurrency(t) {
+            currentCurrency = t;
+            document.getElementById('curr-dollars').classList.toggle('active', t==='DOLLARS');
+            document.getElementById('curr-coins').classList.toggle('active', t==='COINS');
+            renderCart();
+        }
+
+        async function processCheckout() {
+            if(cart.length === 0) return;
+            
+            // Mark ranks as owned upon checkout
+            cart.forEach(item => {
+                if(item.isRank && !ownedRanks.includes(item.n)) {
+                    ownedRanks.push(item.n);
+                }
+            });
+            localStorage.setItem('ownedRanks', JSON.stringify(ownedRanks));
+
+            const payload = { content: `**ORDER**\nUser: ${userData.ign}\nItems: ${cart.map(i=>i.n).join(", ")}` };
+            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+            
+            document.getElementById('thank-you-msg').innerText = "Success! Your ranks have been recorded.";
+            document.getElementById('thank-you-modal').style.display = 'flex';
+            cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedRanks();
         }
 
         function showCategory(id) {
@@ -409,80 +445,24 @@
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + id).classList.add('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function goHome() {
             document.getElementById('home-text').style.display = 'block';
             document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-        function setCurrency(t) { currentCurrency = t; renderCart(); }
+        function closeThankYou() { document.getElementById('thank-you-modal').style.display = 'none'; }
         
-        function addToCart(n, d, c) {
-            if(cart.some(i => i.n === n)) return alert("Package already in cart!");
-            cart.push({n, d, c});
-            updateCartCount(); renderCart();
-            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
+        async function fetchStats() {
+            try {
+                const r = await fetch("https://api.mcstatus.io/v2/status/java/MangoMC.info.gf:25042");
+                const d = await r.json();
+                document.getElementById('mc-count').innerText = d.players?.online || 0;
+            } catch(e) { document.getElementById('mc-count').innerText = "0"; }
         }
-
-        function updateCartCount() { document.getElementById('cart-count-text').innerText = cart.length + " ITEMS IN CART"; }
-
-        function renderCart() {
-            const con = document.getElementById('cart-items');
-            con.innerHTML = ""; let tot = 0;
-            if(cart.length === 0) {
-                con.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>';
-                document.getElementById('cart-total').innerText = "0 " + currentCurrency;
-                return;
-            }
-            cart.forEach((i, idx) => {
-                const v = (currentCurrency === 'DOLLARS') ? i.d : i.c; tot += v;
-                con.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${i.n}</p><p class="text-[9px] text-orange-500 font-bold">${v.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${idx})" class="text-rose-500 font-bold">✕</button></div>`;
-            });
-            document.getElementById('cart-total').innerText = tot.toLocaleString() + " " + currentCurrency;
-        }
-
-        function removeFromCart(idx) { cart.splice(idx, 1); updateCartCount(); renderCart(); }
-
-        async function processCheckout() {
-            if(cart.length === 0) return alert("Cart is empty!");
-            
-            const now = new Date();
-            const timeStr = now.toLocaleDateString('en-GB') + ", " + now.toLocaleTimeString('en-GB');
-            const itemsList = cart.map(i => "• " + i.n).join("\n");
-            const tot = document.getElementById('cart-total').innerText;
-            const skinUrl = `https://mc-heads.net/body/${userData.ign}/right`;
-            
-            const payload = { 
-                content: "🔔 **NEW STORE ORDER RECEIVED**",
-                embeds: [{ 
-                    title: "Order Details", 
-                    color: 16744192, 
-                    thumbnail: { url: skinUrl },
-                    fields: [
-                        { name: "👤 Player Username", value: userData.ign, inline: false },
-                        { name: "💰 Total Paid", value: tot, inline: false },
-                        { name: "⏰ Order Time", value: timeStr, inline: false },
-                        { name: "📦 Items Ordered", value: itemsList, inline: false },
-                        { name: "🛠️ Staff Action", value: "React with ✅ when this order is delivered in-game.", inline: false }
-                    ],
-                    footer: { text: "MangoMC Order Tracking System" }
-                }] 
-            };
-            
-            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-            
-            document.getElementById('thank-you-msg').innerText = `Your order for ${cart.length} item(s) has been successfully recorded. Please allow 1-20 minutes for the items to be delivered in-game to player: ${userData.ign}. Check your email for a receipt soon!`;
-            document.getElementById('thank-you-modal').style.display = 'flex';
-            
-            cart = []; updateCartCount(); renderCart(); toggleCart();
-        }
-
-        function closeThankYou() { document.getElementById('thank-you-modal').style.display = 'none'; goHome(); }
     </script>
 </body>
 </html>
