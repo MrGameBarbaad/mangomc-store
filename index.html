@@ -450,9 +450,29 @@
 
         async function processCheckout() {
             if(cart.length === 0) return alert("Cart is empty!");
-            const items = cart.map(i => "• " + i.n).join("\n");
+            
+            const now = new Date();
+            const timeStr = now.toLocaleDateString('en-GB') + ", " + now.toLocaleTimeString('en-GB');
+            const itemsList = cart.map(i => "• " + i.n).join("\n");
             const tot = document.getElementById('cart-total').innerText;
-            const payload = { embeds: [{ title: "NEW PURCHASE", color: 16744192, fields: [{name: "Player", value: userData.ign}, {name: "Email", value: userData.email}, {name: "Total", value: tot}, {name: "Items", value: items}] }] };
+            const skinUrl = `https://mc-heads.net/body/${userData.ign}/right`;
+            
+            const payload = { 
+                content: "🔔 **NEW STORE ORDER RECEIVED**",
+                embeds: [{ 
+                    title: "Order Details", 
+                    color: 16744192, 
+                    thumbnail: { url: skinUrl },
+                    fields: [
+                        { name: "👤 Player Username", value: userData.ign, inline: false },
+                        { name: "💰 Total Paid", value: tot, inline: false },
+                        { name: "⏰ Order Time", value: timeStr, inline: false },
+                        { name: "📦 Items Ordered", value: itemsList, inline: false },
+                        { name: "🛠️ Staff Action", value: "React with ✅ when this order is delivered in-game.", inline: false }
+                    ],
+                    footer: { text: "MangoMC Order Tracking System" }
+                }] 
+            };
             
             await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)});
             
