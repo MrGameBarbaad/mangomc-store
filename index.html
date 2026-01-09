@@ -77,7 +77,7 @@
                 <span>Total</span>
                 <span id="cart-total" class="text-orange-500">0 Dollars</span>
             </div>
-            <button onclick="processcheckout()" class="w-full fire-btn py-4">Checkout</button>
+            <button onclick="processCheckout()" class="w-full fire-btn py-4">Checkout</button>
         </div>
     </div>
 
@@ -193,8 +193,8 @@
     <script>
     let currentCurrency = 'DOLLARS';
     let cart = [];
-    let ownedRank = ""; // Stores the current rank the player has
-    const DISCORD_WEBHOOK = "YOUR_WEBHOOK_URL_HERE"; 
+    let ownedRank = ""; 
+    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm"; 
 
     function updatePlayerHead(u) {
         const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
@@ -215,11 +215,7 @@
     function addToCart(name, dollars, coins) {
         const username = document.getElementById('username-input').value;
         if (!username) { alert("Please enter your Minecraft Username first!"); toggleCart(); return; }
-        
-        // Prevent buying the same thing twice in one cart
         if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
-        
-        // Check if they already "own" this rank
         if (name === ownedRank) { alert("You already own this rank!"); return; }
 
         cart.push({ name, dollars, coins });
@@ -250,30 +246,29 @@
 
     function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
 
-    // --- CHECKOUT & WEBHOOK LOGIC ---
     async function processCheckout() {
-        const username = document.getElementById('username-input').value;
+        const username = document.getElementById('username-input').value.trim();
+        if (!username) { alert("Please enter your IGN!"); return; }
         if (cart.length === 0) return;
 
-        // Check for ranks in the cart to update "Owned" status
-        cart.forEach(item => {
-            if (item.name.toLowerCase().includes("rank")) {
-                ownedRank = item.name; // User now owns this new rank
-            }
-        });
+        const orderTime = new Date().toLocaleString();
+        const totalAmount = document.getElementById('cart-total').innerText;
+        const itemList = cart.map(i => `• **${i.name}**`).join("\n");
 
-        // Send to Discord Webhook
         const payload = {
-            embeds: [{
-                title: "🛒 NEW PURCHASE: " + username,
-                color: 16744192, // Orange color
-                fields: [
-                    { name: "Player", value: username, inline: true },
-                    { name: "Total", value: document.getElementById('cart-total').innerText, inline: true },
-                    { name: "Items", value: cart.map(i => "• " + i.name).join("\n") }
+            "content": "🔔 **NEW STORE ORDER RECEIVED**",
+            "embeds": [{
+                "title": "Order Details",
+                "color": 16744192,
+                "fields": [
+                    { "name": "👤 Player Username", "value": "`" + username + "`", "inline": true },
+                    { "name": "💰 Total Paid", "value": "`" + totalAmount + "`", "inline": true },
+                    { "name": "⏰ Order Time", "value": orderTime, "inline": false },
+                    { "name": "📦 Items Ordered", "value": itemList, "inline": false },
+                    { "name": "🛠️ Staff Action", "value": "React with ✅ when this order is delivered in-game.", "inline": false }
                 ],
-                footer: { text: "MangoMC Store Tracking" },
-                timestamp: new Date()
+                "thumbnail": { "url": `https://mc-heads.net/body/${username}/right` },
+                "footer": { "text": "MangoMC Order Tracking System" }
             }]
         };
 
@@ -284,15 +279,18 @@
                 body: JSON.stringify(payload)
             });
             alert("Purchase Successful! Check Discord for the receipt.");
-        } catch (e) {
-            alert("Purchase processed, but Webhook failed. (Did you set the URL?)");
-        }
 
-        // RESET EVERYTHING
-        cart = [];
-        updateCartCount();
-        renderCart();
-        toggleCart();
+            cart.forEach(item => {
+                if (item.name.toLowerCase().includes("rank")) { ownedRank = item.name; }
+            });
+
+            cart = [];
+            updateCartCount();
+            renderCart();
+            toggleCart();
+        } catch (e) {
+            alert("Error sending order to Discord.");
+        }
     }
 
     function goHome() {
@@ -314,7 +312,6 @@
             const mc = await fetch('https://api.mcsrvstat.us/2/play.firemc.fun');
             const mcData = await mc.json();
             if(mcData.online) document.getElementById('mc-count').innerText = mcData.players.online;
-            
             const ds = await fetch('https://discord.com/api/v9/invites/H8X9kGGmbE?with_counts=true');
             const dsData = await ds.json();
             if(dsData.approximate_presence_count) document.getElementById('discord-count').innerText = dsData.approximate_presence_count;
