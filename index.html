@@ -9,10 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
         body { background-color: #151518; color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         
+        /* HERO SECTION */
         .hero-section { height: 575px; position: relative; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(21,21,24,1)), url('background.png'); background-size: cover; background-position: center bottom; }
         .main-logo { width: 575px; z-index: 10; animation: logoPulse 1.5s ease-in-out infinite alternate; }
         @keyframes logoPulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
         
+        /* STATUS BOXES */
         .status-container { position: relative; width: 50px; height: 85px; display: flex; align-items: center; justify-content: center; }
         .count-bubble { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #f97316; color: #000; font-weight: 900; font-size: 11px; padding: 3px 20px; border-radius: 20px; z-index: 30; white-space: nowrap; box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7); border: 2px solid #151518; }
         .header-ip-box { position: absolute; bottom: 1px; left: 3%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
@@ -20,6 +22,7 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
+        /* SIDEBAR */
         .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
         .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
         .sidebar-header h3 { color: #f97316; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
@@ -34,15 +37,18 @@
         .sidebar-btn.active .sidebar-label { color: #f97316; }
         .side-img { width: 60px; height: 60px; object-fit: contain; }
 
+        /* CARDS & BUTTONS */
         .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; }
         .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
         .fire-btn:hover { background: #fb923c; }
         .fire-btn:disabled { background: #333 !important; color: #666 !important; cursor: not-allowed; }
         
+        /* NAVIGATION */
         .category-content { display: none; }
         .category-content.active { display: block; }
 
-        .side-menu { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
+        /* CART MENU */
+        .side-menu { position: fixed; top: 0; right: -450px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
         .side-menu.active { right: 0; }
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; }
         .currency-btn.active { background: #f97316; color: black; }
@@ -83,7 +89,7 @@
     </div>
 
     <div class="hero-section">
-        <div onclick="goHome()" class="absolute top-5 left-5 bg-black/50 px-4 py-2 rounded text-[10px] font-black cursor-pointer">HOME</div>
+        <div onclick="goHome()" class="absolute top-5 left-5 bg-black/50 px-4 py-2 rounded text-[10px] font-black cursor-pointer hover:text-orange-500 transition">HOME</div>
         <div class="absolute top-5 right-5 flex items-center gap-3 cursor-pointer" onclick="toggleCart()">
             <div class="text-right">
                 <p id="display-name" class="text-[10px] font-bold uppercase">Guest Player</p>
@@ -92,13 +98,14 @@
             <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
         <img src="logo.png" class="main-logo">
+        
         <div class="header-ip-box" onclick="navigator.clipboard.writeText('MangoMC.info.gf:25042'); alert('IP Copied!')">
-            <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
+            <div class="status-container"><span class="count-bubble" id="mc-count">24</span><img src="ipcopy.png" class="w-full"></div>
             <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
         </div>
         <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box" target="_blank">
             <div><p class="info-text-main">DISCORD SERVER</p><p class="info-text-sub">CLICK TO JOIN</p></div>
-            <div class="status-container"><span class="count-bubble" id="discord-count">0</span><img src="discord.png" class="w-full"></div>
+            <div class="status-container"><span class="count-bubble" id="discord-count">142</span><img src="discord.png" class="w-full"></div>
         </a>
     </div>
 
@@ -185,129 +192,139 @@
                         <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">50,000 $ / 10,000 C</p><button onclick="addToCart('Elite+ RANK', 50000, 10000)" class="fire-btn">Add</button></div>
                     </div>
                 </div>
-                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase transition">← Back to Home</button>
+                <button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase">← Back to Home</button>
             </div>
-            </main>
+
+            <div id="kits" class="category-content"><h3 class="text-orange-500 font-black italic text-2xl uppercase mb-6">Kits</h3><button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase">← Back</button></div>
+            <div id="coins" class="category-content"><h3 class="text-orange-500 font-black italic text-2xl uppercase mb-6">Coins</h3><button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase">← Back</button></div>
+            <div id="dollars" class="category-content"><h3 class="text-orange-500 font-black italic text-2xl uppercase mb-6">Dollars</h3><button onclick="goHome()" class="text-[10px] bg-zinc-800 px-4 py-2 rounded font-bold uppercase">← Back</button></div>
+        </main>
     </div>
 
     <script>
-    let currentCurrency = 'DOLLARS';
-    let cart = [];
-    let ownedRank = localStorage.getItem('mangoOwnedRank') || ""; 
-    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm"; 
+        let currentCurrency = 'DOLLARS';
+        let cart = [];
+        let ownedRank = localStorage.getItem('mangoOwnedRank') || "";
+        const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
 
-    window.onload = function() { refreshOwnedButtons(); };
+        window.onload = function() { refreshOwnedButtons(); };
 
-    function updatePlayerHead(u) {
-        const url = u.trim()==="" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
-        document.getElementById('player-head').src = url;
-        document.getElementById('login-head').src = url;
-        document.getElementById('display-name').innerText = u.trim()==="" ? "Guest Player" : u;
-    }
+        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
 
-    function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-
-    function setCurrency(type) {
-        currentCurrency = type;
-        document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
-        document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
-        renderCart();
-    }
-
-    function addToCart(name, dollars, coins) {
-        const username = document.getElementById('username-input').value.trim();
-        if (!username) { 
-            alert("Please enter your Minecraft Username first!"); 
-            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
-            return; 
+        function goHome() {
+            document.getElementById('home-text').style.display = 'block';
+            const cats = document.getElementsByClassName('category-content');
+            for(let i=0; i<cats.length; i++) { cats[i].classList.remove('active'); }
+            const btns = document.getElementsByClassName('sidebar-btn');
+            for(let i=0; i<btns.length; i++) { btns[i].classList.remove('active'); }
         }
-        if (name === ownedRank) { alert("You already own this rank!"); return; }
-        if (cart.some(item => item.name === name)) { alert("This item is already in your cart!"); return; }
-        cart.push({ name, dollars, coins });
-        updateCartCount();
-        renderCart();
-    }
 
-    function updateCartCount() { document.getElementById('cart-count-text').innerText = `${cart.length} ITEMS`; }
-
-    function renderCart() {
-        const container = document.getElementById('cart-items');
-        container.innerHTML = "";
-        let total = 0;
-        if (cart.length === 0) {
-            container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
-            document.getElementById('cart-total').innerText = `0 ${currentCurrency}`;
-            return;
+        function showCategory(id) {
+            document.getElementById('home-text').style.display = 'none';
+            const cats = document.getElementsByClassName('category-content');
+            for(let i=0; i<cats.length; i++) { cats[i].classList.remove('active'); }
+            document.getElementById(id).classList.add('active');
+            
+            const btns = document.getElementsByClassName('sidebar-btn');
+            for(let i=0; i<btns.length; i++) { btns[i].classList.remove('active'); }
+            document.getElementById('btn-' + id).classList.add('active');
         }
-        cart.forEach((item, index) => {
-            const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
-            total += val;
-            container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500">✕</button></div>`;
-        });
-        document.getElementById('cart-total').innerText = `${total.toLocaleString()} ${currentCurrency}`;
-    }
 
-    function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+        function updatePlayerHead(u) {
+            const url = u.trim() === "" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
+            document.getElementById('player-head').src = url;
+            document.getElementById('login-head').src = url;
+            document.getElementById('display-name').innerText = u.trim() === "" ? "Guest Player" : u;
+        }
 
-    function refreshOwnedButtons() {
-        document.querySelectorAll('button').forEach(btn => {
-            const onclick = btn.getAttribute('onclick');
-            if (onclick && onclick.includes('addToCart')) {
-                const rankName = onclick.match(/'([^']+)'/)[1];
-                if (ownedRank === rankName) {
-                    btn.innerText = "ALREADY OWNED";
-                    btn.disabled = true;
-                } else {
-                    btn.innerText = btn.closest('.category-content') ? "Add" : "Add to Cart";
-                    btn.disabled = false;
-                }
+        function setCurrency(type) {
+            currentCurrency = type;
+            document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
+            document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
+            renderCart();
+        }
+
+        function addToCart(name, dollars, coins) {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username) { 
+                alert("Please enter your Username first!"); 
+                if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
+                return; 
             }
-        });
-    }
-
-    async function processCheckout() {
-        const username = document.getElementById('username-input').value.trim();
-        if (!username || cart.length === 0) { alert("Please enter your IGN!"); return; }
-
-        const orderTime = new Date().toLocaleString();
-        const totalAmount = document.getElementById('cart-total').innerText;
-        const itemList = cart.map(i => `• **${i.name}**`).join("\n");
-
-        const payload = {
-            "content": "🔔 **NEW STORE ORDER RECEIVED**",
-            "embeds": [{
-                "title": "Order Details",
-                "color": 16744192,
-                "fields": [
-                    { "name": "👤 Player Username", "value": "`" + username + "`", "inline": true },
-                    { "name": "💰 Total Paid", "value": "`" + totalAmount + "`", "inline": true },
-                    { "name": "⏰ Order Time", "value": orderTime, "inline": false },
-                    { "name": "📦 Items Purchased", "value": itemList }
-                ]
-            }]
-        };
-
-        const response = await fetch(https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-        if (response.ok) {
-            alert("Order sent successfully!");
-            cart.forEach(item => { if (item.name.toUpperCase().includes("RANK")) { ownedRank = item.name; localStorage.setItem('mangoOwnedRank', ownedRank); } });
-            cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
+            if (name === ownedRank) { alert("You already own this rank!"); return; }
+            if (cart.some(item => item.name === name)) { alert("Item already in cart!"); return; }
+            cart.push({ name, dollars, coins });
+            updateCartCount();
+            renderCart();
         }
-    }
 
-    function goHome() {
-        document.getElementById('home-text').style.display = 'block';
-        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
-    }
+        function updateCartCount() { document.getElementById('cart-count-text').innerText = cart.length + " ITEMS"; }
 
-    function showCategory(id) {
-        document.getElementById('home-text').style.display = 'none';
-        document.querySelectorAll('.category-content').forEach(e => e.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.querySelectorAll('.sidebar-btn').forEach(e => e.classList.remove('active'));
-        document.getElementById('btn-'+id).classList.add('active');
-    }
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = "";
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Empty.</p>';
+                document.getElementById('cart-total').innerText = "0 " + currentCurrency;
+                return;
+            }
+            cart.forEach((item, index) => {
+                const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
+                total += val;
+                container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500">✕</button></div>`;
+            });
+            document.getElementById('cart-total').innerText = total.toLocaleString() + " " + currentCurrency;
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
+
+        function refreshOwnedButtons() {
+            const allBtns = document.querySelectorAll('button');
+            allBtns.forEach(btn => {
+                const onclick = btn.getAttribute('onclick');
+                if (onclick && onclick.includes('addToCart')) {
+                    const rankName = onclick.match(/'([^']+)'/)[1];
+                    if (ownedRank === rankName) {
+                        btn.innerText = "ALREADY OWNED";
+                        btn.disabled = true;
+                    } else {
+                        btn.innerText = btn.closest('.category-content') ? "Add" : "Add to Cart";
+                        btn.disabled = false;
+                    }
+                }
+            });
+        }
+
+        async function processCheckout() {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username || cart.length === 0) { alert("Check Username or Cart!"); return; }
+
+            const orderTime = new Date().toLocaleString();
+            const totalAmount = document.getElementById('cart-total').innerText;
+            const itemList = cart.map(i => "• **" + i.name + "**").join("\n");
+
+            const payload = {
+                "content": "🔔 **NEW STORE ORDER RECEIVED**",
+                "embeds": [{
+                    "title": "Order Details",
+                    "color": 16744192,
+                    "fields": [
+                        { "name": "👤 Player Username", "value": "`" + username + "`", "inline": true },
+                        { "name": "💰 Total Paid", "value": "`" + totalAmount + "`", "inline": true },
+                        { "name": "⏰ Order Time", "value": orderTime, "inline": false },
+                        { "name": "📦 Items Purchased", "value": itemList }
+                    ]
+                }]
+            };
+
+            const response = await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (response.ok) {
+                alert("Order sent successfully!");
+                cart.forEach(item => { if (item.name.toUpperCase().includes("RANK")) { ownedRank = item.name; localStorage.setItem('mangoOwnedRank', ownedRank); } });
+                cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
+            }
+        }
     </script>
 </body>
 </html>
