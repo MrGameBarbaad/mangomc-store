@@ -291,7 +291,7 @@
                 <p class="info-text-sub">CLICK TO JOIN</p>
             </div>
             <div class="status-container">
-                <span class="count-bubble" id="discord-count">142</span>
+                <span class="count-bubble" id="discord-count">...</span>
                 <img src="discord.png" class="w-full">
             </div>
         </a>
@@ -358,6 +358,9 @@
                     <p class="text-zinc-400 text-sm leading-relaxed mb-4">Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a></p>
                     <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10" target="_blank">Discord Server</a>
 
+                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
+                    <p class="text-zinc-400 text-xs leading-relaxed mb-10">All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.</p>
+
                     <div class="bg-[#1e1e22] border border-zinc-800 p-6 rounded-lg mb-10 max-w-sm">
                         <div class="flex items-center gap-3 mb-4">
                             <img src="giftcard.png" class="w-6 h-6 object-contain">
@@ -369,9 +372,6 @@
                             <button onclick="alert('Balance: 0.00 Dollars')" class="fire-btn">Check</button>
                         </div>
                     </div>
-
-                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
-                    <p class="text-zinc-400 text-xs leading-relaxed mb-4">All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.</p>
                 </div>
             </div>
 
@@ -414,11 +414,30 @@
 
     <script>
         const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
+        const DISCORD_SERVER_ID = "1326442111880499231"; 
+        
         let currentCurrency = 'DOLLARS';
         let cart = [];
         let ownedRank = localStorage.getItem('mangoOwnedRank') || "";
 
-        window.onload = function() { refreshOwnedButtons(); fetchStats(); setInterval(fetchStats, 30000); };
+        window.onload = function() { 
+            refreshOwnedButtons(); 
+            fetchStats(); 
+            fetchDiscordStats();
+            setInterval(fetchStats, 30000); 
+            setInterval(fetchDiscordStats, 60000);
+        };
+
+        async function fetchDiscordStats() {
+            try {
+                const res = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
+                const data = await res.json();
+                // "presence_count" gives total members online/present in the widget data
+                document.getElementById('discord-count').innerText = data.presence_count || "5";
+            } catch(e) { 
+                document.getElementById('discord-count').innerText = "5"; 
+            }
+        }
 
         async function fetchStats() {
             try {
