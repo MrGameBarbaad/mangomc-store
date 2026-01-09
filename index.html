@@ -15,6 +15,24 @@
             margin: 0; 
             overflow-x: hidden; 
         }
+
+        /* LOGIN OVERLAY - FORCED FIRST TIME */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('background.png');
+            background-size: cover;
+        }
+
+        /* THANK YOU MODAL */
+        #thank-you-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 10000;
+            display: none; align-items: center; justify-content: center;
+        }
         
         /* HERO SECTION */
         .hero-section { 
@@ -66,154 +84,78 @@
             border: 2px solid #151518; 
         }
         
-        .header-ip-box { 
-            position: absolute; 
-            bottom: 1px; 
-            left: 3%; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            cursor: pointer; 
-        }
-        
-        .header-discord-box { 
-            position: absolute; 
-            bottom: 1px; 
-            right: 3%; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            cursor: pointer; 
-            text-align: right; 
-        }
-        
-        .info-text-main { 
-            color: #f97316; 
-            font-weight: 900; 
-            font-size: 18px; 
-            text-transform: uppercase; 
-            line-height: 1.1; 
-        }
-        
-        .info-text-sub { 
-            color: #ffffff; 
-            font-weight: 700; 
-            font-size: 12px; 
-            text-transform: uppercase; 
-            opacity: 0.8; 
-        }
+        .header-ip-box { position: absolute; bottom: 1px; left: 3%; display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .header-discord-box { position: absolute; bottom: 1px; right: 3%; display: flex; align-items: center; gap: 15px; cursor: pointer; text-align: right; }
+        .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
+        .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
         /* SIDEBAR NAVIGATION */
-        .sidebar-container { 
-            background: #1e1e22; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            border: 1px solid #2d2d33; 
-        }
-        
-        .sidebar-header { 
-            padding: 25px 20px 15px; 
-            text-align: center; 
-            border-bottom: 1px solid #2d2d33; 
-        }
-        
-        .sidebar-header h3 { 
-            color: #f97316; 
-            font-weight: 900; 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
+        .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
+        .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
+        .sidebar-header h3 { color: #f97316; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .sidebar-btn { 
-            position: relative; 
-            display: flex; 
-            align-items: center; 
-            padding: 20px 15px; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            background: rgba(255,255,255,0.02); 
-            border-bottom: 1px solid #151518; 
-        }
-        
+        .sidebar-btn { position: relative; display: flex; align-items: center; padding: 20px 15px; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.02); border-bottom: 1px solid #151518; }
         .sidebar-btn:hover { background: rgba(249, 115, 22, 0.05); }
         .sidebar-btn.active { background: rgba(249, 115, 22, 0.12); }
-        .sidebar-btn.active::before { 
-            content: ''; 
-            position: absolute; 
-            left: 0; 
-            top: 0; 
-            bottom: 0; 
-            width: 4px; 
-            background: #f97316; 
-        }
+        .sidebar-btn.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f97316; }
 
-        .sidebar-icon-box { 
-            width: 60px; 
-            height: 60px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin-right: 15px; 
-        }
-        
-        .sidebar-label { 
-            font-weight: 800; 
-            font-size: 15px; 
-            color: #d1d1d1; 
-        }
-        
-        .sidebar-btn.active .sidebar-label { color: #f97316; }
+        .sidebar-icon-box { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
+        .sidebar-label { font-weight: 800; font-size: 15px; color: #d1d1d1; }
         .side-img { width: 60px; height: 60px; object-fit: contain; }
 
         /* PACKAGES */
-        .pkg-card { 
-            background: #1e1e22; 
-            border: 1px solid #2d2d33; 
-            border-radius: 6px; 
-        }
-        
-        .fire-btn { 
-            background: #f97316; 
-            border-radius: 4px; 
-            font-weight: 900; 
-            color: #000; 
-            padding: 10px 20px; 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            transition: 0.3s; 
-            cursor: pointer; 
-            border: none;
-        }
-        
-        .fire-btn:hover { background: #fb923c; }
-        .fire-btn:disabled { background: #333 !important; color: #666 !important; cursor: not-allowed; }
+        .pkg-card { background: #1e1e22; border: 1px solid #2d2d33; border-radius: 6px; transition: 0.3s; }
+        .pkg-card:hover { border-color: #f97316; transform: translateY(-2px); }
+        .fire-btn { background: #f97316; border-radius: 4px; font-weight: 900; color: #000; padding: 10px 20px; font-size: 11px; text-transform: uppercase; transition: 0.3s; cursor: pointer; border: none; }
+        .fire-btn:hover { background: #fb923c; transform: scale(1.05); }
         
         .category-content { display: none; }
         .category-content.active { display: block; }
 
         /* CART SLIDE-OUT */
-        .side-menu { 
-            position: fixed; 
-            top: 0; 
-            right: -450px; 
-            width: 350px; 
-            height: 100%; 
-            background: #1e1e22; 
-            border-left: 2px solid #f97316; 
-            z-index: 100; 
-            transition: 0.4s; 
-            padding: 25px; 
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5); 
-            overflow-y: auto; 
-        }
-        
+        .side-menu { position: fixed; top: 0; right: -450px; width: 350px; height: 100%; background: #1e1e22; border-left: 2px solid #f97316; z-index: 100; transition: 0.4s; padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
         .side-menu.active { right: 0; }
         .currency-btn { padding: 6px; border-radius: 4px; font-size: 9px; font-weight: 900; border: 1px solid #2d2d33; cursor: pointer; flex: 1; text-align: center; background: transparent; color: white; }
         .currency-btn.active { background: #f97316; color: black; border-color: #f97316; }
+
+        .input-field { background: #111; border: 1px solid #333; padding: 12px; border-radius: 4px; width: 100%; outline: none; color: white; font-weight: bold; margin-bottom: 15px; font-size: 12px; }
     </style>
 </head>
 <body>
+
+    <div id="login-overlay" style="display: none;">
+        <div class="bg-[#1e1e22] p-8 rounded-lg border border-zinc-800 w-full max-w-md shadow-2xl text-center">
+            <img src="logo.png" class="w-24 mx-auto mb-4">
+            <h2 class="text-orange-500 font-black text-xl uppercase mb-1 italic">Store Login</h2>
+            
+            <div class="bg-rose-500/10 border border-rose-500/50 p-4 rounded mb-6 text-left">
+                <p class="text-rose-500 text-[10px] font-black uppercase mb-1 underline">⚠️ CRITICAL WARNING:</p>
+                <ul class="text-[9px] text-zinc-300 font-bold space-y-1 list-disc pl-3">
+                    <li>Use your OWN Minecraft In-Game Name (IGN) ONLY.</li>
+                    <li>Ensure casing is PERFECT (e.g., MangoMC vs mangomc).</li>
+                    <li>Never use someone else's email address.</li>
+                    <li class="text-rose-400">LOGOUT IS DISABLED. THIS ACTION IS PERMANENT.</li>
+                </ul>
+            </div>
+            
+            <input id="login-ign" type="text" placeholder="MINECRAFT IGN (EXACT NAME)" class="input-field">
+            <input id="login-email" type="email" placeholder="YOUR EMAIL ADDRESS" class="input-field">
+            <input id="login-pass" type="password" placeholder="PASSWORD" class="input-field">
+            
+            <button onclick="saveLogin()" class="fire-btn w-full py-4 mt-2">I AGREE, LOGIN TO STORE</button>
+        </div>
+    </div>
+
+    <div id="thank-you-modal">
+        <div class="bg-[#1e1e22] border-2 border-orange-500 p-10 rounded-lg text-center max-w-sm shadow-[0_0_50px_rgba(249,115,22,0.3)]">
+            <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-black text-4xl font-black">✓</span>
+            </div>
+            <h2 class="text-2xl font-black text-white uppercase italic mb-2">Order Success!</h2>
+            <p id="thank-you-msg" class="text-zinc-400 text-[10px] font-bold uppercase mb-8 leading-relaxed"></p>
+            <button onclick="closeThankYou()" class="fire-btn w-full py-3">Back to Categories</button>
+        </div>
+    </div>
 
     <div id="cart-menu" class="side-menu">
         <div class="flex justify-between items-center mb-6">
@@ -222,10 +164,13 @@
         </div>
 
         <div class="mb-6">
-            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Minecraft Username</p>
+            <p class="text-[9px] text-orange-500 font-black uppercase mb-2">Linked Player</p>
             <div class="flex items-center gap-3 bg-black/40 p-3 rounded border border-zinc-700">
-                <img id="login-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded">
-                <input id="username-input" oninput="updatePlayerHead(this.value)" type="text" placeholder="Enter IGN..." class="bg-transparent w-full text-xs outline-none text-white uppercase font-bold">
+                <img id="cart-player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded">
+                <div>
+                    <p id="cart-ign-display" class="text-white text-xs font-bold uppercase"></p>
+                    <p id="cart-email-display" class="text-zinc-500 text-[9px] font-bold"></p>
+                </div>
             </div>
         </div>
 
@@ -239,17 +184,6 @@
 
         <div id="cart-items" class="space-y-4 mb-8 pt-4 border-t border-zinc-800">
             <p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>
-        </div>
-
-        <div class="mb-8 p-4 bg-black/20 border border-zinc-800 rounded">
-            <div class="flex items-center gap-2 mb-3">
-                <img src="giftcard.png" class="w-4 h-4 object-contain">
-                <p class="text-[10px] font-black uppercase">Check Gift Card Balance</p>
-            </div>
-            <div class="flex gap-2">
-                <input id="gc-code-cart" type="text" placeholder="Gift Card Code..." class="bg-black/40 border border-zinc-700 p-2 rounded text-[10px] w-full outline-none font-bold uppercase text-white">
-                <button onclick="alert('Balance: 0.00 Dollars')" class="bg-zinc-700 hover:bg-zinc-600 px-3 py-1 rounded text-[10px] font-black uppercase text-white transition">Check</button>
-            </div>
         </div>
 
         <div class="border-t border-zinc-800 pt-5">
@@ -266,10 +200,10 @@
         
         <div class="absolute top-5 right-5 flex items-center gap-3 cursor-pointer" onclick="toggleCart()">
             <div class="text-right">
-                <p id="display-name" class="text-[10px] font-bold uppercase">Guest Player</p>
+                <p id="top-display-name" class="text-[10px] font-bold uppercase">Guest</p>
                 <p id="cart-count-text" class="text-[9px] text-orange-500 font-black">0 ITEMS IN CART</p>
             </div>
-            <img id="player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
+            <img id="top-player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
 
         <img src="logo.png" class="main-logo">
@@ -279,17 +213,11 @@
                 <span class="count-bubble" id="mc-count">0</span>
                 <img src="ipcopy.png" class="w-full">
             </div>
-            <div>
-                <p class="info-text-main">MANGOMC.INFO.GF</p>
-                <p class="info-text-sub">CLICK TO COPY IP</p>
-            </div>
+            <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">CLICK TO COPY IP</p></div>
         </div>
 
         <a href="https://discord.gg/H8X9kGGmbE" class="header-discord-box" target="_blank">
-            <div>
-                <p class="info-text-main">DISCORD SERVER</p>
-                <p class="info-text-sub">CLICK TO JOIN</p>
-            </div>
+            <div><p class="info-text-main">DISCORD SERVER</p><p class="info-text-sub">CLICK TO JOIN</p></div>
             <div class="status-container">
                 <span class="count-bubble" id="discord-count">...</span>
                 <img src="discord.png" class="w-full">
@@ -336,194 +264,151 @@
                         </div>
                         <button onclick="addToCart('MVP++ RANK', 30000, 6000)" class="fire-btn">Add to Cart</button>
                     </div>
-                    <div class="pkg-card p-6 flex items-center justify-between border-l-4 border-purple-500">
-                        <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-black/40 rounded flex items-center justify-center"><img src="ranks.png" class="w-12 h-12 object-contain"></div>
-                            <div>
-                                <h4 class="text-white font-black text-base uppercase">Elite+ RANK</h4>
-                                <p class="text-[10px] text-green-400 font-bold uppercase">+ BONUS: SPECIAL PERKS INCLUDED</p>
-                                <p class="text-xs font-bold text-orange-500">50,000 Dollars / 10,000 Coins</p>
-                            </div>
-                        </div>
-                        <button onclick="addToCart('Elite+ RANK', 50000, 10000)" class="fire-btn">Add to Cart</button>
-                    </div>
                 </div>
 
                 <div class="mb-10">
-                    <h3 class="text-orange-500 font-black text-xs uppercase mb-1 italic">WELCOME TO THE OFFICIAL</h3>
-                    <h2 class="text-2xl text-orange-500 font-black uppercase mb-4">MANGOMC STORE</h2>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">MangoMC is a free-to-play Public Minecraft Server. Items can be purchased here to enhance gameplay and grant the player various special perks. <br><strong>To begin, please select a category from the sidebar.</strong></p>
-                    
-                    <h3 class="text-orange-500 font-black text-sm uppercase mt-8 mb-3 italic">SUPPORT</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">Need any questions answered before checkout? Waited more than 20 minutes but your package still has not arrived? Ask the popularity/staff on Discord, or for payment support, submit a support ticket on our Discord Server. You can also contact us on our Public Contact Email: <a href="mailto:raambasm4@gmail.com" class="text-orange-500 underline">raambasm4@gmail.com</a></p>
-                    <a href="https://discord.gg/H8X9kGGmbE" class="fire-btn inline-block mb-10" target="_blank">Discord Server</a>
-
-                    <h3 class="text-rose-500 font-black text-sm uppercase mt-4 mb-3 italic">REFUND POLICY</h3>
-                    <p class="text-zinc-400 text-xs leading-relaxed mb-10">All payments are final and non-refundable. Attempting a chargeback or opening Any dispute will result in <strong>permanent</strong> and irreversible <strong>banishment</strong> from all of our servers, and other minecraft stores. <br><br>Payments are taken and secured by Google Gemini And Vault Plugin, a world leader in online gaming transactions. <br><br>It could take between 1-20 minutes for your purchase to be credited in game. If you are still not credited after this time period, please open a support ticket on our forums with proof of purchase and we will look into your issue.</p>
-
-                    <div class="bg-[#1e1e22] border border-zinc-800 p-6 rounded-lg mb-10 max-w-sm">
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="giftcard.png" class="w-6 h-6 object-contain">
-                            <h4 class="text-white font-black uppercase text-sm">Gift Card Balance</h4>
-                        </div>
-                        <p class="text-zinc-400 text-[10px] mb-4 font-bold uppercase italic">Check your remaining gift card balance here.</p>
-                        <div class="flex gap-2">
-                            <input id="gc-code-home" type="text" placeholder="Enter Gift Card Code..." class="bg-black/40 border border-zinc-700 p-3 rounded text-[10px] w-full outline-none font-bold uppercase text-white">
-                            <button onclick="alert('Balance: 0.00 Dollars')" class="fire-btn">Check</button>
-                        </div>
-                    </div>
+                    <h2 class="text-2xl text-orange-500 font-black uppercase mb-4 italic">MANGOMC OFFICIAL STORE</h2>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-4">Please ensure you are logged in with the correct Minecraft IGN before purchasing. Purchases are processed automatically and sent in-game.</p>
+                    <h3 class="text-rose-500 font-black text-sm uppercase mt-8 mb-3 italic">REFUND POLICY</h3>
+                    <p class="text-zinc-400 text-xs leading-relaxed mb-10">All sales are final. No refunds under any circumstances. Chargebacks result in an automatic IP ban from all MangoMC services.</p>
                 </div>
             </div>
 
             <div id="ranks" class="category-content">
                 <div class="mb-8">
                     <div class="flex items-center gap-4 mb-2"><img src="ranks.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Server Ranks</h3></div>
-                    <p class="text-zinc-400 text-sm italic">Unlock exclusive perks, prefixes, and special commands.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="pkg-card p-5 border border-orange-500/40 bg-orange-500/5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">VIP+ Rank</h4><span class="text-[8px] bg-orange-500 text-black px-2 py-0.5 rounded font-black">FEATURED</span></div>
-                        <p class="text-[9px] text-green-400 font-bold uppercase mb-4">+ 3,700 FREE COINS</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">10,000 $ / 2,000 C</p><button onclick="addToCart('VIP+ RANK', 10000, 2000)" class="fire-btn">Add</button></div>
-                    </div>
-                    <div class="pkg-card p-5 border border-blue-500/40 bg-blue-500/5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">MVP++ Rank</h4><span class="text-[8px] bg-blue-500 text-white px-2 py-0.5 rounded font-black">FEATURED</span></div>
-                        <p class="text-[9px] text-green-400 font-bold uppercase mb-4">+ 3K COINS & 50K DOLLARS</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">30,000 $ / 6,000 C</p><button onclick="addToCart('MVP++ RANK', 30000, 6000)" class="fire-btn">Add</button></div>
-                    </div>
-                    <div class="pkg-card p-5 border border-purple-500/40 bg-purple-500/5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black uppercase text-sm">Elite+ Rank</h4><span class="text-[8px] bg-purple-500 text-white px-2 py-0.5 rounded font-black">FEATURED</span></div>
-                        <p class="text-[9px] text-green-400 font-bold uppercase mb-4">+ SPECIAL PERKS INCLUDED</p>
-                        <div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">50,000 $ / 10,000 C</p><button onclick="addToCart('Elite+ RANK', 50000, 10000)" class="fire-btn">Add</button></div>
-                    </div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">Noob Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">1,000 $ / 200 C</p><button onclick="addToCart('Noob RANK', 1000, 200)" class="fire-btn">Add</button></div></div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">VIP Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">5,000 $ / 1,000 C</p><button onclick="addToCart('VIP RANK', 5000, 1000)" class="fire-btn">Add</button></div></div>
+                    <div class="pkg-card p-5 border border-orange-500/30"><h4 class="font-black uppercase text-sm mb-4">VIP+ Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">10,000 $ / 2,000 C</p><button onclick="addToCart('VIP+ RANK', 10000, 2000)" class="fire-btn">Add</button></div></div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">MVP Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">15,000 $ / 3,000 C</p><button onclick="addToCart('MVP RANK', 15000, 3000)" class="fire-btn">Add</button></div></div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">MVP+ Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">20,000 $ / 4,000 C</p><button onclick="addToCart('MVP+ RANK', 20000, 4000)" class="fire-btn">Add</button></div></div>
+                    <div class="pkg-card p-5 border border-blue-500/30"><h4 class="font-black uppercase text-sm mb-4">MVP++ Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">30,000 $ / 6,000 C</p><button onclick="addToCart('MVP++ RANK', 30000, 6000)" class="fire-btn">Add</button></div></div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">Pro Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">40,000 $ / 8,000 C</p><button onclick="addToCart('Pro RANK', 40000, 8000)" class="fire-btn">Add</button></div></div>
                     <div class="pkg-card p-5"><h4 class="font-black uppercase text-sm mb-4">Elite Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">45,000 $ / 9,000 C</p><button onclick="addToCart('Elite RANK', 45000, 9000)" class="fire-btn">Add</button></div></div>
+                    <div class="pkg-card p-5 border border-purple-500/30"><h4 class="font-black uppercase text-sm mb-4">Elite+ Rank</h4><div class="flex justify-between items-center"><p class="text-xs font-bold text-orange-500">50,000 $ / 10,000 C</p><button onclick="addToCart('Elite+ RANK', 50000, 10000)" class="fire-btn">Add</button></div></div>
                 </div>
-                <button onclick="goHome()" class="mt-10 bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded hover:bg-zinc-700 transition">← Back to Home Page</button>
             </div>
 
-            <div id="kits" class="category-content"><div class="mb-8"><div class="flex items-center gap-4 mb-2"><img src="kits.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Kits</h3></div></div><p class="text-zinc-600 italic mb-10">No kits active.</p><button onclick="goHome()" class="bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded hover:bg-zinc-700 transition">← Back to Home Page</button></div>
-            <div id="coins" class="category-content"><div class="mb-8"><div class="flex items-center gap-4 mb-2"><img src="coins.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Coins</h3></div></div><p class="text-zinc-600 italic mb-10">No coins active.</p><button onclick="goHome()" class="bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded hover:bg-zinc-700 transition">← Back to Home Page</button></div>
-            <div id="dollars" class="category-content"><div class="mb-8"><div class="flex items-center gap-4 mb-2"><img src="dollars.png" class="w-10 h-10"><h3 class="text-orange-500 font-black italic text-2xl uppercase">Dollars</h3></div></div><p class="text-zinc-600 italic mb-10">No dollars active.</p><button onclick="goHome()" class="bg-zinc-800 text-white text-[10px] px-6 py-3 font-black uppercase rounded hover:bg-zinc-700 transition">← Back to Home Page</button></div>
+            <div id="kits" class="category-content italic text-zinc-500">No Kits currently available.</div>
+            <div id="coins" class="category-content italic text-zinc-500">No Coins currently available.</div>
+            <div id="dollars" class="category-content italic text-zinc-500">No Dollars currently available.</div>
+
         </main>
     </div>
 
     <script>
         const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1458664961461977242/r6dlhVmxagCKGw5_7EUWdDlsmwRS67ncB4AB2PRHegIs3QgEYD747JQszc-3iYd34LEm";
-        const DISCORD_SERVER_ID = "1326442111880499231"; 
+        const SERVER_ID = "1326442111880499231";
         
-        let currentCurrency = 'DOLLARS';
-        let cart = [];
-        let ownedRank = localStorage.getItem('mangoOwnedRank') || "";
+        let cart = [], currentCurrency = 'DOLLARS', userData = JSON.parse(localStorage.getItem('mangoUser')) || null;
 
-        window.onload = function() { 
-            refreshOwnedButtons(); 
-            fetchStats(); 
-            fetchDiscordStats();
-            setInterval(fetchStats, 30000); 
-            setInterval(fetchDiscordStats, 60000);
+        window.onload = () => {
+            if(!userData) { document.getElementById('login-overlay').style.display = 'flex'; }
+            else { applyLoginData(); }
+            fetchStats(); fetchDiscord();
+            setInterval(fetchStats, 30000);
+            setInterval(fetchDiscord, 60000);
         };
 
-        async function fetchDiscordStats() {
+        function saveLogin() {
+            const ign = document.getElementById('login-ign').value.trim();
+            const email = document.getElementById('login-email').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+            if(!ign || !email || !pass) return alert("All fields are required!");
+            
+            userData = { ign, email };
+            localStorage.setItem('mangoUser', JSON.stringify(userData));
+            document.getElementById('login-overlay').style.display = 'none';
+            applyLoginData();
+        }
+
+        function applyLoginData() {
+            const head = `https://mc-heads.net/avatar/${userData.ign}/32`;
+            document.getElementById('top-display-name').innerText = userData.ign;
+            document.getElementById('top-player-head').src = head;
+            document.getElementById('cart-player-head').src = head;
+            document.getElementById('cart-ign-display').innerText = userData.ign;
+            document.getElementById('cart-email-display').innerText = userData.email;
+        }
+
+        async function fetchDiscord() {
             try {
-                const res = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
-                const data = await res.json();
-                // "presence_count" gives total members online/present in the widget data
-                document.getElementById('discord-count').innerText = data.presence_count || "5";
-            } catch(e) { 
-                document.getElementById('discord-count').innerText = "5"; 
-            }
+                const r = await fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`);
+                const d = await r.json();
+                document.getElementById('discord-count').innerText = d.presence_count || "5";
+            } catch(e) { document.getElementById('discord-count').innerText = "5"; }
         }
 
         async function fetchStats() {
             try {
-                const res = await fetch("https://api.mcstatus.io/v2/status/java/MangoMC.info.gf:25042");
-                const data = await res.json();
-                document.getElementById('mc-count').innerText = data.players?.online || 0;
+                const r = await fetch("https://api.mcstatus.io/v2/status/java/MangoMC.info.gf:25042");
+                const d = await r.json();
+                document.getElementById('mc-count').innerText = d.players?.online || 0;
             } catch(e) { document.getElementById('mc-count').innerText = "0"; }
         }
 
-        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
-        function goHome() {
-            document.getElementById('home-text').style.display = 'block';
-            document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
         function showCategory(id) {
             document.getElementById('home-text').style.display = 'none';
             document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + id).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        function updatePlayerHead(u) {
-            const url = u.trim() === "" ? "https://mc-heads.net/avatar/steve/32" : `https://mc-heads.net/avatar/${u}/32`;
-            document.getElementById('player-head').src = url;
-            document.getElementById('login-head').src = url;
-            document.getElementById('display-name').innerText = u.trim() === "" ? "Guest Player" : u;
+
+        function goHome() {
+            document.getElementById('home-text').style.display = 'block';
+            document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        function setCurrency(type) {
-            currentCurrency = type;
-            document.getElementById('curr-dollars').classList.toggle('active', type === 'DOLLARS');
-            document.getElementById('curr-coins').classList.toggle('active', type === 'COINS');
-            renderCart();
+
+        function toggleCart() { document.getElementById('cart-menu').classList.toggle('active'); }
+        function setCurrency(t) { currentCurrency = t; renderCart(); }
+        
+        function addToCart(n, d, c) {
+            if(cart.some(i => i.n === n)) return alert("Already in cart!");
+            cart.push({n, d, c});
+            updateCartCount(); renderCart();
+            if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart();
         }
-        function addToCart(name, dollars, coins) {
-            const user = document.getElementById('username-input').value.trim();
-            if (!user) { alert("Please enter Username!"); if(!document.getElementById('cart-menu').classList.contains('active')) toggleCart(); return; }
-            if (name === ownedRank) { alert("Already owned!"); return; }
-            if (cart.some(i => i.name === name)) { alert("In cart!"); return; }
-            cart.push({ name, dollars, coins });
-            updateCartCount();
-            renderCart();
-        }
+
         function updateCartCount() { document.getElementById('cart-count-text').innerText = cart.length + " ITEMS IN CART"; }
+
         function renderCart() {
-            const container = document.getElementById('cart-items');
-            container.innerHTML = "";
-            let total = 0;
-            if (cart.length === 0) {
-                container.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>';
+            const con = document.getElementById('cart-items');
+            con.innerHTML = ""; let tot = 0;
+            if(cart.length === 0) {
+                con.innerHTML = '<p class="text-zinc-500 italic text-xs text-center">Your cart is empty.</p>';
                 document.getElementById('cart-total').innerText = "0 " + currentCurrency;
                 return;
             }
-            cart.forEach((item, index) => {
-                const val = (currentCurrency === 'DOLLARS') ? item.dollars : item.coins;
-                total += val;
-                container.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${item.name}</p><p class="text-[9px] text-orange-500 font-bold">${val.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${index})" class="text-rose-500">✕</button></div>`;
+            cart.forEach((i, idx) => {
+                const v = (currentCurrency === 'DOLLARS') ? i.d : i.c; tot += v;
+                con.innerHTML += `<div class="flex justify-between items-center bg-black/20 p-3 rounded border border-zinc-800"><div><p class="text-[10px] font-black uppercase text-white">${i.n}</p><p class="text-[9px] text-orange-500 font-bold">${v.toLocaleString()} ${currentCurrency}</p></div><button onclick="removeFromCart(${idx})" class="text-rose-500 font-bold">✕</button></div>`;
             });
-            document.getElementById('cart-total').innerText = total.toLocaleString() + " " + currentCurrency;
+            document.getElementById('cart-total').innerText = tot.toLocaleString() + " " + currentCurrency;
         }
-        function removeFromCart(index) { cart.splice(index, 1); updateCartCount(); renderCart(); }
-        function refreshOwnedButtons() {
-            document.querySelectorAll('button').forEach(btn => {
-                const onclick = btn.getAttribute('onclick');
-                if (onclick && onclick.includes('addToCart')) {
-                    const rankName = onclick.match(/'([^']+)'/)[1];
-                    if (ownedRank === rankName) { btn.innerText = "OWNED"; btn.disabled = true; } 
-                    else { btn.innerText = "Add to Cart"; btn.disabled = false; }
-                }
-            });
-        }
+
+        function removeFromCart(idx) { cart.splice(idx, 1); updateCartCount(); renderCart(); }
+
         async function processCheckout() {
-            const user = document.getElementById('username-input').value.trim();
-            if (!user || cart.length === 0) { alert("Missing user or items!"); return; }
-            const total = document.getElementById('cart-total').innerText;
-            const items = cart.map(i => "• " + i.name).join("\n");
-            const payload = { "embeds": [{ "title": "NEW ORDER", "color": 16744192, "fields": [{ "name": "Player", "value": user }, { "name": "Paid", "value": total }, { "name": "Items", "value": items }] }] };
-            const res = await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-            if (res.ok) {
-                alert("Order Sent!");
-                cart.forEach(i => { if (i.name.toUpperCase().includes("RANK")) { ownedRank = i.name; localStorage.setItem('mangoOwnedRank', ownedRank); } });
-                cart = []; updateCartCount(); renderCart(); toggleCart(); refreshOwnedButtons();
-            }
+            if(cart.length === 0) return alert("Cart is empty!");
+            const items = cart.map(i => "• " + i.n).join("\n");
+            const tot = document.getElementById('cart-total').innerText;
+            const payload = { embeds: [{ title: "NEW PURCHASE", color: 16744192, fields: [{name: "Player", value: userData.ign}, {name: "Email", value: userData.email}, {name: "Total", value: tot}, {name: "Items", value: items}] }] };
+            
+            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+            
+            document.getElementById('thank-you-msg').innerText = `Your order for ${cart.length} item(s) has been received! Please allow 1-20 minutes for the items to arrive in-game for player: ${userData.ign}.`;
+            document.getElementById('thank-you-modal').style.display = 'flex';
+            
+            cart = []; updateCartCount(); renderCart(); toggleCart();
         }
+
+        function closeThankYou() { document.getElementById('thank-you-modal').style.display = 'none'; goHome(); }
     </script>
 </body>
 </html>
