@@ -26,26 +26,6 @@
         .info-text-main { color: #f97316; font-weight: 900; font-size: 18px; text-transform: uppercase; line-height: 1.1; }
         .info-text-sub { color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
 
-        /* IP POPUP MODAL (NEW) */
-        #ip-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 10002;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        .ip-modal-content {
-            background: #1e1e22;
-            padding: 40px;
-            border-radius: 8px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            border: 1px solid #2d2d33;
-        }
-
         /* SIDEBAR */
         .sidebar-container { background: #1e1e22; border-radius: 8px; overflow: hidden; border: 1px solid #2d2d33; }
         .sidebar-header { padding: 25px 20px 15px; text-align: center; border-bottom: 1px solid #2d2d33; }
@@ -74,14 +54,6 @@
             <input id="login-ign" type="text" placeholder="MINECRAFT USERNAME" class="input-field">
             <input id="login-email" type="email" placeholder="EMAIL ADDRESS" class="input-field">
             <button onclick="saveLogin()" class="fire-btn w-full py-4">LOG IN</button>
-        </div>
-    </div>
-
-    <div id="ip-modal">
-        <div class="ip-modal-content">
-            <h2 class="text-white font-black text-xl uppercase mb-2">MangoMC.info.gf</h2>
-            <p class="text-zinc-400 text-xs font-bold uppercase mb-6">We hope to see you online soon!</p>
-            <button onclick="closeIpModal()" class="fire-btn w-full py-3">OK</button>
         </div>
     </div>
 
@@ -123,10 +95,9 @@
             <img id="top-player-head" src="https://mc-heads.net/avatar/steve/32" class="w-8 h-8 rounded border border-white/20">
         </div>
         <img src="logo.png" class="main-logo">
-        
-        <div class="header-ip-box" onclick="copyIp()">
+        <div class="header-ip-box">
             <div class="status-container"><span class="count-bubble" id="mc-count">0</span><img src="ipcopy.png" class="w-full"></div>
-            <div><p class="info-text-main">MangoMC.info.gf</p><p class="info-text-sub">CLICK TO COPY</p></div>
+            <div><p class="info-text-main">MANGOMC.INFO.GF</p><p class="info-text-sub">IP ADDRESS</p></div>
         </div>
     </div>
 
@@ -195,16 +166,6 @@
             document.getElementById('curr-dollars').classList.toggle('active', c === 'DOLLARS');
             document.getElementById('curr-coins').classList.toggle('active', c === 'COINS');
             document.getElementById('cart-total').innerText = "0 " + currentCurrency;
-        }
-
-        // IP MODAL FUNCTIONS
-        function copyIp() {
-            const ip = "MangoMC.info.gf";
-            navigator.clipboard.writeText(ip);
-            document.getElementById('ip-modal').style.display = 'flex';
-        }
-        function closeIpModal() {
-            document.getElementById('ip-modal').style.display = 'none';
         }
     </script>
 </body>
